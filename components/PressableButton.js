@@ -1,8 +1,13 @@
 import { Pressable } from 'react-native'
 import React from 'react'
 
-const PressableButton = ({ children, defaultStyle, pressedStyle, pressedFunction }) => {
-
+export default function PressableButton({
+  children,
+  pressedFunction,
+  pressedStyle,
+  defaultStyle,
+}) {
+  
   return (
     <Pressable onPress={pressedFunction} 
         style={({pressed})=> {
@@ -13,5 +18,3 @@ const PressableButton = ({ children, defaultStyle, pressedStyle, pressedFunction
     </Pressable>
   )
 }
-
-export default PressableButton

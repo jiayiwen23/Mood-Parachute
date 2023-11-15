@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Login from './screens/authentication/Login';
-import Signup from './screens/authentication/Signup';
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import AllJournalScreen from "./screens/AllJournalScreen";
+import Weekdays from "./components/Weekdays";
+import TabNabigator from "./navigations/TabNavigator";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Signup/>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <TabNabigator></TabNabigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
