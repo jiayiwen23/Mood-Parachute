@@ -1,5 +1,5 @@
-import { Pressable } from "react-native";
-import React from "react";
+import { Pressable } from 'react-native'
+import React from 'react'
 
 export default function PressableButton({
   children,
@@ -7,12 +7,14 @@ export default function PressableButton({
   pressedStyle,
   defaultStyle,
 }) {
+  
   return (
-    <Pressable
-      onPress={pressedFunction}
-      style={(pressed) => [defaultStyle, pressed && pressedStyle]}
+    <Pressable onPress={pressedFunction} 
+        style={({pressed})=> {
+            return [defaultStyle, pressed && pressedStyle];
+        }}
     >
-      {children}
+        {children}
     </Pressable>
-  );
+  )
 }

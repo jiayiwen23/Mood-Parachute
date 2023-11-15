@@ -1,7 +1,9 @@
 export const colors = {
     background: "#b0ddd1",
-    title: "#193a31",
-    button: "blue",
+    border: "#377f7c",
+    title: "#255653",
+    button: "white",
     buttonPressed: "#a6a6ed",
-    buttonText: "white",
+    buttonText: "green",
+    inputText: "grey",
   }
