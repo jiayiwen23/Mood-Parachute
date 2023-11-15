@@ -2,12 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import AllJournalScreen from "./screens/AllJournalScreen";
 import Weekdays from "./components/Weekdays";
+import TabNabigator from "./navigations/TabNavigator";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
-    <AllJournalScreen>
-      <Weekdays></Weekdays>
-    </AllJournalScreen>
+    <NavigationContainer>
+      <TabNabigator></TabNabigator>
+    </NavigationContainer>
   );
 }
 
