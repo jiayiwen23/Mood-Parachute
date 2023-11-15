@@ -7,18 +7,20 @@ import { colors } from "../../colors";
 import Header from "../../components/Header";
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
   const signupHandler = () => {
     navigation.replace("Signup");
   };
+
   const loginHandler = async () => {
-    if (!email || !password) {
+    if (!userName || !password) {
       Alert.alert("Fields should not be empty");
       return;
     }
     try {
-      const userCred = await signInWithEmailAndPassword(auth, email, password);
+      const userCred = await signInWithEmailAndPassword(auth, userName, password);
       console.log(userCred);
     } catch (err) {
       console.log(err);
@@ -36,9 +38,9 @@ export default function Login({ navigation }) {
       <TextInput
         placeholder="USERNAME"
         style={styles.input}
-        value={email}
+        value={userName}
         onChangeText={(changedText) => {
-          setEmail(changedText);
+          setUserName(changedText);
         }}
       />
       
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     textAlign: "center",
     fontSize: 20,
-    color: "grey",
+    color: colors.inputText,
   },
   buttonContainer: {
     marginTop: 50,
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: colors.button,
-    width: "25%",
+    width: "28%",
     padding: 10,
     alignSelf: "center",
   },
