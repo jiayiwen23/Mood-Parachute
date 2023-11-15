@@ -1,15 +1,13 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../../components/Header'
+import { colors } from '../../colors';
+import PressableButton from "../../components/PressableButton";
 
 const Signup = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-
-    const loginHandler = () => {
-        navigation.replace("Login");
-    };
 
     const signupHandler = async () => {
         if (!email || !password || !confirmPassword) {
@@ -69,6 +67,15 @@ const Signup = ({ navigation }) => {
           setConfirmPassword(changedText);
         }}
       />
+
+      <View style={styles.buttonContainer}>
+        <PressableButton 
+          pressedFunction={signupHandler}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle} >
+          <Text style={styles.buttonText}>Sign up</Text>
+        </PressableButton>
+      </View>
 
     </View>
   )
