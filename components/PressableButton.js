@@ -1,12 +1,12 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
 
-export default function PressableButton(
+export default function PressableButton({
   children,
   pressedFunction,
   pressedStyle,
-  defaultStyle
-) {
+  defaultStyle,
+}) {
   return (
     <Pressable
       onPress={pressedFunction}

@@ -1,10 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import AllJournalScreen from "./screens/AllJournalScreen";
 import Weekdays from "./components/Weekdays";
 
 export default function App() {
-  return <Weekdays></Weekdays>;
+  return (
+    <AllJournalScreen>
+      <Weekdays></Weekdays>
+    </AllJournalScreen>
+  );
 }
 
 const styles = StyleSheet.create({
