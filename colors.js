@@ -1,8 +1,8 @@
 export const colors = {
     background: "#b0ddd1",
-    border: "green",
+    border: "#377f7c",
     title: "#1f4846",
-    button: "yellow",
+    button: "white",
     buttonPressed: "#a6a6ed",
-    buttonText: "white",
+    buttonText: "green",
   }

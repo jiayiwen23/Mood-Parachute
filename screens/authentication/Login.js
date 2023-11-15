@@ -30,7 +30,9 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
+
       <Header />
+
       <TextInput
         placeholder="USERNAME"
         style={styles.input}
@@ -50,19 +52,22 @@ export default function Login({ navigation }) {
         }}
       />
 
-      <PressableButton 
-        pressedFunction={loginHandler} 
-        pressedStyle={styles.pressedStyle}
-        defaultStyle={styles.defaultStyle} >
-        <Text>Login</Text>
-      </PressableButton>
+      <View style={styles.buttonContainer}>
+        <PressableButton 
+          pressedFunction={loginHandler} 
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle} >
+          <Text style={styles.buttonText}>Log in</Text>
+        </PressableButton>
 
-      <PressableButton 
-        pressedFunction={signupHandler}
-        pressedStyle={styles.pressedStyle}
-        defaultStyle={styles.defaultStyle} >
-        <Text>Create An Account</Text>
-      </PressableButton>
+        <PressableButton 
+          pressedFunction={signupHandler}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle} >
+          <Text style={styles.buttonText}>Sign up</Text>
+        </PressableButton>
+      </View>
+      
     </View>
   );
 }
@@ -71,29 +76,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    alignItems: "stretch",
     justifyContent: "center",
   },
   input: {
     borderColor: colors.border,
     borderBottomWidth: 2,
     width: "80%",
-    margin: 5,
+    margin: 10,
     padding: 5,
     alignSelf: "center",
     textAlign: "center",
     fontSize: 20,
+    color: "grey",
+  },
+  buttonContainer: {
+    marginTop: 50,
+  },
+  buttonText: {
+    fontSize: 22,
+    textAlign: "center",
   },
   defaultStyle:{
-    flexDirection: "row",
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: colors.button,
+    width: "25%",
+    padding: 10,
+    alignSelf: "center",
   },
   pressedStyle:{
-    flexDirection: "row",
-    marginBottom: 20,
-    borderRadius: 5,
     backgroundColor: colors.buttonPressed,
   },
 });
