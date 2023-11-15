@@ -33,13 +33,16 @@ export default function Weekdays() {
     const isSelected = dateString == selectedDate;
 
     return (
-      <View style={styles.dayContainer}>
-        <PressableButton pressedFunction={() => setSelectedDate(dateString)}>
-          <Text>{daysOfWeek[date.getDay()]}</Text>
-          <Text>{isToday ? "Today" : date.getDate()}</Text>
-          {isSelected ? <View style={styles.selectedDot} /> : null}
-        </PressableButton>
-      </View>
+      <PressableButton
+        pressedFunction={() => setSelectedDate(dateString)}
+        defaultStyle={styles.dayContainer}
+      >
+        <Text style={styles.dayOfWeek}>{daysOfWeek[date.getDay()]}</Text>
+        <Text style={styles.dayNumber}>
+          {isToday ? "Today" : date.getDate()}
+        </Text>
+        {isSelected ? <View style={styles.selectedDot} /> : null}
+      </PressableButton>
     );
   };
 
@@ -52,13 +55,26 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 20,
   },
+  day: {},
+  dayOfWeek: {
+    fontWeight: "bold",
+    marginBottom: 5,
+    fontSize: 16,
+  },
+  dayNumber: {
+    fontSize: 16,
+  },
   dayContainer: {
     justifyContent: "center",
     alignItems: "center",
     minHeight: 60,
   },
   selectedDot: {
+    position: "absolute",
+    top: 60,
     backgroundColor: "red",
     borderRadius: 100,
+    width: 6,
+    height: 6,
   },
 });
