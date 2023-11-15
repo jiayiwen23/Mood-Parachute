@@ -6,4 +6,5 @@ export const colors = {
     buttonPressed: "#a6a6ed",
     buttonText: "green",
     inputText: "grey",
+    cardBackgroud: "white",
   }

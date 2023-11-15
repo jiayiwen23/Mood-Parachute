@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     buttonText: {
       fontSize: 22,
       textAlign: "center",
+      color: colors.buttonText,
     },
     defaultStyle:{
       marginBottom: 20,
