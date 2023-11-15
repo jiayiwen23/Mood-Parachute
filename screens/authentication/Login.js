@@ -4,6 +4,7 @@ import PressableButton from "../../components/PressableButton";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebaseSetup";
 import { colors } from "../../colors";
+import Header from "../../components/Header";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
@@ -29,20 +30,20 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Email</Text>
+      <Header />
       <TextInput
-        placeholder="Email"
+        placeholder="USERNAME"
         style={styles.input}
         value={email}
         onChangeText={(changedText) => {
           setEmail(changedText);
         }}
       />
-      <Text style={styles.label}>Password</Text>
+      
       <TextInput
         style={styles.input}
         secureTextEntry={true}
-        placeholder="Password"
+        placeholder="PASSWORD"
         value={password}
         onChangeText={(changedText) => {
           setPassword(changedText);
@@ -75,12 +76,24 @@ const styles = StyleSheet.create({
   },
   input: {
     borderColor: colors.border,
-    borderWidth: 2,
-    width: "90%",
+    borderBottomWidth: 2,
+    width: "80%",
     margin: 5,
     padding: 5,
+    alignSelf: "center",
+    textAlign: "center",
+    fontSize: 20,
   },
-  label: {
-    marginLeft: 10,
+  defaultStyle:{
+    flexDirection: "row",
+    marginBottom: 20,
+    borderRadius: 5,
+    backgroundColor: colors.button,
+  },
+  pressedStyle:{
+    flexDirection: "row",
+    marginBottom: 20,
+    borderRadius: 5,
+    backgroundColor: colors.buttonPressed,
   },
 });
