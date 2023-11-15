@@ -1,18 +1,26 @@
-import { Pressable } from "react-native";
-import React from "react";
+import { Pressable, StyleSheet } from 'react-native'
+import React from 'react'
 
-export default function PressableButton(
-  children,
-  pressedFunction,
-  pressedStyle,
-  defaultStyle
-) {
+const PressableButton = ({ children, defaultStyle, pressedStyle, pressedFunction }) => {
+
   return (
-    <Pressable
-      onPress={pressedFunction}
-      style={(pressed) => [defaultStyle, pressed && pressedStyle]}
+    <Pressable onPress={pressedFunction} 
+        style={({pressed})=> {
+            return [styles.styleByDefault, defaultStyle, pressed && pressedStyle];
+        }}
     >
-      {children}
+        {children}
     </Pressable>
-  );
+  )
 }
+
+const styles = StyleSheet.create({
+    styleByDefault: {
+      flexDirection: "row",
+      marginBottom: 20,
+      borderRadius: 5,
+      alignItems: "center",
+    },
+  });
+
+export default PressableButton

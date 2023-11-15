@@ -49,11 +49,17 @@ export default function Login({ navigation }) {
         }}
       />
 
-      <PressableButton pressedFunction={loginHandler}>
+      <PressableButton 
+        pressedFunction={loginHandler} 
+        pressedStyle={styles.pressedStyle}
+        defaultStyle={styles.defaultStyle} >
         <Text>Login</Text>
       </PressableButton>
 
-      <PressableButton pressedFunction={signupHandler}>
+      <PressableButton 
+        pressedFunction={signupHandler}
+        pressedStyle={styles.pressedStyle}
+        defaultStyle={styles.defaultStyle} >
         <Text>Create An Account</Text>
       </PressableButton>
     </View>
