@@ -15,7 +15,6 @@ import {
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: envapiKey,
-
   authDomain: authDomain,
   projectId: projectId,
   storageBucket: storageBucket,
@@ -26,4 +25,3 @@ const firebaseConfig = {
 // Initialize Firebase
 const myApp = initializeApp(firebaseConfig);
 export const database = getFirestore(myApp);
-
