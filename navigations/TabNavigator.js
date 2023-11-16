@@ -6,10 +6,10 @@ import AllJournalScreen from "../screens/AllJournalScreen";
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNabigator() {
+export default function TabNavigator() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="AllJournal" component={AllJournalScreen} />
+      <Tab.Screen name="All Journal" component={AllJournalScreen} />
       <Tab.Screen name="Cards" component={CardsScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>

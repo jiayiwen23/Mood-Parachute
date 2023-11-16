@@ -1,26 +1,24 @@
-import { View, ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
-import EntryItem from './EntryItem';
+import { View, ScrollView, StyleSheet } from "react-native";
+import React from "react";
+import EntryItem from "./EntryItem";
 
 const EntriesList = ({ entries }) => {
-    console.log(entries);
-    return (
+  console.log(entries);
+  return (
     <View>
       <ScrollView bounces={false} contentContainerStyle={styles.container}>
-          {entries.map((entry) => (
-            <View key={entry.id}>
-                <EntryItem entry={entry} />
-            </View>
-          ))}
-        </ScrollView>
+        {entries.map((entry) => (
+          <View key={entry.id}>
+            <EntryItem entry={entry} />
+          </View>
+        ))}
+      </ScrollView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-      
-    },
-  });
+  container: {},
+});
 
-export default EntriesList
+export default EntriesList;
