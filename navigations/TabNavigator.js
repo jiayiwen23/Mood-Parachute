@@ -24,7 +24,7 @@ export default function TabNavigator({ navigation }) {
               defaultStyle={{ paddingRight: 10 }}
               pressedStyle={{ opacity: 0.8 }}
             >
-              <AntDesign name="plus" size={20} color={colors.black} />
+              <MaterialCommunityIcons name="book-plus-outline" size={30} color={colors.border} />
             </PressableButton>
           ),
           tabBarLabel: '',
@@ -40,6 +40,7 @@ export default function TabNavigator({ navigation }) {
         name="Cards" 
         component={CardsScreen}
         options={{
+          headerShown: false,
           tabBarLabel: '',
           tabBarIcon: () => (
             <View style={styles.tabBar}>
