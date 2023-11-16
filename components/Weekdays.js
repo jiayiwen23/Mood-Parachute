@@ -34,6 +34,7 @@ export default function Weekdays() {
 
     return (
       <PressableButton
+        key={dateString}
         pressedFunction={() => setSelectedDate(dateString)}
         defaultStyle={styles.dayContainer}
       >

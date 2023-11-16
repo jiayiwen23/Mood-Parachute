@@ -1,71 +1,90 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState, useRef } from "react";
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+  Keyboard,
+} from "react-native";
 import PressableButton from "../components/PressableButton";
-import { useState } from "react";
-import { colors } from "../colors";
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
-export default function AddEntryScreen({ navigation }) {
+export default function AddEntryScreen() {
   const [text, setText] = useState("");
+  const textInputRef = useRef(null);
 
-  const handleSubmitImage = () => {
-    
+  const openKeyboard = () => {
+    textInputRef.current.focus();
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Date</Text>
-      <TextInput
-        style={styles.journal}
-        value={text}
-        onChangeText={setText}
-        placeholder="Write down your thoughts"
-      ></TextInput>
-      <View style={styles.image}>
-
-        <PressableButton>
-          <Text>Add image</Text>
-        </PressableButton>
-
-        <PressableButton defaultStyle={styles.submitButton} pressedStyle={styles.pressed} pressedFunction={handleSubmitImage}>
-          <Text>submit</Text>
-        </PressableButton>
-        
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 40 : 0}
+    >
+      <View style={styles.overlay} />
+      <View style={styles.toolbar}>
+        <View
+          style={{
+            flex: 3,
+            //backgroundColor: "tomato",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+          }}
+        >
+          <PressableButton defaultStyle={{ margin: 10 }}>
+            <MaterialIcons name="mood" size={24} color="black" />
+          </PressableButton>
+          <PressableButton defaultStyle={{ margin: 10 }}>
+            <AntDesign name="picture" size={24} color="black" />
+          </PressableButton>
+          <PressableButton defaultStyle={{ margin: 10 }}>
+            <Entypo name="location-pin" size={24} color="black" />
+          </PressableButton>
+        </View>
+        <View style={{ flex: 1 }}>
+          <PressableButton defaultStyle={{ margin: 10, alignSelf: "flex-end" }}>
+            <Feather name="send" size={24} color="black" />
+          </PressableButton>
+        </View>
       </View>
-    </SafeAreaView>
+      <TextInput
+        ref={textInputRef}
+        style={styles.input}
+        placeholder="Enter your thoughts here..."
+        multiline
+        onChangeText={setText}
+        value={text}
+        returnKeyType="done"
+        onSubmitEditing={Keyboard.dismiss}
+      />
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
   },
-  journal: {
-    flex: 3,
-    backgroundColor: colors.white,
-    width: "90%",
-    fontSize: 25,
-    textAlign: "center",
-  },
-  text: {
+  overlay: {
     flex: 1,
-    alignSelf: "flex-start",
+  },
+  toolbar: {
+    flexDirection: "row",
+    justifyContent: "space-around",
     padding: 10,
-    paddingLeft: 22,
+    backgroundColor: "#ddd", // or any color you want for the toolbar background
   },
-  submitButton: {
-    marginBottom: 20,
-    borderRadius: 5,
-    backgroundColor: colors.button,
-    width: "28%",
-    padding: 10,
-    alignSelf: "center",
+  input: {
+    flex: 1,
+    backgroundColor: "#fff",
+    padding: 20,
   },
-  pressed: {
-    backgroundColor: colors.buttonPressed,
-  },
-  image: { flex: 1 },
-  submit: { flex: 1 },
 });
