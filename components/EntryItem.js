@@ -3,9 +3,9 @@ import React from "react";
 import PressableButton from "./PressableButton";
 import { colors } from "../colors";
 
-const EntryItem = ({ entry }) => {
+const EntryItem = ({ entry, navigation }) => {
   const entryPressHandler = () => {
-    //navigation.navigate("Edit Journal", { entry: entry })
+    navigation.navigate("Add Journal", { entry: entry });
   };
 
   return (

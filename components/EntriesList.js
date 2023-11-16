@@ -5,7 +5,7 @@ import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { database } from "../firebase/firebaseSetup";
 import { collection, onSnapshot } from "firebase/firestore";
 
-const EntriesList = ({ entries }) => {
+const EntriesList = ({ entries, navigation }) => {
   const [journals, setJournals] = useState([]);
   // Use onSnapshot to listen to realtime updates in Firestore
   useEffect(() => {
