@@ -15,11 +15,7 @@ export default function AppNavigator() {
           component={TabNavigator}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="Add Journal"
-          component={AddEntryScreen}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="Add Journal" component={AddEntryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
