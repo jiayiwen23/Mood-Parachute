@@ -13,10 +13,12 @@ const EntryItem = ({ entry, navigation }) => {
         navigation.navigate("Edit Journal", { entry: entry })
       }
     >
-      <Text style={styles.label}>{entry.time}</Text>
-
+      <View style={styles.timeContainer}>
+        <Text style={styles.label}>{entry.time}</Text>
+      </View>
+      
       <View style={styles.journalContainer}>
-          <Text style={{ fontWeight: "bold" }}>{entry.text}</Text>
+          <Text style={styles.text}>{entry.text}</Text>
           <View style={styles.image}>{entry.image}</View>
       </View>
 
@@ -26,8 +28,7 @@ const EntryItem = ({ entry, navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-      flexDirection: "row",
-      alignItems: "center",
+      flexDirection: "column",
       justifyContent: "space-between",
       backgroundColor: colors.background,
       borderRadius: 10,
@@ -35,21 +36,29 @@ const styles = StyleSheet.create({
       margin: 10,
       marginTop: 200,
     },
+    timeContainer: {
+        marginLeft: 15,
+    },
     pressed: {
       opacity: 0.8,
     },
     label: {
       color: colors.white,
       fontWeight: "bold",
+      fontSize: 18,
     },
     journalContainer: {
       flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "center",
+      marginLeft: 10,
+      flexDirection: "column",
+      alignSelf:"flex-start",
+    },
+    text: {
+      fontSize: 16,
       margin: 5,
     },
     image: {
-
+      margin: 5,
     },
   });
 
