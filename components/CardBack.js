@@ -5,12 +5,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../colors';
 
 const CardBack = () => {
-  const [isPressed, setIsPressed] = useState(false);
 
-  const cardPressHandler = () => {
-    setIsPressed(true);
-  };
-
+  const cardPressHandler = () => {}
+    
   return (
     <View>
       <PressableButton pressedFunction={cardPressHandler} defaultStyle={styles.card} pressedStyle={styles.cardPressed}>
