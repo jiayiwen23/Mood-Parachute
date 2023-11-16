@@ -30,6 +30,7 @@ export default function AddEntryScreen({ navigation }) {
         <PressableButton defaultStyle={styles.submitButton} pressedStyle={styles.pressed} pressedFunction={handleSubmitImage}>
           <Text>submit</Text>
         </PressableButton>
+        
       </View>
     </SafeAreaView>
   );
