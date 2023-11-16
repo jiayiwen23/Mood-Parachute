@@ -8,4 +8,5 @@ export const colors = {
     inputText: "grey",
     cardBackgroud: "white",
     cardBack: "#00a6ae",
+    white: "white",
   }
