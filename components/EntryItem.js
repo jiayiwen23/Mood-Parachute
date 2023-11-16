@@ -3,15 +3,17 @@ import React from 'react'
 import PressableButton from './PressableButton';
 import { colors } from '../colors';
 
-const EntryItem = ({ entry, navigation }) => {
+const EntryItem = ({ entry }) => {
+    const entryPressHandler = () => {
+        //navigation.navigate("Edit Journal", { entry: entry })
+    }
+
   return (
-    //an entry has three props: time, text, image 
+    //an entry has 4 props: id, time, text, image 
     <PressableButton
       pressedStyle={styles.pressed}
       defaultStyle={styles.container}
-      pressedFunction={() =>
-        navigation.navigate("Edit Journal", { entry: entry })
-      }
+      pressedFunction={entryPressHandler}
     >
       <View style={styles.labelContainer}>
         <Text style={styles.label}>{entry.time}</Text>
@@ -19,7 +21,9 @@ const EntryItem = ({ entry, navigation }) => {
       
       <View style={styles.journalContainer}>
           <Text style={styles.text}>{entry.text}</Text>
-          <View style={styles.image}>{entry.image}</View>
+          {entry.image &&
+            <View style={styles.image}>{entry.image}</View>
+          }
       </View>
 
     </PressableButton>
@@ -34,7 +38,6 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       padding: 10,
       margin: 10,
-      marginTop: 200,
     },
     labelContainer: {
         marginLeft: 15,
@@ -56,6 +59,7 @@ const styles = StyleSheet.create({
     text: {
       fontSize: 16,
       margin: 5,
+      marginBottom: 10,
     },
     image: {
       margin: 5,

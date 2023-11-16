@@ -2,12 +2,15 @@ import { View, ScrollView, StyleSheet } from 'react-native'
 import React from 'react'
 import EntryItem from './EntryItem';
 
-const EntriesList = ({ entries, navigation }) => {
-  return (
+const EntriesList = ({ entries }) => {
+    console.log(entries);
+    return (
     <View>
       <ScrollView bounces={false} contentContainerStyle={styles.container}>
-          {entries.map((entry, id) => (
-            <EntryItem entry={entry} navigation={navigation}/>
+          {entries.map((entry) => (
+            <View key={entry.id}>
+                <EntryItem entry={entry} />
+            </View>
           ))}
         </ScrollView>
     </View>
@@ -17,9 +20,6 @@ const EntriesList = ({ entries, navigation }) => {
 const styles = StyleSheet.create({
     container: {
       
-    },
-    text: {
-
     },
   });
 
