@@ -13,7 +13,7 @@ const EntryItem = ({ entry, navigation }) => {
         navigation.navigate("Edit Journal", { entry: entry })
       }
     >
-      <View style={styles.timeContainer}>
+      <View style={styles.labelContainer}>
         <Text style={styles.label}>{entry.time}</Text>
       </View>
       
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
       margin: 10,
       marginTop: 200,
     },
-    timeContainer: {
+    labelContainer: {
         marginLeft: 15,
     },
     pressed: {

@@ -8,7 +8,7 @@ export default function App() {
   const sampleEntry = {
     time: '12:22:11 ',
     text: 'This is a sample entry text.',
-    image: <Image source={require('./assets/favicon.png')} style={{ width: 50, height: 50 }} />, // Replace with your actual image source
+    image: <Image source={require('./assets/favicon.png')} style={{ width: 50, height: 50 }} />,
   };
 
   return (
