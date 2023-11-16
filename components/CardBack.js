@@ -1,13 +1,15 @@
 import { View, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import PressableButton from './PressableButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../colors';
 
-const CardBack = () => {
+const CardBack = ({ navigation }) => {
 
-  const cardPressHandler = () => {}
-    
+  const cardPressHandler = () => {
+    navigation.replace("CardDetail");
+  }
+  
   return (
     <View>
       <PressableButton pressedFunction={cardPressHandler} defaultStyle={styles.card} pressedStyle={styles.cardPressed}>
