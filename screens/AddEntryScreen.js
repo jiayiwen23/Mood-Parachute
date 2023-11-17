@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import {
+  Image,
   Text,
   View,
   TextInput,
@@ -16,12 +17,21 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { writeToDB } from "../firebase/firebaseHelper";
+import { colors } from "../colors";
 
 const windowWidth = Dimensions.get("window").width;
+const angryIcon = require("../assets/angry.png");
+const happyIcon = require("../assets/happy.png");
+const sadIcon = require("../assets/sad.png");
+const devilIcon = require("../assets/devil.png");
+const illIcon = require("../assets/ill.png");
+const laughtocryIcon = require("../assets/laughtocry.png");
+const loveIcon = require("../assets/love.png");
+const reallyhappyIcon = require("../assets/reallyhappy.png");
 
 export default function AddEntryScreen({ navigation }) {
   const [text, setText] = useState("");
-  const [moodIcon, setMoodIcon] = useState("mood");
+  const [moodIcon, setMoodIcon] = useState(null);
   const textInputRef = useRef(null);
   const [showMoodSelector, setShowMoodSelector] = useState(false);
 
@@ -41,8 +51,8 @@ export default function AddEntryScreen({ navigation }) {
     navigation.goBack();
   };
 
-  const addMoonHandler = (iconName) => {
-    setMoodIcon(iconName);
+  const addMoonHandler = (moodImage) => {
+    setMoodIcon(moodImage);
     setShowMoodSelector(false);
   };
 
@@ -66,10 +76,10 @@ export default function AddEntryScreen({ navigation }) {
             defaultStyle={styles.toolbarButton}
             pressedFunction={() => setShowMoodSelector(true)}
           >
-            {moodIcon === "mood" ? (
-              <MaterialIcons name={moodIcon} size={24} color="black" />
+            {moodIcon && typeof moodIcon === "number" ? (
+              <Image source={moodIcon} style={{ width: 24, height: 24 }} />
             ) : (
-              <AntDesign name={moodIcon} size={24} color="black" />
+              <Image source={happyIcon} style={{ width: 24, height: 24 }} />
             )}
           </PressableButton>
           <PressableButton defaultStyle={styles.toolbarButton}>
@@ -104,14 +114,21 @@ export default function AddEntryScreen({ navigation }) {
         onRequestClose={() => setShowMoodSelector(false)}
       >
         <View style={styles.moodSelector}>
-          <PressableButton pressedFunction={() => addMoonHandler("smileo")}>
-            <AntDesign name="smileo" size={24} color="black" />
+          <PressableButton pressedFunction={() => addMoonHandler(happyIcon)}>
+            <Image source={happyIcon} style={styles.moodIcon} />
           </PressableButton>
-          <PressableButton pressedFunction={() => addMoonHandler("meho")}>
-            <AntDesign name="meho" size={24} color="black" />
+          <PressableButton pressedFunction={() => addMoonHandler(loveIcon)}>
+            <Image source={loveIcon} style={styles.moodIcon} />
           </PressableButton>
-          <PressableButton pressedFunction={() => addMoonHandler("frowno")}>
-            <AntDesign name="frowno" size={24} color="black" />
+          <PressableButton
+            pressedFunction={() => addMoonHandler(laughtocryIcon)}
+          >
+            <Image source={sadIcon} style={styles.moodIcon} />
+          </PressableButton>
+          <PressableButton
+            pressedFunction={() => addMoonHandler(reallyhappyIcon)}
+          >
+            <Image source={reallyhappyIcon} style={styles.moodIcon} />
           </PressableButton>
         </View>
       </Modal>
@@ -130,7 +147,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10,
-    backgroundColor: "#ddd", // or any color you want for the toolbar background
+    backgroundColor: colors.border, // or any color you want for the toolbar background
   },
   input: {
     flex: 1,
@@ -146,8 +163,13 @@ const styles = StyleSheet.create({
     width: windowWidth,
     bottom: 100,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
-    color: "tomato",
+    backgroundColor: "lightblue",
+    padding: 10,
+  },
+  moodIcon: {
+    width: 30,
+    height: 30,
   },
 });
