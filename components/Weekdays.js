@@ -13,7 +13,7 @@ const daysOfWeek = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
 export default function Weekdays() {
   const [selectedDate, setSelectedDate] = useState(undefined);
   const startDate = new Date();
-  // The start date is always Sunday
+  // The start date is always Sundaya
   startDate.setDate(startDate.getDate() - startDate.getDay());
 
   // Create an array that includes a week of dates starting from start date

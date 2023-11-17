@@ -1,11 +1,14 @@
 import React, { useState, useRef } from "react";
 import {
+  Text,
   View,
   TextInput,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  Modal,
+  Dimensions,
 } from "react-native";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
@@ -14,9 +17,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { writeToDB } from "../firebase/firebaseHelper";
 
+const windowWidth = Dimensions.get("window").width;
+
 export default function AddEntryScreen({ navigation }) {
   const [text, setText] = useState("");
+  const [moodIcon, setMoodIcon] = useState("mood");
   const textInputRef = useRef(null);
+  const [showMoodSelector, setShowMoodSelector] = useState(false);
 
   const openKeyboard = () => {
     textInputRef.current.focus();
@@ -26,12 +33,17 @@ export default function AddEntryScreen({ navigation }) {
     const now = new Date();
     const entry = {
       journal: text,
-      date: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+      date: `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`,
     };
     console.log(entry);
     writeToDB(entry);
     Keyboard.dismiss();
     navigation.goBack();
+  };
+
+  const addMoonHandler = (iconName) => {
+    setMoodIcon(iconName);
+    setShowMoodSelector(false);
   };
 
   return (
@@ -50,13 +62,20 @@ export default function AddEntryScreen({ navigation }) {
             justifyContent: "flex-start",
           }}
         >
-          <PressableButton defaultStyle={{ margin: 10 }}>
-            <MaterialIcons name="mood" size={24} color="black" />
+          <PressableButton
+            defaultStyle={styles.toolbarButton}
+            pressedFunction={() => setShowMoodSelector(true)}
+          >
+            {moodIcon === "mood" ? (
+              <MaterialIcons name={moodIcon} size={24} color="black" />
+            ) : (
+              <AntDesign name={moodIcon} size={24} color="black" />
+            )}
           </PressableButton>
-          <PressableButton defaultStyle={{ margin: 10 }}>
+          <PressableButton defaultStyle={styles.toolbarButton}>
             <AntDesign name="picture" size={24} color="black" />
           </PressableButton>
-          <PressableButton defaultStyle={{ margin: 10 }}>
+          <PressableButton defaultStyle={styles.toolbarButton}>
             <Entypo name="location-pin" size={24} color="black" />
           </PressableButton>
         </View>
@@ -79,6 +98,23 @@ export default function AddEntryScreen({ navigation }) {
         returnKeyType="done"
         onSubmitEditing={Keyboard.dismiss}
       />
+      <Modal
+        visible={showMoodSelector}
+        transparent={true}
+        onRequestClose={() => setShowMoodSelector(false)}
+      >
+        <View style={styles.moodSelector}>
+          <PressableButton pressedFunction={() => addMoonHandler("smileo")}>
+            <AntDesign name="smileo" size={24} color="black" />
+          </PressableButton>
+          <PressableButton pressedFunction={() => addMoonHandler("meho")}>
+            <AntDesign name="meho" size={24} color="black" />
+          </PressableButton>
+          <PressableButton pressedFunction={() => addMoonHandler("frowno")}>
+            <AntDesign name="frowno" size={24} color="black" />
+          </PressableButton>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
@@ -100,5 +136,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
+  },
+  toolbarButton: {
+    margin: 10,
+  },
+  moodSelector: {
+    flex: 1,
+    position: "absolute",
+    width: windowWidth,
+    bottom: 100,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "tomato",
   },
 });
