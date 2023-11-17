@@ -1,12 +1,10 @@
 import React, { useState, useRef } from "react";
 import {
-  Text,
   View,
   TextInput,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
   Keyboard,
 } from "react-native";
 import PressableButton from "../components/PressableButton";
@@ -14,13 +12,26 @@ import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { writeToDB } from "../firebase/firebaseHelper";
 
-export default function AddEntryScreen() {
+export default function AddEntryScreen({ navigation }) {
   const [text, setText] = useState("");
   const textInputRef = useRef(null);
 
   const openKeyboard = () => {
     textInputRef.current.focus();
+  };
+
+  const sendHandler = () => {
+    const now = new Date();
+    const entry = {
+      journal: text,
+      date: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+    };
+    console.log(entry);
+    writeToDB(entry);
+    Keyboard.dismiss();
+    navigation.goBack();
   };
 
   return (
@@ -50,7 +61,10 @@ export default function AddEntryScreen() {
           </PressableButton>
         </View>
         <View style={{ flex: 1 }}>
-          <PressableButton defaultStyle={{ margin: 10, alignSelf: "flex-end" }}>
+          <PressableButton
+            pressedFunction={sendHandler}
+            defaultStyle={{ margin: 10, alignSelf: "flex-end" }}
+          >
             <Feather name="send" size={24} color="black" />
           </PressableButton>
         </View>

@@ -1,13 +1,13 @@
-import { Image, SafeAreaView } from "react-native";
+import { Image, View } from "react-native";
 import React from "react";
 import Weekdays from "../components/Weekdays";
 import EntriesList from "../components/EntriesList";
 
-export default function AllJournalScreen() {
+export default function AllJournalScreen({ navigation }) {
   return (
-    <SafeAreaView>
+    <View>
       <Weekdays></Weekdays>
-      <EntriesList />
-    </SafeAreaView>
+      <EntriesList navigation={navigation} />
+    </View>
   );
 }

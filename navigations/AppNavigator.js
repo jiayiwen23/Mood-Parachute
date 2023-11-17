@@ -6,7 +6,7 @@ import AddEntryScreen from "../screens/AddEntryScreen";
 
 const Stack = createNativeStackNavigator();
 
-export default function AppNavigator() {
+export default function AppNavigator({ navigation }) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
