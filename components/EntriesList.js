@@ -4,7 +4,7 @@ import EntryItem from "./EntryItem";
 import { database } from "../firebase/firebaseSetup";
 import { collection, onSnapshot } from "firebase/firestore";
 
-const EntriesList = ({ navigation }) => {
+const EntriesList = ({ navigation, date }) => {
   const [journals, setJournals] = useState([]);
 
   useEffect(() => {

@@ -26,7 +26,7 @@ export default function AllJournalScreen({ navigation }) {
 
       const intervalId = setInterval(updateDate, 1000 * 60 * 60 * 24);
       return () => clearInterval(intervalId);
-    }, [selectedDate]);
+    }, [date]);
 
     return (
       <View style={{ flexDirection: "row" }}>
