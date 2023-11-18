@@ -28,12 +28,16 @@ const EntriesList = ({ navigation, year, month }) => {
   }, [year, month]);
 
   useEffect(() => {
-    const filteredJournals = journals.filter((journal) => {
-      const datePart = journal.date.split(" ")[0];
-      const entryYear = parseInt(datePart.split("-")[0]);
-      const entryMonth = parseInt(datePart.split("-")[1]);
-      return entryYear === year && entryMonth === month;
-    });
+    const filteredJournals = journals
+      .filter((journal) => {
+        const datePart = journal.date.split(" ")[0];
+        const entryYear = parseInt(datePart.split("-")[0]);
+        const entryMonth = parseInt(datePart.split("-")[1]);
+        return entryYear === year && entryMonth === month;
+      })
+      .sort((a, b) => {
+        return a.date > b.date ? -1 : 1;
+      });
     setFilteredJournals(filteredJournals);
   }, [journals, year, month]);
 
