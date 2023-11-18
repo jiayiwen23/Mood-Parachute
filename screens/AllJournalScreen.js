@@ -70,7 +70,11 @@ export default function AllJournalScreen({ navigation }) {
           hideModal={setYearPickerVisibility}
         />
       </Modal>
-      <EntriesList navigation={navigation} />
+      <EntriesList
+        navigation={navigation}
+        year={selectedYear}
+        month={selectedMonth}
+      />
     </View>
   );
 }
