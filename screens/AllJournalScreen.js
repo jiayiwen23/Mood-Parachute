@@ -1,6 +1,5 @@
 import { Image, Pressable, View, Text, Modal } from "react-native";
 import React, { useEffect, useState } from "react";
-import Weekdays from "../components/Weekdays";
 import EntriesList from "../components/EntriesList";
 import { AntDesign } from "@expo/vector-icons";
 import PressableButton from "../components/PressableButton";
@@ -9,10 +8,12 @@ import { colors } from "../colors";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import YearPicker from "../components/YearPicker";
 import { Feather } from "@expo/vector-icons";
+import MonthOptions from "../components/MonthOptions";
 
 export default function AllJournalScreen({ navigation }) {
   const [isYearPickerVisible, setYearPickerVisibility] = useState(false);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   const handleYearChange = (year) => {
     setSelectedYear(year);
@@ -54,11 +55,14 @@ export default function AllJournalScreen({ navigation }) {
         </PressableButton>
       ),
     });
-  });
+  }, [navigation, selectedYear]);
 
   return (
     <View>
-      <Weekdays />
+      <MonthOptions
+        selectedMonth={selectedMonth}
+        onMonthChange={setSelectedMonth}
+      />
       <Modal visible={isYearPickerVisible} animationType="slide">
         <YearPicker
           selectedYear={selectedYear}

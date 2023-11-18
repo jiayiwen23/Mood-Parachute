@@ -16,7 +16,7 @@ const EntryItem = ({ entry, navigation }) => {
       pressedFunction={entryPressHandler}
     >
       <View style={styles.labelContainer}>
-        <Text style={styles.label}>{entry.date.split(" ")[1]}</Text>
+        <Text style={styles.dateText}>{entry.date}</Text>
         <Image source={entry.mood} style={{ width: 30, height: 30 }} />
       </View>
 
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.8,
   },
-  label: {
+  dateText: {
     color: colors.white,
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 11,
   },
   journalContainer: {
     flexDirection: "row",

@@ -35,9 +35,11 @@ export default function AddEntryScreen({ navigation }) {
 
   const sendHandler = () => {
     const now = new Date();
+    const formattedDate = now.toISOString().split("T")[0];
+    const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
     const entry = {
       journal: text,
-      date: `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`,
+      date: `${formattedDate} ${formattedTime}`,
       mood: moodIcon,
     };
     console.log(entry);
