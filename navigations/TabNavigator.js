@@ -6,7 +6,7 @@ import AllJournalScreen from "../screens/AllJournalScreen";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../colors";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
@@ -18,51 +18,53 @@ export default function TabNavigator({ navigation }) {
         name="All Journal"
         component={AllJournalScreen}
         options={{
-          headerRight: () => (
-            <PressableButton
-              pressedFunction={() => navigation.navigate("Add Journal")}
-              defaultStyle={{ paddingRight: 10 }}
-              pressedStyle={{ opacity: 0.8 }}
-            >
-              <MaterialCommunityIcons name="book-plus-outline" size={30} color={colors.border} />
-            </PressableButton>
-          ),
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarIcon: () => (
             <View style={styles.tabBar}>
-              <MaterialCommunityIcons name="notebook-outline" size={30} color={colors.border} />
+              <MaterialCommunityIcons
+                name="notebook-outline"
+                size={30}
+                color={colors.border}
+              />
             </View>
           ),
         }}
       />
 
-      <Tab.Screen 
-        name="Cards" 
+      <Tab.Screen
+        name="Cards"
         component={CardsScreen}
         options={{
           headerShown: false,
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarIcon: () => (
             <View style={styles.tabBar}>
-              <MaterialCommunityIcons name="cards-playing-diamond-multiple-outline" size={30} color={colors.border} />
+              <MaterialCommunityIcons
+                name="cards-playing-diamond-multiple-outline"
+                size={30}
+                color={colors.border}
+              />
             </View>
           ),
         }}
       />
 
-      <Tab.Screen 
-        name="Profile" 
-        component={ProfileScreen} 
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarIcon: () => (
             <View style={styles.tabBar}>
-              <MaterialCommunityIcons name="account-settings-outline" size={30} color={colors.border} />
+              <MaterialCommunityIcons
+                name="account-settings-outline"
+                size={30}
+                color={colors.border}
+              />
             </View>
           ),
         }}
       />
-
     </Tab.Navigator>
   );
 }
@@ -72,11 +74,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundDarkPurple,
   },
   tabBar: {
-    alignItems: 'center', 
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   tabBarText: {
-    color: colors.icon, 
+    color: colors.icon,
     fontSize: 12,
   },
 });

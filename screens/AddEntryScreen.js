@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import {
   Image,
-  Text,
   View,
   TextInput,
   StyleSheet,
@@ -14,7 +13,6 @@ import {
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { writeToDB } from "../firebase/firebaseHelper";
 import { colors } from "../colors";
@@ -35,15 +33,12 @@ export default function AddEntryScreen({ navigation }) {
   const textInputRef = useRef(null);
   const [showMoodSelector, setShowMoodSelector] = useState(false);
 
-  const openKeyboard = () => {
-    textInputRef.current.focus();
-  };
-
   const sendHandler = () => {
     const now = new Date();
     const entry = {
       journal: text,
       date: `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`,
+      mood: moodIcon,
     };
     console.log(entry);
     writeToDB(entry);
@@ -67,7 +62,6 @@ export default function AddEntryScreen({ navigation }) {
         <View
           style={{
             flex: 3,
-            //backgroundColor: "tomato",
             flexDirection: "row",
             justifyContent: "flex-start",
           }}
@@ -120,9 +114,7 @@ export default function AddEntryScreen({ navigation }) {
           <PressableButton pressedFunction={() => addMoonHandler(loveIcon)}>
             <Image source={loveIcon} style={styles.moodIcon} />
           </PressableButton>
-          <PressableButton
-            pressedFunction={() => addMoonHandler(laughtocryIcon)}
-          >
+          <PressableButton pressedFunction={() => addMoonHandler(sadIcon)}>
             <Image source={sadIcon} style={styles.moodIcon} />
           </PressableButton>
           <PressableButton
@@ -147,7 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10,
-    backgroundColor: colors.border, // or any color you want for the toolbar background
+    backgroundColor: colors.border,
   },
   input: {
     flex: 1,
