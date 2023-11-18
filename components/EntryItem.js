@@ -9,7 +9,7 @@ const EntryItem = ({ entry, navigation }) => {
   };
 
   return (
-    //an entry has 4 props: id, time, text, image
+    //an entry has 6 props: id, time, text, image, location, mood. We only implemented time, text and mood for iteration 1
     <PressableButton
       pressedStyle={styles.pressed}
       defaultStyle={styles.container}

@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import PressableButton from "./PressableButton";
+import { colors } from "../colors";
 
 export default function YearPicker({ selectedYear, onYearChange, hideModal }) {
   const [year, setYear] = useState(selectedYear);
@@ -20,7 +21,7 @@ export default function YearPicker({ selectedYear, onYearChange, hideModal }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Picker
         selectedValue={year}
         onValueChange={(itemValue, itemIndex) => setYear(itemValue)}
@@ -29,12 +30,42 @@ export default function YearPicker({ selectedYear, onYearChange, hideModal }) {
           <Picker.Item label={year.toString()} value={year} key={year} />
         ))}
       </Picker>
-      <PressableButton pressedFunction={confirmHandler}>
-        <Text>Confirm</Text>
-      </PressableButton>
-      <PressableButton pressedFunction={cancelHandler}>
-        <Text>Cancel</Text>
-      </PressableButton>
+      <View style={styles.buttonContainer}>
+        <PressableButton
+          pressedFunction={cancelHandler}
+          defaultStyle={styles.button}
+        >
+          <Text style={styles.text}>Cancel</Text>
+        </PressableButton>
+        <PressableButton
+          pressedFunction={confirmHandler}
+          defaultStyle={styles.button}
+        >
+          <Text style={styles.text}>Confirm</Text>
+        </PressableButton>
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    padding: 20,
+  },
+  button: {
+    backgroundColor: colors.border,
+    borderRadius: 10,
+    padding: 8,
+  },
+  text: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});

@@ -18,6 +18,19 @@ export default function TabNavigator({ navigation }) {
         name="All Journal"
         component={AllJournalScreen}
         options={{
+          headerRight: () => (
+            <PressableButton
+              pressedFunction={() => navigation.navigate("Add Journal")}
+              defaultStyle={{ paddingRight: 10 }}
+              pressedStyle={{ opacity: 0.8 }}
+            >
+              <MaterialCommunityIcons
+                name="book-plus-outline"
+                size={28}
+                color={colors.border}
+              />
+            </PressableButton>
+          ),
           tabBarLabel: "",
           tabBarIcon: () => (
             <View style={styles.tabBar}>
