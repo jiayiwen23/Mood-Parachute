@@ -12,22 +12,22 @@ export default function AllJournalScreen({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  function CustomHeaderTitle() {
+  function CustomHeaderTitle({ date }) {
     const [currentDate, setCurrentDate] = useState("");
 
     useEffect(() => {
-      const updateDate = () => {
-        const today = new Date();
-        const month = today.toLocaleString("default", { month: "long" });
-        const year = today.getFullYear();
+      const updateDate = (date) => {
+        const month = date.toLocaleString("default", { month: "long" });
+        const year = date.getFullYear();
         setCurrentDate(`${year} ${month}`);
       };
-
-      updateDate();
+      const dateObject = date ? new Date(date) : new Date();
+      updateDate(dateObject);
 
       const intervalId = setInterval(updateDate, 1000 * 60 * 60 * 24);
       return () => clearInterval(intervalId);
-    }, []);
+    }, [selectedDate]);
+
     return (
       <View style={{ flexDirection: "row" }}>
         <Text
@@ -54,13 +54,13 @@ export default function AllJournalScreen({ navigation }) {
     setDatePickerVisibility(false);
   };
   const handleConfirm = (date) => {
-    setSelectedDate(date);
+    setSelectedDate(date.toISOString().split("T")[0]);
     hideDatePicker();
   };
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <CustomHeaderTitle />,
+      headerTitle: () => <CustomHeaderTitle date={selectedDate} />,
       headerRight: () => (
         <PressableButton
           pressedFunction={() => navigation.navigate("Add Journal")}
@@ -75,17 +75,17 @@ export default function AllJournalScreen({ navigation }) {
         </PressableButton>
       ),
     });
-  }, [navigation]);
+  }, [navigation, selectedDate]);
   return (
     <View>
       <Weekdays date={selectedDate} />
-      <EntriesList navigation={navigation} />
+      <EntriesList navigation={navigation} date={selectedDate} />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
-        date={selectedDate}
+        date={new Date(selectedDate)}
       />
     </View>
   );
