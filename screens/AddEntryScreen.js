@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
+    fontSize: 20,
   },
   toolbarButton: {
     margin: 10,
