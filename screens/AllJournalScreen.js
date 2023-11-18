@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../colors";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import YearPicker from "../components/YearPicker";
+import { Feather } from "@expo/vector-icons";
 
 export default function AllJournalScreen({ navigation }) {
   const [isYearPickerVisible, setYearPickerVisibility] = useState(false);
@@ -18,12 +19,46 @@ export default function AllJournalScreen({ navigation }) {
     setYearPickerVisibility(false);
   };
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <PressableButton
+          pressedFunction={() => setYearPickerVisibility(true)}
+          defaultStyle={{ flexDirection: "row", alignItems: "center" }}
+          pressedStyle={{ opacity: 0.7 }}
+        >
+          <Text
+            style={{ fontSize: 18, fontWeight: "bold", color: colors.border }}
+          >
+            {selectedYear}
+          </Text>
+          <Feather
+            name="chevron-down"
+            size={24}
+            color={colors.border}
+            style={{ marginLeft: 5 }}
+          />
+        </PressableButton>
+      ),
+      headerRight: () => (
+        <PressableButton
+          pressedFunction={() => navigation.navigate("Add Journal")}
+          defaultStyle={{ paddingRight: 10 }}
+          pressedStyle={{ opacity: 0.8 }}
+        >
+          <MaterialCommunityIcons
+            name="book-plus-outline"
+            size={28}
+            color={colors.border}
+          />
+        </PressableButton>
+      ),
+    });
+  });
+
   return (
     <View>
       <Weekdays />
-      <PressableButton pressedFunction={() => setYearPickerVisibility(true)}>
-        <Text>{selectedYear}</Text>
-      </PressableButton>
       <Modal visible={isYearPickerVisible} animationType="slide">
         <YearPicker
           selectedYear={selectedYear}
