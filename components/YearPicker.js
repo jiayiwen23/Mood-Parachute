@@ -16,7 +16,7 @@ export default function YearPicker({ selectedYear, onYearChange, hideModal }) {
   };
 
   const cancelHandler = () => {
-    hideModal();
+    hideModal(false);
   };
 
   return (
