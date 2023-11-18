@@ -9,45 +9,11 @@ import { colors } from "../colors";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export default function AllJournalScreen({ navigation }) {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isYearPickerVisible, setYearPickerVisibility] = useState(false);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
-  function CustomHeaderTitle({ date }) {
-    const [currentDate, setCurrentDate] = useState("");
-
-    useEffect(() => {
-      const updateDate = (date) => {
-        const month = date.toLocaleString("default", { month: "long" });
-        const year = date.getFullYear();
-        setCurrentDate(`${year} ${month}`);
-      };
-      const dateObject = date ? new Date(date) : new Date();
-      updateDate(dateObject);
-
-      const intervalId = setInterval(updateDate, 1000 * 60 * 60 * 24);
-      return () => clearInterval(intervalId);
-    }, [date]);
-
-    return (
-      <View style={{ flexDirection: "row" }}>
-        <Text
-          style={{ fontSize: 16, fontWeight: "bold", color: colors.border }}
-        >
-          {currentDate}
-        </Text>
-        <PressableButton pressedFunction={showDatePicker}>
-          <AntDesign
-            name="down"
-            size={18}
-            color={colors.border}
-            style={{ marginLeft: 5, marginTop: 2 }}
-          />
-        </PressableButton>
-      </View>
-    );
-  }
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
+  const showYearPicker = () => {
+    setYearPickerVisibility(true);
   };
 
   const hideDatePicker = () => {
