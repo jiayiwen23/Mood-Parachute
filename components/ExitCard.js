@@ -2,9 +2,9 @@ import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PressableButton from './PressableButton';
 
-const ExitCard = () => {
+const ExitCard = ({ navigation }) => {
     const handleExitCard=()=>{
-
+      navigation.navigate("Cards");
     }
 
   return (

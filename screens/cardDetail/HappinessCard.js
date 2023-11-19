@@ -4,7 +4,7 @@ import { colors } from '../../colors'
 import ExitCard from '../../components/ExitCard'
 import Card from '../../components/Card'
 
-const HappinessCard = () => {
+const HappinessCard = ({navigation}) => {
   return (
     <Card>
       <Text style={styles.title}>/The Moment Of{'\n'}Happiness You Had/</Text>
@@ -13,7 +13,7 @@ const HappinessCard = () => {
         <Image source={require("../../assets/happy.png")} style={{ width: 24, height: 24 }} />
         {'\n'}I feel really happy today.{'\n'}I love sunshine!
         </Text>
-      <ExitCard />
+      <ExitCard navigation={navigation}/>
     </Card>
   )
 }

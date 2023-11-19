@@ -4,7 +4,7 @@ import ExitCard from '../../components/ExitCard'
 import { colors } from '../../colors'
 import Card from '../../components/Card'
 
-const AidCard = () => {
+const AidCard = ({ navigation }) => {
   return (
     <Card>
       <Text style={styles.title}>/Write It Down/</Text>
@@ -12,7 +12,7 @@ const AidCard = () => {
         1. I notice that there is a "little man" in my head, and it is saying: ________{'\n'}
         2. I name it: ________{'\n'}
         3. Remember, it is a natural product of the brain when it encounters an event.</Text>
-      <ExitCard />
+      <ExitCard navigation={navigation}/>
     </Card>
   )
 }

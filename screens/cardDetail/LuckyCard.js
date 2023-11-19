@@ -4,7 +4,7 @@ import { colors } from '../../colors'
 import ExitCard from '../../components/ExitCard'
 import Card from '../../components/Card'
 
-const LuckyCard = () => {
+const LuckyCard = ({navigation}) => {
   return (
     <Card>
       <Text style={styles.title}>/Lucky Card/</Text>
@@ -13,7 +13,7 @@ const LuckyCard = () => {
         You've stumbled upon a mysterious lucky card.{'\n'}
         Today, anticipate a day filled with tranquility and serenity. 🍀✨
       </Text>
-      <ExitCard />
+      <ExitCard navigation={navigation}/>
     </Card>
       
   )
