@@ -30,8 +30,8 @@ const reallyhappyIcon = require("../assets/reallyhappy.png");
 
 // Add Entry screen is reused as Edit screen by conditional rendering
 export default function AddEntryScreen({ navigation, route }) {
-  const [text, setText] = useState("");
-  const [moodIcon, setMoodIcon] = useState(null);
+  const [text, setText] = useState(route.params?.entry?.journal || "");
+  const [moodIcon, setMoodIcon] = useState(route.params?.entry?.mood || null);
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const isEditMode = route.params && route.params.entry;
   const textInputRef = useRef(null);
@@ -68,13 +68,13 @@ export default function AddEntryScreen({ navigation, route }) {
           const now = new Date();
           const formattedDate = now.toISOString().split("T")[0];
           const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
-          const entry = {
+          const updatedEntry = {
             journal: text,
             date: `${formattedDate} ${formattedTime}`,
             mood: moodIcon,
           };
-          console.log(entry);
-          updateToDB(entry);
+          console.log(updatedEntry);
+          updateToDB(route.params.entry.id, updatedEntry);
           Keyboard.dismiss();
           navigation.goBack();
         },
@@ -116,7 +116,7 @@ export default function AddEntryScreen({ navigation, route }) {
         </View>
         <View style={{ flex: 1 }}>
           <PressableButton
-            pressedFunction={sendHandler}
+            pressedFunction={isEditMode ? editHandler : sendHandler}
             defaultStyle={{ margin: 10, alignSelf: "flex-end" }}
           >
             <Feather name="send" size={24} color="black" />
