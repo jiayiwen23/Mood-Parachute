@@ -8,9 +8,8 @@ const CardBack = ({ navigation }) => {
 
   const cardPressHandler = () => {
     const randomIndex = Math.floor(Math.random() * 4);
-
-    // Navigate based on the random condition
-    switch (randomIndex) {
+    
+    switch (randomIndex) {// Navigate based on the random condition
       case 0:
         navigation.navigate("Lucky Card");
         break;

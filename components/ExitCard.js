@@ -9,8 +9,8 @@ const ExitCard = () => {
 
   return (
     <PressableButton pressedFunction={handleExitCard} defaultStyle={styles.exitCard}>
-        <MaterialCommunityIcons name="music" size={30} color="white" style={styles.icon} />
-        <MaterialCommunityIcons name="exit-to-app" size={30} color="white" />
+        <MaterialCommunityIcons name="music" size={30} color="grey" style={styles.icon} />
+        <MaterialCommunityIcons name="exit-to-app" size={30} color="grey" />
     </PressableButton>
   )
 }
