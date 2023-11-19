@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import { View, StyleSheet, FlatList, Text, ScrollView } from "react-native";
 import EntryItem from "./EntryItem";
 import { database } from "../firebase/firebaseSetup";
 import { collection, onSnapshot } from "firebase/firestore";
@@ -25,7 +25,7 @@ const EntriesList = ({ navigation, year, month }) => {
     return () => {
       unsubscribe();
     };
-  }, [year, month]);
+  }, []);
 
   useEffect(() => {
     const filteredJournals = journals
@@ -45,6 +45,7 @@ const EntriesList = ({ navigation, year, month }) => {
     <View>
       <FlatList
         data={filteredJournals}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <EntryItem entry={item} navigation={navigation} />
         )}
@@ -54,7 +55,7 @@ const EntriesList = ({ navigation, year, month }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: { flex: 1 },
 });
 
 export default EntriesList;
