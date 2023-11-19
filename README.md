@@ -18,7 +18,7 @@
 2. Journal Entries Collection
    + EntryID: A unique identifier for each journal entry
    + UserID: The ID of the user who created the entry
-   + Timestamp: The date and time when the entry was made
+   + Date: The date and time when the entry was made
    + Journal: The text content of the journal entry
    + Mood: The user's mood at the time of the entry
    + Image: The image attached to the journal
