@@ -9,12 +9,13 @@ import {
   Keyboard,
   Modal,
   Dimensions,
+  Alert,
 } from "react-native";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { writeToDB } from "../firebase/firebaseHelper";
+import { updateToDB, writeToDB } from "../firebase/firebaseHelper";
 import { colors } from "../colors";
 
 const windowWidth = Dimensions.get("window").width;
@@ -27,11 +28,13 @@ const laughtocryIcon = require("../assets/laughtocry.png");
 const loveIcon = require("../assets/love.png");
 const reallyhappyIcon = require("../assets/reallyhappy.png");
 
-export default function AddEntryScreen({ navigation }) {
+// Add Entry screen is reused as Edit screen by conditional rendering
+export default function AddEntryScreen({ navigation, route }) {
   const [text, setText] = useState("");
   const [moodIcon, setMoodIcon] = useState(null);
-  const textInputRef = useRef(null);
   const [showMoodSelector, setShowMoodSelector] = useState(false);
+  const isEditMode = route.params && route.params.entry;
+  const textInputRef = useRef(null);
 
   const sendHandler = () => {
     const now = new Date();
@@ -51,6 +54,32 @@ export default function AddEntryScreen({ navigation }) {
   const addMoonHandler = (moodImage) => {
     setMoodIcon(moodImage);
     setShowMoodSelector(false);
+  };
+
+  const editHandler = () => {
+    Alert.alert("Important", "Are you sure you want to save the changes?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Save",
+        onPress: () => {
+          const now = new Date();
+          const formattedDate = now.toISOString().split("T")[0];
+          const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
+          const entry = {
+            journal: text,
+            date: `${formattedDate} ${formattedTime}`,
+            mood: moodIcon,
+          };
+          console.log(entry);
+          updateToDB(entry);
+          Keyboard.dismiss();
+          navigation.goBack();
+        },
+      },
+    ]);
   };
 
   return (
