@@ -23,7 +23,7 @@
    + Mood: The user's mood at the time of the entry
    + Image: The image attached to the journal
    + Location: The location when the entry was made
-3. Psychology-Backed Tool Card Collection 
+3. Psychology-Backed Tool Cards Collection 
    + CardID: A unique identifier for each tool card
    + Title: The title of the card, summarizing the psychological tool or advice
    + Description: A detailed explanation or step-by-step guide on how to use the tool for immediate mood relief or coping strategies
