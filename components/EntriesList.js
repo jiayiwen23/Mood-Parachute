@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import { View, StyleSheet, FlatList, Text, ScrollView } from "react-native";
 import EntryItem from "./EntryItem";
 import { database } from "../firebase/firebaseSetup";
 import { collection, onSnapshot } from "firebase/firestore";
@@ -25,15 +25,19 @@ const EntriesList = ({ navigation, year, month }) => {
     return () => {
       unsubscribe();
     };
-  }, [year, month]);
+  }, []);
 
   useEffect(() => {
-    const filteredJournals = journals.filter((journal) => {
-      const datePart = journal.date.split(" ")[0];
-      const entryYear = parseInt(datePart.split("-")[0]);
-      const entryMonth = parseInt(datePart.split("-")[1]);
-      return entryYear === year && entryMonth === month;
-    });
+    const filteredJournals = journals
+      .filter((journal) => {
+        const datePart = journal.date.split(" ")[0];
+        const entryYear = parseInt(datePart.split("-")[0]);
+        const entryMonth = parseInt(datePart.split("-")[1]);
+        return entryYear === year && entryMonth === month;
+      })
+      .sort((a, b) => {
+        return a.date > b.date ? -1 : 1;
+      });
     setFilteredJournals(filteredJournals);
   }, [journals, year, month]);
 
@@ -41,6 +45,7 @@ const EntriesList = ({ navigation, year, month }) => {
     <View>
       <FlatList
         data={filteredJournals}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <EntryItem entry={item} navigation={navigation} />
         )}
@@ -50,7 +55,7 @@ const EntriesList = ({ navigation, year, month }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: { flex: 1 },
 });
 
 export default EntriesList;

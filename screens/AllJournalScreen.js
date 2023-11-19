@@ -1,4 +1,4 @@
-import { Image, Pressable, View, Text, Modal } from "react-native";
+import { StyleSheet, View, Text, Modal } from "react-native";
 import React, { useEffect, useState } from "react";
 import EntriesList from "../components/EntriesList";
 import { AntDesign } from "@expo/vector-icons";
@@ -58,11 +58,13 @@ export default function AllJournalScreen({ navigation }) {
   }, [navigation, selectedYear]);
 
   return (
-    <View>
-      <MonthOptions
-        selectedMonth={selectedMonth}
-        onMonthChange={setSelectedMonth}
-      />
+    <View style={styles.container}>
+      <View style={{ flex: 2 }}>
+        <MonthOptions
+          selectedMonth={selectedMonth}
+          onMonthChange={setSelectedMonth}
+        />
+      </View>
       <Modal visible={isYearPickerVisible} animationType="slide">
         <YearPicker
           selectedYear={selectedYear}
@@ -70,11 +72,19 @@ export default function AllJournalScreen({ navigation }) {
           hideModal={setYearPickerVisibility}
         />
       </Modal>
-      <EntriesList
-        navigation={navigation}
-        year={selectedYear}
-        month={selectedMonth}
-      />
+      <View style={{ flex: 8 }}>
+        <EntriesList
+          navigation={navigation}
+          year={selectedYear}
+          month={selectedMonth}
+        />
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
