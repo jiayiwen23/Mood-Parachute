@@ -10,4 +10,6 @@ export const colors = {
   cardBack: "#00a6ae",
   white: "white",
   black: "black",
+  cardBackgroud: 'white',
+  cardShadow: '#000',
 };

@@ -2,7 +2,7 @@ import { Image, StyleSheet, View, useWindowDimensions } from 'react-native';
 import React from 'react';
 import ExitCard from '../../components/ExitCard';
 
-const LandscapeCard = () => {
+const LandscapeCard = ({navigation}) => {
   const { width, height } = useWindowDimensions();
 
   return (
@@ -11,7 +11,7 @@ const LandscapeCard = () => {
         source={require('../../assets/maple.jpg')} 
         style={styles.image}
       />
-      <ExitCard />
+      <ExitCard navigation={navigation}/>
     </View>
   )
 }
