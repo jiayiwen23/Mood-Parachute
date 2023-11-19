@@ -7,11 +7,20 @@ const ExitCard = ({ navigation }) => {
       navigation.navigate("Cards");
     }
 
+    const handleMusic=()=>{
+     
+    }
+
   return (
+    <>
+    <PressableButton pressedFunction={handleMusic} defaultStyle={styles.music}>
+      <MaterialCommunityIcons name="music" size={30} color="grey" style={styles.icon} />
+    </PressableButton>
+
     <PressableButton pressedFunction={handleExitCard} defaultStyle={styles.exitCard}>
-        <MaterialCommunityIcons name="music" size={30} color="grey" style={styles.icon} />
         <MaterialCommunityIcons name="exit-to-app" size={30} color="grey" />
     </PressableButton>
+    </>
   )
 }
 
@@ -20,7 +29,11 @@ const styles = {
       position: 'absolute',
       bottom: 10,
       right: 10,
-      flexDirection: "row",
+    },
+    music:{
+      position: 'absolute',
+      bottom: 10,
+      left: 10,
     },
     icon: {
       marginRight: 10,
