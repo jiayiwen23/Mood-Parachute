@@ -7,11 +7,12 @@ import AidCard from "../screens/cardDetail/AidCard";
 import HappinessCard from "../screens/cardDetail/HappinessCard";
 import LuckyCard from "../screens/cardDetail/LuckyCard";
 import LandscapeCard from "../screens/cardDetail/LandscapeCard";
-import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 import { Alert } from "react-native";
 import { deleteToDB } from "../firebase/firebaseHelper";
+import Login from "../screens/authentication/Login";
+import Signup from "../screens/authentication/Signup";
 
 const Stack = createNativeStackNavigator();
 
@@ -86,6 +87,22 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Landscape Card"
           component={LandscapeCard}
+          options={{
+            headerShown: false,
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
           options={{
             headerShown: false,
             headerTitle: "",
