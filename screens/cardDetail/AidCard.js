@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import ExitCard from '../../components/ExitCard'
 
 const AidCard = () => {
   return (
@@ -8,6 +9,7 @@ const AidCard = () => {
       <Text style={styles.body}>1. I notice that there is a "little man" in my head, and it is saying: ________</Text>
       <Text style={styles.body}>2. I name it: ________</Text>
       <Text style={styles.body}>3. Remember, it is a natural product of the brain when it encounters an event.</Text>
+      <ExitCard />
     </View>
   )
 }
