@@ -86,7 +86,7 @@ export default function AddEntryScreen({ navigation, route }) {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 40 : 0}
+      keyboardVerticalOffset={40}
     >
       <View style={styles.overlay} />
       <View style={styles.toolbar}>
@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
+    textAlignVertical: "top",
     fontSize: 20,
   },
   toolbarButton: {
