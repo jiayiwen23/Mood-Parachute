@@ -9,7 +9,8 @@ const ExitCard = () => {
 
   return (
     <PressableButton pressedFunction={handleExitCard} defaultStyle={styles.exitCard}>
-      <MaterialCommunityIcons name="exit-to-app" size={30} color="white" />
+        <MaterialCommunityIcons name="music" size={30} color="white" style={styles.icon} />
+        <MaterialCommunityIcons name="exit-to-app" size={30} color="white" />
     </PressableButton>
   )
 }
@@ -19,6 +20,10 @@ const styles = {
       position: 'absolute',
       bottom: 10,
       right: 10,
+      flexDirection: "row",
+    },
+    icon: {
+      marginRight: 10,
     },
   };
 

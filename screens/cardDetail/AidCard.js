@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import ExitCard from '../../components/ExitCard'
+import { colors } from '../../colors'
 
 const AidCard = () => {
   return (
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     justifyContent: "center",
+    backgroundColor: colors.background,
   },
   title: {
     fontSize: 25,
