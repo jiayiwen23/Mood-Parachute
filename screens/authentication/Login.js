@@ -20,7 +20,11 @@ export default function Login({ navigation }) {
       return;
     }
     try {
-      const userCred = await signInWithEmailAndPassword(auth, userName, password);
+      const userCred = await signInWithEmailAndPassword(
+        auth,
+        userName,
+        password
+      );
       console.log(userCred);
     } catch (err) {
       console.log(err);
@@ -32,7 +36,6 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-
       <Header />
 
       <TextInput
@@ -43,7 +46,7 @@ export default function Login({ navigation }) {
           setUserName(changedText);
         }}
       />
-      
+
       <TextInput
         style={styles.input}
         secureTextEntry={true}
@@ -55,21 +58,29 @@ export default function Login({ navigation }) {
       />
 
       <View style={styles.buttonContainer}>
-        <PressableButton 
-          pressedFunction={loginHandler} 
+        <PressableButton
+          pressedFunction={loginHandler}
           pressedStyle={styles.pressedStyle}
-          defaultStyle={styles.defaultStyle} >
+          defaultStyle={styles.defaultStyle}
+        >
           <Text style={styles.buttonText}>Log in</Text>
         </PressableButton>
 
-        <PressableButton 
+        <PressableButton
           pressedFunction={signupHandler}
           pressedStyle={styles.pressedStyle}
-          defaultStyle={styles.defaultStyle} >
+          defaultStyle={styles.defaultStyle}
+        >
           <Text style={styles.buttonText}>Sign up</Text>
         </PressableButton>
+        <PressableButton
+          pressedFunction={() => navigation.goBack()}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle}
+        >
+          <Text style={styles.buttonText}>Back</Text>
+        </PressableButton>
       </View>
-      
     </View>
   );
 }
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: colors.buttonText,
   },
-  defaultStyle:{
+  defaultStyle: {
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: colors.button,
@@ -107,7 +118,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignSelf: "center",
   },
-  pressedStyle:{
+  pressedStyle: {
     backgroundColor: colors.buttonPressed,
   },
 });

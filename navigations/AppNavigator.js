@@ -1,4 +1,6 @@
 import React from "react";
+import { Alert } from "react-native";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./TabNavigator";
@@ -9,7 +11,6 @@ import LuckyCard from "../screens/cardDetail/LuckyCard";
 import LandscapeCard from "../screens/cardDetail/LandscapeCard";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
-import { Alert } from "react-native";
 import { deleteToDB } from "../firebase/firebaseHelper";
 import Login from "../screens/authentication/Login";
 import Signup from "../screens/authentication/Signup";

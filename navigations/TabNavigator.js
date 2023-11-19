@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet, View } from "react-native";
 
 import CardsScreen from "../screens/CardsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import AllJournalScreen from "../screens/AllJournalScreen";
 import { colors } from "../colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 

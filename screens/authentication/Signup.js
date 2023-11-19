@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import { colors } from "../../colors";
 import PressableButton from "../../components/PressableButton";
 
-const Signup = () => {
+const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -75,6 +75,13 @@ const Signup = () => {
           defaultStyle={styles.defaultStyle}
         >
           <Text style={styles.buttonText}>Sign up</Text>
+        </PressableButton>
+        <PressableButton
+          pressedFunction={() => navigation.navigate("Profile")}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle}
+        >
+          <Text style={styles.buttonText}>Back</Text>
         </PressableButton>
       </View>
     </View>
