@@ -3,20 +3,20 @@ import React from "react";
 import { colors } from "../colors";
 import CardBack from "../components/CardBack";
 
-export default function CardsScreen() {
+export default function CardsScreen({ navigation }) {
   return (
     <View style={styles.container}>
 
       <Text style={styles.title}>FLIP A CARD</Text>
 
       <View style={styles.row}>
-        <CardBack />
-        <CardBack />
+        <CardBack navigation={navigation}/>
+        <CardBack navigation={navigation}/>
       </View>
 
       <View style={styles.row}>
-        <CardBack />
-        <CardBack />
+        <CardBack navigation={navigation}/>
+        <CardBack navigation={navigation}/>
       </View>
 
     </View>

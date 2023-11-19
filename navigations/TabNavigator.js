@@ -3,8 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import CardsScreen from "../screens/CardsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import AllJournalScreen from "../screens/AllJournalScreen";
-import PressableButton from "../components/PressableButton";
-import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
