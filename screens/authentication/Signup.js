@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import { colors } from '../../colors';
 import PressableButton from "../../components/PressableButton";
 
-const Signup = ({ navigation }) => {
+const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, Text, ScrollView } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import EntryItem from "./EntryItem";
 import { database } from "../firebase/firebaseSetup";
 import { collection, onSnapshot } from "firebase/firestore";

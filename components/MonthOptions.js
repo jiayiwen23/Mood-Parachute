@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "100%",
-    //backgroundColor: "tomato",
     marginBottom: 10,
   },
   month: {
