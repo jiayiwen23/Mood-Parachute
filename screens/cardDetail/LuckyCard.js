@@ -6,6 +6,7 @@ import ExitCard from '../../components/ExitCard'
 const LuckyCard = () => {
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>/Write It Down/</Text>
       <Text style={styles.message}>
         Brace yourself!{'\n'}
         You've stumbled upon a mysterious lucky card.{'\n'}
@@ -24,11 +25,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.background,
   },
+  title: {
+    fontSize: 25,
+    alignSelf: "center",
+    padding: 10,
+    color: colors.border,
+    fontWeight: "bold",
+    lineHeight: 35,
+    textAlign: "center",
+  },
   message:{
     padding: 20,
     backgroundColor: colors.background,
     fontSize: 20,
-    lineHeight: 35,
+    lineHeight: 50,
     marginLeft: 10,
   },
 });
