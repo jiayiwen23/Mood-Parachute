@@ -1,14 +1,10 @@
-import { Image, StyleSheet } from "react-native";
-import TabNabigator from "./navigations/TabNavigator";
-import { NavigationContainer } from "@react-navigation/native";
-import CardsScreen from "./screens/CardsScreen";
-import EntryItem from "./components/EntryItem";
-import EntriesList from "./components/EntriesList";
+import { StyleSheet } from "react-native";
 import AppNavigator from "./navigations/AppNavigator";
+import AidCard from "./screens/cardDetail/AidCard";
 
 export default function App() {
-  return <AppNavigator></AppNavigator>;
-}
+  return <AidCard />;
+}//<AppNavigator></AppNavigator>
 
 const styles = StyleSheet.create({
   container: {
