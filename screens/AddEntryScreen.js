@@ -17,6 +17,7 @@ import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { updateToDB, writeToDB } from "../firebase/firebaseHelper";
 import { colors } from "../colors";
+import ImageManager from "../components/ImageManager";
 
 const windowWidth = Dimensions.get("window").width;
 const angryIcon = require("../assets/angry.png");
