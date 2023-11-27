@@ -36,6 +36,7 @@ export default function AddEntryScreen({ navigation, route }) {
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const isEditMode = route.params && route.params.entry;
   const textInputRef = useRef(null);
+  const [takenImageUri, setTakenImageUri] = useState("");
 
   const sendHandler = () => {
     const now = new Date();
@@ -83,13 +84,21 @@ export default function AddEntryScreen({ navigation, route }) {
     ]);
   };
 
+  function passImageUri(uri) {
+    // store the uri in a state variable
+    setTakenImageUri(uri);
+  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
       keyboardVerticalOffset={40}
     >
-      <View style={styles.overlay} />
+      <View style={styles.overlay}>
+        {takenImageUri && (
+          <Image source={{ uri: takenImageUri }} style={styles.image} />
+        )}
+      </View>
       <View style={styles.toolbar}>
         <View
           style={{
@@ -108,9 +117,7 @@ export default function AddEntryScreen({ navigation, route }) {
               <Image source={happyIcon} style={{ width: 24, height: 24 }} />
             )}
           </PressableButton>
-          <PressableButton defaultStyle={styles.toolbarButton}>
-            <AntDesign name="picture" size={24} color="black" />
-          </PressableButton>
+          <ImageManager passImageUri={passImageUri} />
           <PressableButton defaultStyle={styles.toolbarButton}>
             <Entypo name="location-pin" size={24} color="black" />
           </PressableButton>
@@ -197,5 +204,9 @@ const styles = StyleSheet.create({
   moodIcon: {
     width: 30,
     height: 30,
+  },
+  image: {
+    width: 100,
+    height: 100,
   },
 });
