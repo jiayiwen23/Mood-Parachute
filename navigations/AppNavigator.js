@@ -8,7 +8,7 @@ import AddEntryScreen from "../screens/AddEntryScreen";
 import AidCard from "../screens/cardDetail/AidCard";
 import HappinessCard from "../screens/cardDetail/HappinessCard";
 import LuckyCard from "../screens/cardDetail/LuckyCard";
-import LandscapeCard from "../screens/cardDetail/LandscapeCard";
+import SceneryCard from "../screens/cardDetail/SceneryCard";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 import { deleteToDB } from "../firebase/firebaseHelper";
@@ -86,8 +86,8 @@ export default function AppNavigator() {
           }}
         />
         <Stack.Screen
-          name="Landscape Card"
-          component={LandscapeCard}
+          name="Scenery Card"
+          component={SceneryCard}
           options={{
             headerShown: false,
             headerTitle: "",

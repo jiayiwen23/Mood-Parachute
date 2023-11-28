@@ -14,7 +14,7 @@ const CardBack = ({ navigation }) => {
         navigation.navigate("Lucky Card");
         break;
       case 1:
-        navigation.navigate("Landscape Card");
+        navigation.navigate("Scenery Card");
         break;
       case 2:
         navigation.navigate("Happiness Card");
