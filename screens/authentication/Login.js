@@ -26,6 +26,7 @@ export default function Login({ navigation }) {
         password
       );
       console.log(userCred);
+      navigation.navigate("All Journal");
     } catch (err) {
       console.log(err);
       if (err.code === "auth/invalid-login-credentials") {
