@@ -8,8 +8,8 @@ export const colors = {
   inputText: "grey",
   cardBackgroud: "white",
   cardBack: "#00a6ae",
+  cardIcon: "#c1e5db",
   white: "white",
   black: "black",
-  cardBackgroud: 'white',
   cardShadow: '#000',
 };

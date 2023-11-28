@@ -11,16 +11,16 @@ const CardBack = ({ navigation }) => {
     
     switch (randomIndex) {// Navigate based on the random condition
       case 0:
-        navigation.navigate("Landscape Card");//Lucky
+        navigation.navigate("Lucky Card");
         break;
       case 1:
         navigation.navigate("Landscape Card");
         break;
       case 2:
-        navigation.navigate("Landscape Card");//Happiness
+        navigation.navigate("Happiness Card");
         break;
       case 3:
-        navigation.navigate("Landscape Card");//Aid
+        navigation.navigate("Aid Card");
         break;
       default:
         break;
