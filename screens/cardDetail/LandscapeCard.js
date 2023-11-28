@@ -13,9 +13,10 @@ const LandscapeCard = ({navigation}) => {
 
     const fetchImage = async () => {
       try {
-        const response = await client.photos.search({ query, per_page: 1 });
-        const photo = response.photos[0];
-        setImageSource({ uri: photo.src.large2x });
+        const response = await client.photos.search({ query, per_page: 100 });
+        const randomIndex = Math.floor(Math.random() * response.photos.length);
+        const randomPhoto = response.photos[randomIndex];
+        setImageSource({ uri: randomPhoto.src.large2x });
       } catch (error) {
         console.error('Error fetching image:', error);
       }
