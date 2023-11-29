@@ -37,7 +37,9 @@ export default function AddEntryScreen({ navigation, route }) {
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const isEditMode = route.params && route.params.entry;
   const textInputRef = useRef(null);
-  const [takenImageUri, setTakenImageUri] = useState("");
+  const [takenImageUri, setTakenImageUri] = useState(
+    route.params?.entry?.image || ""
+  );
 
   const sendHandler = () => {
     const now = new Date();
@@ -211,8 +213,8 @@ const styles = StyleSheet.create({
     height: 30,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
   },
   toolbarButton: {
     marginRight: 20,
