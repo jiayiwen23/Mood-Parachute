@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import { colors } from "../../colors";
 import PressableButton from "../../components/PressableButton";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebaseSetup";
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -25,6 +27,7 @@ const Signup = ({ navigation }) => {
         password
       );
       console.log(userCred);
+      navigation.navigate("All Journal");
     } catch (err) {
       console.log("sign up error", err.code);
       if (err.code === "auth/invalid-email") {

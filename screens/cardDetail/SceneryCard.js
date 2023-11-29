@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { createClient } from 'pexels';
 import ExitCard from '../../components/ExitCard';
 
-const LandscapeCard = ({navigation}) => {
+const SceneryCard = ({navigation}) => {
   const { width, height } = useWindowDimensions();
   const [imageSource, setImageSource] = useState(null);
 
@@ -16,7 +16,7 @@ const LandscapeCard = ({navigation}) => {
         const response = await client.photos.search({ query, per_page: 100 });
         const randomIndex = Math.floor(Math.random() * response.photos.length);
         const randomPhoto = response.photos[randomIndex];
-        setImageSource({ uri: randomPhoto.src.large2x });
+        setImageSource({ uri: randomPhoto.src.portrait });
       } catch (error) {
         console.error('Error fetching image:', error);
       }
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LandscapeCard
+export default SceneryCard
