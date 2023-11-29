@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 
 import PressableButton from "./PressableButton";
-import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
-export default function ImageManager({ passImageUri }) {
+export default function CameraManager({ passImageUri }) {
   const [imageUri, setImageUri] = useState("");
-  const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+  const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   const verifyPermission = async () => {
     if (status.granted) {
@@ -17,36 +17,34 @@ export default function ImageManager({ passImageUri }) {
     return response.granted;
   };
 
-  const pickImageHandler = async () => {
+  const takeImageHandler = async () => {
     try {
       const hasPermission = await verifyPermission();
       if (!hasPermission) {
         Alert.alert(
           "Permission Denied",
-          "You need to grant library access to use this feature.",
+          "You need to grant camera permission to use this app.",
           [{ text: "Okay" }]
         );
       }
-      const result = await ImagePicker.launchImageLibraryAsync({
+      const result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
       });
       console.log(result);
       setImageUri(result.assets[0].uri);
       passImageUri(result.assets[0].uri);
     } catch (error) {
-      console.log("pick image error", error);
+      console.log("take image error", error);
     }
   };
 
   return (
-    <View>
-      <PressableButton
-        defaultStyle={styles.toolbarButton}
-        pressedFunction={pickImageHandler}
-      >
-        <AntDesign name="picture" size={24} color="black" />
-      </PressableButton>
-    </View>
+    <PressableButton
+      pressedFunction={takeImageHandler}
+      defaultStyle={styles.toolbarButton}
+    >
+      <Entypo name="camera" size={24} color="black" />
+    </PressableButton>
   );
 }
 

@@ -18,6 +18,7 @@ import { Feather } from "@expo/vector-icons";
 import { updateToDB, writeToDB } from "../firebase/firebaseHelper";
 import { colors } from "../colors";
 import ImageManager from "../components/ImageManager";
+import CameraManager from "../components/CameraManager";
 
 const windowWidth = Dimensions.get("window").width;
 const angryIcon = require("../assets/angry.png");
@@ -46,6 +47,7 @@ export default function AddEntryScreen({ navigation, route }) {
       journal: text,
       date: `${formattedDate} ${formattedTime}`,
       mood: moodIcon,
+      image: takenImageUri,
     };
     console.log(entry);
     writeToDB(entry);
@@ -74,6 +76,7 @@ export default function AddEntryScreen({ navigation, route }) {
             journal: text,
             date: `${formattedDate} ${formattedTime}`,
             mood: moodIcon,
+            image: takenImageUri,
           };
           console.log(updatedEntry);
           updateToDB(route.params.entry.id, updatedEntry);
@@ -105,6 +108,7 @@ export default function AddEntryScreen({ navigation, route }) {
             flex: 3,
             flexDirection: "row",
             justifyContent: "flex-start",
+            alignItems: "center",
           }}
         >
           <PressableButton
@@ -117,6 +121,7 @@ export default function AddEntryScreen({ navigation, route }) {
               <Image source={happyIcon} style={{ width: 24, height: 24 }} />
             )}
           </PressableButton>
+          <CameraManager passImageUri={passImageUri} />
           <ImageManager passImageUri={passImageUri} />
           <PressableButton defaultStyle={styles.toolbarButton}>
             <Entypo name="location-pin" size={24} color="black" />
@@ -208,5 +213,8 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
+  },
+  toolbarButton: {
+    marginRight: 20,
   },
 });
