@@ -4,9 +4,7 @@ import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
 
 export default function ProfileScreen({ navigation }) {
-  const handleLogin = () => {
-    navigation.navigate("Login");
-  };
+  
   return (
     <View style={styles.container}>
       <View style={styles.userInfo}>
@@ -17,10 +15,6 @@ export default function ProfileScreen({ navigation }) {
           style={styles.userPhoto}
         />
       </View>
-
-      <PressableButton pressedFunction={handleLogin}>
-        <Text style={styles.button}>Log in now ➡️</Text>
-      </PressableButton>
 
       <Image source={require("../assets/map.jpg")} style={styles.map} />
     </View>

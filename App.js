@@ -4,6 +4,9 @@ import { auth } from "./firebase/firebaseSetup";
 import Login from "./screens/authentication/Login";
 import Signup from "./screens/authentication/Signup";
 import { onAuthStateChanged } from "firebase/auth";
+import TabNavigator from "./navigations/TabNavigator";
+import { useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -27,12 +30,22 @@ export default function App() {
     </>
   );
 
+  const AppStack = (
+    <>
+      <Stack.Screen
+        name="Home"
+        component={TabNavigator}
+        options={{ headerShown: false }}
+      />
+    </>
+  );
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Signup"
+        initialRouteName="Login"
       >
-        {isLoggedIn ? AppNavigator : AuthStack}
+        {isLoggedIn ? AuthStack : AuthStack}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -8,12 +8,13 @@ import { auth } from "../../firebase/firebaseSetup";
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const signupHandler = async () => {
-    if (!email || !password || !confirmPassword) {
-      Alert.alert("Email and password should not be empty");
+    if (!email || !userName || !password || !confirmPassword) {
+      Alert.alert("All fields should not be empty");
       return;
     }
     if (confirmPassword !== password) {
@@ -27,6 +28,10 @@ const Signup = ({ navigation }) => {
         password
       );
       console.log(userCred);
+      const user = userCred.user;
+      await setDoc(doc(database, "users", user.uid), {
+          userName: userName,
+      });
       navigation.navigate("All Journal");
 
     } catch (err) {
@@ -49,6 +54,15 @@ const Signup = ({ navigation }) => {
         value={email}
         onChangeText={(changedText) => {
           setEmail(changedText);
+        }}
+      />
+
+      <TextInput
+        placeholder="USER NAME"
+        style={styles.input}
+        value={userName}
+        onChangeText={(changedText) => {
+          setUserName(changedText);
         }}
       />
 
@@ -83,11 +97,11 @@ const Signup = ({ navigation }) => {
         </PressableButton>
 
         <PressableButton
-          pressedFunction={() => navigation.navigate("All Journals")}
+          pressedFunction={() => navigation.navigate("Login")}
           pressedStyle={styles.pressedStyle}
           defaultStyle={styles.defaultStyle}
         >
-          <Text style={styles.buttonText}>Back</Text>
+          <Text style={styles.buttonText}>Go back to log in</Text>
         </PressableButton>
 
       </View>
