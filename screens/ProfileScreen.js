@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebaseSetup";
+import { auth, database } from "../firebase/firebaseSetup";
+import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
 
 export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");

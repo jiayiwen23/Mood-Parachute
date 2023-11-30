@@ -5,6 +5,7 @@ import PressableButton from "../../components/PressableButton";
 import { colors } from "../../colors";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, database } from "../../firebase/firebaseSetup";
+import { collection, doc, setDoc } from "@firebase/firestore";
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -29,11 +30,8 @@ const Signup = ({ navigation }) => {
       );
       console.log(userCred);
       const user = userCred.user;
-      await setDoc(doc(database, "users", user.uid), {
-          userName: userName,
-      });
-      navigation.navigate("All Journal");
-
+      const userDocRef = doc(collection(database, "users"), user.uid);
+      await setDoc(userDocRef, { userName });
     } catch (err) {
       console.log("sign up error", err.code);
       if (err.code === "auth/invalid-email") {
