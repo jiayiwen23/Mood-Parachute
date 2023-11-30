@@ -19,6 +19,7 @@ import { updateToDB, writeToDB } from "../firebase/firebaseHelper";
 import { colors } from "../colors";
 import ImageManager from "../components/ImageManager";
 import CameraManager from "../components/CameraManager";
+import { uploadImageToStorage } from "../firebase/firebaseHelper";
 
 const windowWidth = Dimensions.get("window").width;
 const angryIcon = require("../assets/angry.png");
@@ -41,20 +42,28 @@ export default function AddEntryScreen({ navigation, route }) {
     route.params?.entry?.image || ""
   );
 
-  const sendHandler = () => {
-    const now = new Date();
-    const formattedDate = now.toISOString().split("T")[0];
-    const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
-    const entry = {
-      journal: text,
-      date: `${formattedDate} ${formattedTime}`,
-      mood: moodIcon,
-      image: takenImageUri,
-    };
-    console.log(entry);
-    writeToDB(entry);
-    Keyboard.dismiss();
-    navigation.goBack();
+  const sendHandler = async () => {
+    try {
+      const now = new Date();
+      const formattedDate = now.toISOString().split("T")[0];
+      const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
+      const entry = {
+        journal: text,
+        date: `${formattedDate} ${formattedTime}`,
+        mood: moodIcon,
+        image: "",
+      };
+      if (takenImageUri) {
+        const uploadedImageUrl = await uploadImageToStorage(takenImageUri);
+        entry.image = uploadedImageUrl;
+      }
+      console.log(entry);
+      await writeToDB(entry);
+      Keyboard.dismiss();
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const addMoonHandler = (moodImage) => {
@@ -62,7 +71,7 @@ export default function AddEntryScreen({ navigation, route }) {
     setShowMoodSelector(false);
   };
 
-  const editHandler = () => {
+  const editHandler = async () => {
     Alert.alert("Important", "Are you sure you want to save the changes?", [
       {
         text: "Cancel",
@@ -70,20 +79,31 @@ export default function AddEntryScreen({ navigation, route }) {
       },
       {
         text: "Save",
-        onPress: () => {
-          const now = new Date();
-          const formattedDate = now.toISOString().split("T")[0];
-          const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
-          const updatedEntry = {
-            journal: text,
-            date: `${formattedDate} ${formattedTime}`,
-            mood: moodIcon,
-            image: takenImageUri,
-          };
-          console.log(updatedEntry);
-          updateToDB(route.params.entry.id, updatedEntry);
-          Keyboard.dismiss();
-          navigation.goBack();
+        onPress: async () => {
+          try {
+            const now = new Date();
+            const formattedDate = now.toISOString().split("T")[0];
+            const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
+            const updatedEntry = {
+              journal: text,
+              date: `${formattedDate} ${formattedTime}`,
+              mood: moodIcon,
+              image: takenImageUri,
+            };
+
+            if (takenImageUri && takenImageUri !== route.params?.entry?.image) {
+              const uploadedImageUrl = await uploadImageToStorage(
+                takenImageUri
+              );
+              updatedEntry.image = uploadedImageUrl;
+            }
+
+            await updateToDB(route.params.entry.id, updatedEntry);
+            Keyboard.dismiss();
+            navigation.goBack();
+          } catch (err) {
+            console.error("Error in editHandler: ", err);
+          }
         },
       },
     ]);
