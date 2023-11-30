@@ -101,7 +101,7 @@ const Signup = ({ navigation }) => {
           pressedStyle={styles.pressedStyle}
           defaultStyle={styles.defaultStyle}
         >
-          <Text style={styles.buttonText}>Go back to log in</Text>
+          <Text style={styles.buttonText}>Go to log in</Text>
         </PressableButton>
 
       </View>

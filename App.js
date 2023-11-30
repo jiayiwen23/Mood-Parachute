@@ -3,7 +3,7 @@ import { auth } from "./firebase/firebaseSetup";
 import Login from "./screens/authentication/Login";
 import Signup from "./screens/authentication/Signup";
 import { onAuthStateChanged } from "firebase/auth";
-import TabNavigator from "./navigations/TabNavigator";
+import AppNavigator from "./navigations/AppNavigator";
 import { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -32,8 +32,8 @@ export default function App() {
   const AppStack = (
     <>
       <Stack.Screen
-        name="Home"
-        component={TabNavigator}
+        name="App Navigator"
+        component={AppNavigator}
         options={{ headerShown: false }}
       />
     </>
