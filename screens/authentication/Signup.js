@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import React, { useState } from "react";
 import Header from "../../components/Header";
-import { colors } from "../../colors";
 import PressableButton from "../../components/PressableButton";
+import { colors } from "../../colors";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebaseSetup";
 
@@ -13,7 +13,7 @@ const Signup = ({ navigation }) => {
 
   const signupHandler = async () => {
     if (!email || !password || !confirmPassword) {
-      Alert.alert("Fields should not be empty");
+      Alert.alert("Email and password should not be empty");
       return;
     }
     if (confirmPassword !== password) {
@@ -28,6 +28,7 @@ const Signup = ({ navigation }) => {
       );
       console.log(userCred);
       navigation.navigate("All Journal");
+
     } catch (err) {
       console.log("sign up error", err.code);
       if (err.code === "auth/invalid-email") {
@@ -72,6 +73,7 @@ const Signup = ({ navigation }) => {
       />
 
       <View style={styles.buttonContainer}>
+
         <PressableButton
           pressedFunction={signupHandler}
           pressedStyle={styles.pressedStyle}
@@ -79,13 +81,15 @@ const Signup = ({ navigation }) => {
         >
           <Text style={styles.buttonText}>Sign up</Text>
         </PressableButton>
+
         <PressableButton
-          pressedFunction={() => navigation.navigate("Profile")}
+          pressedFunction={() => navigation.navigate("All Journals")}
           pressedStyle={styles.pressedStyle}
           defaultStyle={styles.defaultStyle}
         >
           <Text style={styles.buttonText}>Back</Text>
         </PressableButton>
+
       </View>
     </View>
   );
