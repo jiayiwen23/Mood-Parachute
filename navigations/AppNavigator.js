@@ -14,6 +14,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { deleteToDB } from "../firebase/firebaseHelper";
 import Login from "../screens/authentication/Login";
 import Signup from "../screens/authentication/Signup";
+import AddCardScreen from "../screens/AddCardScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,14 @@ export default function AppNavigator() {
                   )
                 : null,
           })}
+        />
+        <Stack.Screen
+          name="AddCard"
+          component={AddCardScreen}
+          options={{
+            headerShown: false,
+            headerTitle: "",
+          }}
         />
         <Stack.Screen
           name="Aid Card"
