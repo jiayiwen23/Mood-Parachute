@@ -5,7 +5,8 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { database } from "./firebaseSetup";
+import { database, storage } from "./firebaseSetup";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // Helper function to write data to the firestore datebase
 export async function writeToDB(entry) {
@@ -34,5 +35,21 @@ export async function updateToDB(id, entry) {
     console.log("Document updated with ID: ", id);
   } catch (err) {
     console.log(err);
+  }
+}
+
+export async function uploadImageToStorage(uri) {
+  try {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const fileName = uri.substring(uri.lastIndexOf("/") + 1);
+    const storageRef = ref(storage, `images/${fileName}`);
+    await uploadBytes(storageRef, blob);
+
+    const downloadURL = await getDownloadURL(storageRef);
+    return downloadURL;
+  } catch (err) {
+    console.error("Error uploading image to Firebase Storage", err);
+    throw err;
   }
 }

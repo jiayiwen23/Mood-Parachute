@@ -18,6 +18,8 @@ import { Feather } from "@expo/vector-icons";
 import { updateToDB, writeToDB } from "../firebase/firebaseHelper";
 import { colors } from "../colors";
 import ImageManager from "../components/ImageManager";
+import CameraManager from "../components/CameraManager";
+import { uploadImageToStorage } from "../firebase/firebaseHelper";
 
 const windowWidth = Dimensions.get("window").width;
 const angryIcon = require("../assets/angry.png");
@@ -36,21 +38,32 @@ export default function AddEntryScreen({ navigation, route }) {
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const isEditMode = route.params && route.params.entry;
   const textInputRef = useRef(null);
-  const [takenImageUri, setTakenImageUri] = useState("");
+  const [takenImageUri, setTakenImageUri] = useState(
+    route.params?.entry?.image || ""
+  );
 
-  const sendHandler = () => {
-    const now = new Date();
-    const formattedDate = now.toISOString().split("T")[0];
-    const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
-    const entry = {
-      journal: text,
-      date: `${formattedDate} ${formattedTime}`,
-      mood: moodIcon,
-    };
-    console.log(entry);
-    writeToDB(entry);
-    Keyboard.dismiss();
-    navigation.goBack();
+  const sendHandler = async () => {
+    try {
+      const now = new Date();
+      const formattedDate = now.toISOString().split("T")[0];
+      const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
+      const entry = {
+        journal: text,
+        date: `${formattedDate} ${formattedTime}`,
+        mood: moodIcon,
+        image: "",
+      };
+      if (takenImageUri) {
+        const uploadedImageUrl = await uploadImageToStorage(takenImageUri);
+        entry.image = uploadedImageUrl;
+      }
+      console.log(entry);
+      await writeToDB(entry);
+      Keyboard.dismiss();
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const addMoonHandler = (moodImage) => {
@@ -58,7 +71,7 @@ export default function AddEntryScreen({ navigation, route }) {
     setShowMoodSelector(false);
   };
 
-  const editHandler = () => {
+  const editHandler = async () => {
     Alert.alert("Important", "Are you sure you want to save the changes?", [
       {
         text: "Cancel",
@@ -66,19 +79,31 @@ export default function AddEntryScreen({ navigation, route }) {
       },
       {
         text: "Save",
-        onPress: () => {
-          const now = new Date();
-          const formattedDate = now.toISOString().split("T")[0];
-          const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
-          const updatedEntry = {
-            journal: text,
-            date: `${formattedDate} ${formattedTime}`,
-            mood: moodIcon,
-          };
-          console.log(updatedEntry);
-          updateToDB(route.params.entry.id, updatedEntry);
-          Keyboard.dismiss();
-          navigation.goBack();
+        onPress: async () => {
+          try {
+            const now = new Date();
+            const formattedDate = now.toISOString().split("T")[0];
+            const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
+            const updatedEntry = {
+              journal: text,
+              date: `${formattedDate} ${formattedTime}`,
+              mood: moodIcon,
+              image: takenImageUri,
+            };
+
+            if (takenImageUri && takenImageUri !== route.params?.entry?.image) {
+              const uploadedImageUrl = await uploadImageToStorage(
+                takenImageUri
+              );
+              updatedEntry.image = uploadedImageUrl;
+            }
+
+            await updateToDB(route.params.entry.id, updatedEntry);
+            Keyboard.dismiss();
+            navigation.goBack();
+          } catch (err) {
+            console.error("Error in editHandler: ", err);
+          }
         },
       },
     ]);
@@ -105,6 +130,7 @@ export default function AddEntryScreen({ navigation, route }) {
             flex: 3,
             flexDirection: "row",
             justifyContent: "flex-start",
+            alignItems: "center",
           }}
         >
           <PressableButton
@@ -117,6 +143,7 @@ export default function AddEntryScreen({ navigation, route }) {
               <Image source={happyIcon} style={{ width: 24, height: 24 }} />
             )}
           </PressableButton>
+          <CameraManager passImageUri={passImageUri} />
           <ImageManager passImageUri={passImageUri} />
           <PressableButton defaultStyle={styles.toolbarButton}>
             <Entypo name="location-pin" size={24} color="black" />
@@ -206,7 +233,10 @@ const styles = StyleSheet.create({
     height: 30,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
+  },
+  toolbarButton: {
+    marginRight: 20,
   },
 });

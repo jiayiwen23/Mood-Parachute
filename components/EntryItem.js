@@ -22,7 +22,9 @@ const EntryItem = ({ entry, navigation }) => {
 
       <View style={styles.journalContainer}>
         <Text style={styles.text}>{entry.journal}</Text>
-        {entry.image && <View style={styles.image}>{entry.image}</View>}
+        {entry.image && (
+          <Image source={{ uri: entry.image }} style={styles.image} />
+        )}
       </View>
     </PressableButton>
   );
@@ -62,6 +64,8 @@ const styles = StyleSheet.create({
   },
   image: {
     margin: 5,
+    width: 100,
+    height: 100,
   },
 });
 
