@@ -1,4 +1,3 @@
-import AppNavigator from "./navigations/AppNavigator";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { auth } from "./firebase/firebaseSetup";
 import Login from "./screens/authentication/Login";
@@ -45,7 +44,7 @@ export default function App() {
       <Stack.Navigator
         initialRouteName="Login"
       >
-        {isLoggedIn ? AuthStack : AuthStack}
+        {isLoggedIn ? AppStack : AuthStack}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -44,7 +44,7 @@ export default function Login({ navigation }) {
         style={styles.input}
         value={email}
         onChangeText={(changedText) => {
-          setUserName(changedText);
+          setEmail(changedText);
         }}
       />
 

@@ -2,8 +2,18 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebaseSetup";
 
 export default function ProfileScreen({ navigation }) {
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigation.replace("Login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
   
   return (
     <View style={styles.container}>
@@ -16,7 +26,16 @@ export default function ProfileScreen({ navigation }) {
         />
       </View>
 
+      <PressableButton
+          pressedFunction={handleLogout}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle}
+        >
+          <Text style={styles.buttonText}>Log out</Text>
+      </PressableButton>
+
       <Image source={require("../assets/map.jpg")} style={styles.map} />
+
     </View>
   );
 }
@@ -54,5 +73,21 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: "90%",
     height: "65%",
+  },
+  buttonText: {
+    fontSize: 22,
+    textAlign: "center",
+    color: colors.buttonText,
+  },
+  defaultStyle: {
+    marginBottom: 20,
+    borderRadius: 5,
+    backgroundColor: colors.button,
+    width: "28%",
+    padding: 10,
+    alignSelf: "center",
+  },
+  pressedStyle: {
+    backgroundColor: colors.buttonPressed,
   },
 });
