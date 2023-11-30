@@ -1,19 +1,21 @@
 import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import React, { useState } from "react";
 import Header from "../../components/Header";
-import { colors } from "../../colors";
 import PressableButton from "../../components/PressableButton";
+import { colors } from "../../colors";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebaseSetup";
+import { auth, database } from "../../firebase/firebaseSetup";
+import { collection, doc, setDoc } from "@firebase/firestore";
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const signupHandler = async () => {
-    if (!email || !password || !confirmPassword) {
-      Alert.alert("Fields should not be empty");
+    if (!email || !userName || !password || !confirmPassword) {
+      Alert.alert("All fields should not be empty");
       return;
     }
     if (confirmPassword !== password) {
@@ -27,13 +29,17 @@ const Signup = ({ navigation }) => {
         password
       );
       console.log(userCred);
-      navigation.navigate("All Journal");
+      const user = userCred.user;
+      const userDocRef = doc(collection(database, "users"), user.uid);
+      await setDoc(userDocRef, { userName });
     } catch (err) {
       console.log("sign up error", err.code);
       if (err.code === "auth/invalid-email") {
-        Alert.alert("the entered email is invalid");
+        Alert.alert("Your entered email is invalid");
       } else if (err.code === "auth/weak-password") {
-        Alert.alert("password should be minimum 6 characters");
+        Alert.alert("Your password should be minimum 6 characters");
+      } else if (err.code === "auth/email-already-in-use") {
+        Alert.alert("Your entered email is already registered.");
       }
     }
   };
@@ -48,6 +54,15 @@ const Signup = ({ navigation }) => {
         value={email}
         onChangeText={(changedText) => {
           setEmail(changedText);
+        }}
+      />
+
+      <TextInput
+        placeholder="USER NAME"
+        style={styles.input}
+        value={userName}
+        onChangeText={(changedText) => {
+          setUserName(changedText);
         }}
       />
 
@@ -72,6 +87,7 @@ const Signup = ({ navigation }) => {
       />
 
       <View style={styles.buttonContainer}>
+
         <PressableButton
           pressedFunction={signupHandler}
           pressedStyle={styles.pressedStyle}
@@ -79,13 +95,15 @@ const Signup = ({ navigation }) => {
         >
           <Text style={styles.buttonText}>Sign up</Text>
         </PressableButton>
+
         <PressableButton
-          pressedFunction={() => navigation.navigate("Profile")}
+          pressedFunction={() => navigation.navigate("Login")}
           pressedStyle={styles.pressedStyle}
           defaultStyle={styles.defaultStyle}
         >
-          <Text style={styles.buttonText}>Back</Text>
+          <Text style={styles.buttonText}>Go to log in</Text>
         </PressableButton>
+
       </View>
     </View>
   );

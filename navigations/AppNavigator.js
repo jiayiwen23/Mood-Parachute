@@ -1,7 +1,5 @@
 import React from "react";
 import { Alert } from "react-native";
-
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./TabNavigator";
 import AddEntryScreen from "../screens/AddEntryScreen";
@@ -33,7 +31,7 @@ export default function AppNavigator() {
     ]);
   };
   return (
-    <NavigationContainer>
+    <>
       <Stack.Navigator>
         <Stack.Screen
           name="All Journals"
@@ -102,23 +100,7 @@ export default function AppNavigator() {
             headerTitle: "",
           }}
         />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Signup"
-          component={Signup}
-          options={{
-            headerShown: false,
-            headerTitle: "",
-          }}
-        />
       </Stack.Navigator>
-    </NavigationContainer>
+    </>
   );
 }

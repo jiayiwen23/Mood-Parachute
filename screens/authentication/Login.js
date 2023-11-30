@@ -7,7 +7,7 @@ import { colors } from "../../colors";
 import Header from "../../components/Header";
 
 export default function Login({ navigation }) {
-  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const signupHandler = () => {
@@ -15,14 +15,14 @@ export default function Login({ navigation }) {
   };
 
   const loginHandler = async () => {
-    if (!userName || !password) {
-      Alert.alert("Fields should not be empty");
+    if (!email || !password) {
+      Alert.alert("All fields should not be empty");
       return;
     }
     try {
       const userCred = await signInWithEmailAndPassword(
         auth,
-        userName,
+        email,
         password
       );
       console.log(userCred);
@@ -40,11 +40,11 @@ export default function Login({ navigation }) {
       <Header />
 
       <TextInput
-        placeholder="USERNAME"
+        placeholder="EMAIL"
         style={styles.input}
-        value={userName}
+        value={email}
         onChangeText={(changedText) => {
-          setUserName(changedText);
+          setEmail(changedText);
         }}
       />
 
@@ -74,13 +74,7 @@ export default function Login({ navigation }) {
         >
           <Text style={styles.buttonText}>Sign up</Text>
         </PressableButton>
-        <PressableButton
-          pressedFunction={() => navigation.goBack()}
-          pressedStyle={styles.pressedStyle}
-          defaultStyle={styles.defaultStyle}
-        >
-          <Text style={styles.buttonText}>Back</Text>
-        </PressableButton>
+
       </View>
     </View>
   );
