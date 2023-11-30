@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import PressableButton from "../../components/PressableButton";
 import { colors } from "../../colors";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebaseSetup";
+import { auth, database } from "../../firebase/firebaseSetup";
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -37,9 +37,11 @@ const Signup = ({ navigation }) => {
     } catch (err) {
       console.log("sign up error", err.code);
       if (err.code === "auth/invalid-email") {
-        Alert.alert("the entered email is invalid");
+        Alert.alert("Your entered email is invalid");
       } else if (err.code === "auth/weak-password") {
-        Alert.alert("password should be minimum 6 characters");
+        Alert.alert("Your password should be minimum 6 characters");
+      } else if (err.code === "auth/email-already-in-use") {
+        Alert.alert("Your entered email is already registered.");
       }
     }
   };
