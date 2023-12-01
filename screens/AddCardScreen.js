@@ -5,6 +5,7 @@ import {
   TextInput,
   Dimensions,
   Image,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
@@ -20,12 +21,12 @@ import {
 const screenWidth = Dimensions.get("window").width;
 
 export default function AddCardScreen({ navigation, route }) {
-  const isEditMode = route.params && route.params.entry;
+  const isEditMode = route.params && route.params.card;
   const [selectedImage, setSelectedImage] = useState(
-    route.params?.entry?.image || null
+    route.params?.card?.image || null
   );
-  const [cardName, setCardName] = useState(route.params?.entry?.cardName || "");
-  const [cardText, setCardText] = useState(route.params?.entry?.cardText || "");
+  const [cardName, setCardName] = useState(route.params?.card?.cardName || "");
+  const [cardText, setCardText] = useState(route.params?.card?.cardText || "");
 
   const passImageUri = (imageUri) => {
     setSelectedImage(imageUri);
@@ -55,6 +56,37 @@ export default function AddCardScreen({ navigation, route }) {
     navigation.goBack();
   };
 
+  const handleUpdate = async () => {
+    Alert.alert("Important", "Are you sure you want to save the changes?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Save",
+        onPress: async () => {
+          try {
+            const card = {
+              cardName: cardName,
+              cardText: cardText,
+              image: "",
+            };
+            if (selectedImage) {
+              const uploadedImageUrl = await uploadImageToStorage(
+                selectedImage
+              );
+              card.image = uploadedImageUrl;
+            }
+            await updateCardToDB(route.params.entry.id, card);
+            navigation.goBack();
+          } catch (error) {
+            console.log("update card error", error);
+          }
+        },
+      },
+    ]);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -70,12 +102,14 @@ export default function AddCardScreen({ navigation, route }) {
           style={styles.nameInput}
           placeholder="Enter Card Set Name"
           onChangeText={setCardName}
+          value={cardName}
         />
         <Text style={styles.text}>Card Text</Text>
         <TextInput
           style={styles.textInput}
           placeholder="Enter Card Text"
           onChangeText={setCardText}
+          value={cardText}
         />
       </View>
 

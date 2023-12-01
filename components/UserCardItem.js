@@ -5,7 +5,6 @@ import PressableButton from "./PressableButton";
 
 const UserCardItem = ({ card, navigation }) => {
   const cardPressedHandler = () => {
-    console.log("pressed");
     navigation.navigate("Add Card", { card: card });
   };
   return (
@@ -17,7 +16,7 @@ const UserCardItem = ({ card, navigation }) => {
           </View>
 
           <View style={styles.textContainer}>
-            <Text style={styles.text}>{card.cardName}</Text>
+            <Text style={styles.text}>{card.cardText}</Text>
           </View>
         </View>
       </PressableButton>

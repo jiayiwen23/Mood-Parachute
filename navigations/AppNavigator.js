@@ -9,7 +9,7 @@ import LuckyCard from "../screens/cardDetail/LuckyCard";
 import SceneryCard from "../screens/cardDetail/SceneryCard";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
-import { deleteToDB } from "../firebase/firebaseHelper";
+import { deleteToDB, deleteCardToDB } from "../firebase/firebaseHelper";
 import AddCardScreen from "../screens/AddCardScreen";
 import UserCardsScreen from "../screens/UserCardsScreen";
 
@@ -17,13 +17,26 @@ const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   // handle the trash icon deletion functionality in Edit Screen
-  const handleDelete = ({ route, navigation }) => {
+  const handleEntryDelete = ({ route, navigation }) => {
     Alert.alert("Important", "Are you sure you want to delete it?", [
       { text: "Cancel", style: "cancel" },
       {
         text: "Yes",
         onPress: () => {
           deleteToDB(route.params.entry.id);
+          navigation.goBack();
+        },
+      },
+    ]);
+  };
+
+  const handleCardDelete = ({ route, navigation }) => {
+    Alert.alert("Important", "Are you sure you want to delete it?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Yes",
+        onPress: () => {
+          deleteCardToDB(route.params.card.id);
           navigation.goBack();
         },
       },
@@ -48,7 +61,7 @@ export default function AppNavigator() {
                 ? () => (
                     <PressableButton
                       pressedFunction={() =>
-                        handleDelete({ route, navigation })
+                        handleEntryDelete({ route, navigation })
                       }
                       defaultStyle={{ paddingRight: 10 }}
                       pressedStyle={{ opacity: 0.8 }}
@@ -68,11 +81,11 @@ export default function AppNavigator() {
                 ? "Edit Card"
                 : "Add Your Own Card",
             headerRight:
-              route.params && route.params.entry
+              route.params && route.params.card
                 ? () => (
                     <PressableButton
                       pressedFunction={() =>
-                        handleDelete({ route, navigation })
+                        handleCardDelete({ route, navigation })
                       }
                       defaultStyle={{ paddingRight: 10 }}
                       pressedStyle={{ opacity: 0.8 }}
