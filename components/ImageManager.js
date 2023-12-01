@@ -30,7 +30,7 @@ export default function ImageManager({ passImageUri, children }) {
       const result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
       });
-      console.log(result);
+      //console.log(result);
       setImageUri(result.assets[0].uri);
       passImageUri(result.assets[0].uri);
     } catch (error) {

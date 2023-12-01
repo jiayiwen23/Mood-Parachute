@@ -30,7 +30,7 @@ export default function CameraManager({ passImageUri }) {
       const result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
       });
-      console.log(result);
+      //console.log(result);
       setImageUri(result.assets[0].uri);
       passImageUri(result.assets[0].uri);
     } catch (error) {
