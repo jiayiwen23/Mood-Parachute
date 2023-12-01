@@ -65,7 +65,8 @@ export async function deleteAvatarToDB(id) {
 
 export async function updateAvatarToDB(id, avatar) {
   try {
-    await updateDoc(doc(database, "users", id), avatar);
+    const userDocRef = doc(database, "users", id);
+    await updateDoc(userDocRef, { avatar: avatar });
     console.log("Avatar updated with ID: ", id);
   } catch (err) {
     console.log(err);

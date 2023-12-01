@@ -4,8 +4,11 @@ import React, { useEffect, useState } from "react";
 import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
 import { signOut } from "firebase/auth";
-import { auth, database } from "../firebase/firebaseSetup";
+import { auth, database, storage } from "../firebase/firebaseSetup";
 import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
+import * as ImagePicker from "expo-image-picker";
+import { deleteAvatarToDB, updateAvatarToDB } from "../firebase/firebaseHelper";
 
 export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
@@ -120,6 +123,15 @@ export default function ProfileScreen({ navigation }) {
             )}
           </PressableButton>
         </View>
+
+        <PressableButton
+          pressedFunction={handleDeleteAvatar}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle}
+        >
+          <Text style={styles.buttonText}>Delete Avatar</Text>
+        </PressableButton>
+
       </View>
 
       <PressableButton
@@ -145,8 +157,6 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   userPhoto: {
-    width: 60,
-    height: 60,
     position: "absolute",
     top: 20,
     right: 40,
@@ -185,5 +195,14 @@ const styles = StyleSheet.create({
   },
   pressedStyle: {
     backgroundColor: colors.buttonPressed,
+  },
+  avatarImage: {
+    height: 80,
+    width: 80,
+  },
+  avatarText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: colors.border,
   },
 });
