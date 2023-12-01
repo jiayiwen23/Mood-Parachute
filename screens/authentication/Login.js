@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: colors.button,
-    width: "28%",
+    width: "36%",
     padding: 10,
     alignSelf: "center",
   },

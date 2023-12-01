@@ -31,7 +31,7 @@ const Signup = ({ navigation }) => {
       console.log(userCred);
       const user = userCred.user;
       const userDocRef = doc(collection(database, "users"), user.uid);
-      await setDoc(userDocRef, { userName });
+      await setDoc(userDocRef, { userName, uid: user.uid });
     } catch (err) {
       console.log("sign up error", err.code);
       if (err.code === "auth/invalid-email") {
@@ -101,7 +101,7 @@ const Signup = ({ navigation }) => {
           pressedStyle={styles.pressedStyle}
           defaultStyle={styles.defaultStyle}
         >
-          <Text style={styles.buttonText}>Go to log in</Text>
+          <Text style={styles.buttonText}>Log in</Text>
         </PressableButton>
 
       </View>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: colors.button,
-    width: "28%",
+    width: "36%",
     padding: 10,
     alignSelf: "center",
   },

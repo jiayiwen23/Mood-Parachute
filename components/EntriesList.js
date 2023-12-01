@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import EntryItem from "./EntryItem";
-import { database } from "../firebase/firebaseSetup";
-import { collection, onSnapshot } from "firebase/firestore";
+import { auth, database } from "../firebase/firebaseSetup";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const EntriesList = ({ navigation, year, month }) => {
   const [journals, setJournals] = useState([]);
   const [filteredJournals, setFilteredJournals] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
+    const q = query(
       collection(database, "entries"),
+      where("user", "==", auth.currentUser.uid)
+    );
+
+    const unsubscribe = onSnapshot(
+      q,
       (querySnapshot) => {
         let newArray = [];
         querySnapshot.docs.forEach((docSnap) => {
@@ -19,9 +24,16 @@ const EntriesList = ({ navigation, year, month }) => {
           newArray.push({ ...docSnap.data(), id: docSnap.id });
         });
         setJournals(newArray);
+      },
+      (err) => {
+        console.log(err);
+        if (err.code === "permission-denied") {
+          Alert.alert(
+            "You don't have permission."
+          );
+        }
       }
     );
-
     return () => {
       unsubscribe();
     };
