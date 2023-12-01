@@ -10,7 +10,10 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export async function writeCardToDB(card) {
   try {
-    const docRef = await addDoc(collection(database, "cards"), card);
+    const docRef = await addDoc(collection(database, "cards"), {
+      ...card,
+      user: auth.currentUser.uid,
+    });
     console.log("Document written with ID: ", docRef.id);
   } catch (err) {
     console.log(err);

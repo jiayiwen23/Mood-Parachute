@@ -31,11 +31,11 @@ export default function AddCardScreen({ navigation, route }) {
     setSelectedImage(imageUri);
   };
 
-  const handleSubmit = async () => {
+  const handleSave = async () => {
     try {
       const card = {
-        cardName,
-        cardText,
+        cardName: cardName,
+        cardText: cardText,
         image: "",
       };
       if (selectedImage) {
@@ -66,9 +66,17 @@ export default function AddCardScreen({ navigation, route }) {
       </View>
       <View style={styles.cardInfo}>
         <Text style={styles.text}>Card Set Name</Text>
-        <TextInput style={styles.nameInput} placeholder="Enter Card Set Name" />
+        <TextInput
+          style={styles.nameInput}
+          placeholder="Enter Card Set Name"
+          onChangeText={setCardName}
+        />
         <Text style={styles.text}>Card Text</Text>
-        <TextInput style={styles.textInput} placeholder="Enter Card Text" />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Enter Card Text"
+          onChangeText={setCardText}
+        />
       </View>
 
       <View style={styles.buttonContainer}>
@@ -80,7 +88,7 @@ export default function AddCardScreen({ navigation, route }) {
           <Text style={styles.buttonText}>Cancel</Text>
         </PressableButton>
         <PressableButton
-          pressedFunction={isEditMode ? handleUpdate : handleSubmit}
+          pressedFunction={isEditMode ? handleUpdate : handleSave}
           defaultStyle={styles.buttonDefault}
           pressedStyle={styles.buttonPressed}
         >
