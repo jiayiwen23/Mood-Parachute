@@ -64,8 +64,7 @@ export default function AppNavigator() {
           name="AddCard"
           component={AddCardScreen}
           options={{
-            headerShown: false,
-            headerTitle: "",
+            headerTitle: "Add Your Own Card",
           }}
         />
         <Stack.Screen
