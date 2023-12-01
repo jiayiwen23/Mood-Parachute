@@ -26,7 +26,7 @@ export default function Login({ navigation }) {
         password
       );
       console.log(userCred);
-      navigation.navigate("Tab");
+      
     } catch (err) {
       console.log(err);
       if (err.code === "auth/invalid-login-credentials") {
