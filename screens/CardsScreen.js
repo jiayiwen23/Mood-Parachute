@@ -4,7 +4,6 @@ import { colors } from "../colors";
 import CardBack from "../components/CardBack";
 import { AntDesign } from "@expo/vector-icons";
 import PressableButton from "../components/PressableButton";
-import UserCardsList from "../components/UserCardsList";
 
 export default function CardsScreen({ navigation }) {
   return (

@@ -156,7 +156,10 @@ export default function AddEntryScreen({ navigation, route }) {
             )}
           </PressableButton>
           <CameraManager passImageUri={passImageUri} />
-          <ImageManager passImageUri={passImageUri} />
+          <ImageManager passImageUri={passImageUri}>
+            <AntDesign name="picture" size={24} color="black" />
+          </ImageManager>
+
           <PressableButton defaultStyle={styles.toolbarButton}>
             <Entypo name="location-pin" size={24} color="black" />
           </PressableButton>

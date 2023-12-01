@@ -5,7 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 import PressableButton from "./PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function ImageManager({ passImageUri }) {
+export default function ImageManager({ passImageUri, children }) {
   const [imageUri, setImageUri] = useState("");
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
@@ -44,7 +44,7 @@ export default function ImageManager({ passImageUri }) {
         defaultStyle={styles.toolbarButton}
         pressedFunction={pickImageHandler}
       >
-        <AntDesign name="picture" size={24} color="black" />
+        {children}
       </PressableButton>
     </View>
   );
