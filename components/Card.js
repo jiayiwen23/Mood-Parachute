@@ -1,13 +1,11 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { colors } from '../colors';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { colors } from "../colors";
 
 const Card = ({ children }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
-        {children}
-      </View>
+      <View style={styles.card}>{children}</View>
     </View>
   );
 };
@@ -16,7 +14,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: colors.background,
   },
   card: {

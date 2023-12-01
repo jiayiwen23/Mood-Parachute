@@ -11,6 +11,7 @@ import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 import { deleteToDB } from "../firebase/firebaseHelper";
 import AddCardScreen from "../screens/AddCardScreen";
+import UserCardsScreen from "../screens/UserCardsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -59,10 +60,34 @@ export default function AppNavigator() {
           })}
         />
         <Stack.Screen
-          name="AddCard"
+          name="Add Card"
           component={AddCardScreen}
+          options={({ route, navigation }) => ({
+            title:
+              route.params && route.params.card
+                ? "Edit Card"
+                : "Add Your Own Card",
+            headerRight:
+              route.params && route.params.entry
+                ? () => (
+                    <PressableButton
+                      pressedFunction={() =>
+                        handleDelete({ route, navigation })
+                      }
+                      defaultStyle={{ paddingRight: 10 }}
+                      pressedStyle={{ opacity: 0.8 }}
+                    >
+                      <AntDesign name="delete" size={20} color="black" />
+                    </PressableButton>
+                  )
+                : null,
+          })}
+        />
+        <Stack.Screen
+          name="User Cards"
+          component={UserCardsScreen}
           options={{
-            headerTitle: "Add Your Own Card",
+            headerTitle: "My Cards",
           }}
         />
         <Stack.Screen
