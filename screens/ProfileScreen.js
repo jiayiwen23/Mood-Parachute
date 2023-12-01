@@ -1,17 +1,20 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
-import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect, useState } from "react";
 import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
 import { signOut } from "firebase/auth";
-import { auth, database } from "../firebase/firebaseSetup";
-import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
+import { auth, database, storage } from "../firebase/firebaseSetup";
+import { doc, getDoc } from "@firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
+import * as ImagePicker from "expo-image-picker";
+import { updateAvatarToDB } from "../firebase/firebaseHelper";
 
 export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [takenImageUri, setTakenImageUri] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [avatarURL, setAvatarURL] = useState(null);
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -24,12 +27,21 @@ export default function ProfileScreen({ navigation }) {
 
         if (userDocSnapshot.exists()) {
           setUserName(userDocSnapshot.data().userName || "N/A");
+          const userAvatar = userDocSnapshot.data().avatar || null;
+          console.log(userAvatar);
+          setAvatar(userAvatar);
+
+          // Fetch and set the avatar URL if available
+          if (userAvatar) {
+            const avatarURL = await getDownloadURL(ref(storage, userAvatar));
+            setAvatarURL(avatarURL);
+          }
         }
       };
 
       fetchUserData();
     }
-  }, []);
+  }, [avatar]);
 
   const handleLogout = async () => {
     try {
@@ -40,13 +52,48 @@ export default function ProfileScreen({ navigation }) {
     }
   };
 
-  const handleUpload = async () => {
-
+  const handleChangeAvatar = async () => {
+    openImagePickerAsync();
   };
 
-  function passImageUri(uri) {
-    setTakenImageUri(uri);
-  }
+  const getImageBlob = async (uri) => {
+    try {
+      const response = await fetch(uri);
+      const blob = await response.blob();
+      return blob;
+    } catch (err) {
+      console.log("fetch image ", err);
+    }
+  };
+
+  const openImagePickerAsync = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+      return;
+    }
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+    if (!result.canceled) {
+      setAvatar(result.assets[0].uri);
+
+      let uri = result.assets[0].uri;
+      let imgBlob = await getImageBlob(uri);
+      const imageName = uri.substring(uri.lastIndexOf("/") + 1);
+      const imageRef = await ref(storage, `images/${imageName}`);
+      uploadBytes(imageRef, imgBlob)
+        .then((snapshot) => {
+          console.log("Uploaded a blob!", snapshot);
+          updateAvatarToDB(auth.currentUser.uid, `images/${imageName}`)
+        })
+        .catch((err) => {
+          console.log("err = ", err);
+        });
+    }
+  };
   
   return (
     <View style={styles.container}>
@@ -54,13 +101,20 @@ export default function ProfileScreen({ navigation }) {
         <Text style={styles.body}>User Name: {userName}</Text>
         <Text style={styles.body}>Email: {email}</Text>
 
-        <PressableButton 
-          pressedFunction={handleUpload} 
-          defaultStyle={styles.userPhoto}>
-            {takenImageUri? 
-             (<ImageManager passImageUri={passImageUri} />)
-             :(<MaterialIcons name="account-circle" size={60} color={colors.border} />)}
-        </PressableButton>
+        <View style={styles.userPhoto}>
+          <PressableButton
+            pressedFunction={handleChangeAvatar}
+          >
+            {avatarURL ? (
+              <Image source={{ uri: avatarURL }} style={styles.avatarImage} />
+            ) : (
+              <View style={styles.avatarPlaceholder}>
+                <Text style={styles.avatarText}>Photo</Text>
+              </View>
+            )}
+          </PressableButton>
+        </View>
+
       </View>
 
       <PressableButton
@@ -86,11 +140,9 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   userPhoto: {
-    width: 60,
-    height: 60,
     position: "absolute",
-    top: 20,
-    right: 40,
+    top: 10,
+    right: 30,
   },
   body: {
     fontSize: 20,
@@ -126,5 +178,19 @@ const styles = StyleSheet.create({
   },
   pressedStyle: {
     backgroundColor: colors.buttonPressed,
+  },
+  avatarImage: {
+    height: 80,
+    width: 80,
+  },
+  avatarPlaceholder: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  avatarText: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
