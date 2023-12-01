@@ -52,8 +52,12 @@ export async function writeAvatarToDB(avatar) {
 
 export async function deleteAvatarToDB(id) {
   try {
-    await deleteDoc(doc(database, "users", id));
-    console.log("Avatar deleted with ID: ", id);
+      const userDocRef = doc(database, "users", id);
+      const updateData = {
+        avatar: null, // Set the avatar field to null to delete it
+    }
+      await updateDoc(userDocRef, updateData);
+      console.log("Avatar deleted with ID: ", id);
   } catch (err) {
     console.log(err);
   }

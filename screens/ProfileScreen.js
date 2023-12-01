@@ -7,7 +7,7 @@ import { auth, database, storage } from "../firebase/firebaseSetup";
 import { doc, getDoc } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 import * as ImagePicker from "expo-image-picker";
-import { updateAvatarToDB } from "../firebase/firebaseHelper";
+import { deleteAvatarToDB, updateAvatarToDB } from "../firebase/firebaseHelper";
 
 export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
@@ -94,6 +94,18 @@ export default function ProfileScreen({ navigation }) {
         });
     }
   };
+
+  const handleDeleteAvatar = async () => {
+    try {
+      await deleteAvatarToDB(auth.currentUser.uid);
+  
+      // Set the avatar and avatar URL to null in the state
+      setAvatar(null);
+      setAvatarURL(null);
+    } catch (error) {
+      console.error("Delete avatar error:", error);
+    }
+  };
   
   return (
     <View style={styles.container}>
@@ -114,6 +126,14 @@ export default function ProfileScreen({ navigation }) {
             )}
           </PressableButton>
         </View>
+
+        <PressableButton
+          pressedFunction={handleDeleteAvatar}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle}
+        >
+          <Text style={styles.buttonText}>Delete Avatar</Text>
+        </PressableButton>
 
       </View>
 
