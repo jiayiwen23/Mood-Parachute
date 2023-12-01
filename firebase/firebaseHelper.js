@@ -38,6 +38,36 @@ export async function updateCardToDB(id, card) {
   }
 }
 
+export async function writeAvatarToDB(avatar) {
+  try {
+    const docRef = await addDoc(collection(database, "users"), {
+      ...avatar,
+      user: auth.currentUser.uid,
+    });
+    console.log("Avatar written with ID: ", docRef.id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function deleteAvatarToDB(id) {
+  try {
+    await deleteDoc(doc(database, "users", id));
+    console.log("Avatar deleted with ID: ", id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function updateAvatarToDB(id, avatar) {
+  try {
+    await updateDoc(doc(database, "users", id), avatar);
+    console.log("Avatar updated with ID: ", id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // Helper function to write data to the firestore datebase
 export async function writeToDB(entry) {
   try {

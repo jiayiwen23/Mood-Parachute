@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect, useState } from "react";
 import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
@@ -9,6 +10,8 @@ import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
 export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+
+  const [takenImageUri, setTakenImageUri] = useState("");
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -36,16 +39,28 @@ export default function ProfileScreen({ navigation }) {
       console.error("Logout error:", error);
     }
   };
+
+  const handleUpload = async () => {
+
+  };
+
+  function passImageUri(uri) {
+    setTakenImageUri(uri);
+  }
   
   return (
     <View style={styles.container}>
       <View style={styles.userInfo}>
         <Text style={styles.body}>User Name: {userName}</Text>
         <Text style={styles.body}>Email: {email}</Text>
-        <Image
-          source={require("../assets/favicon.png")}
-          style={styles.userPhoto}
-        />
+
+        <PressableButton 
+          pressedFunction={handleUpload} 
+          defaultStyle={styles.userPhoto}>
+            {takenImageUri? 
+             (<ImageManager passImageUri={passImageUri} />)
+             :(<MaterialIcons name="account-circle" size={60} color={colors.border} />)}
+        </PressableButton>
       </View>
 
       <PressableButton
@@ -71,8 +86,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   userPhoto: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     position: "absolute",
     top: 20,
     right: 40,
