@@ -48,9 +48,13 @@ export default function AddEntryScreen({ navigation, route }) {
   const sendHandler = async () => {
     try {
       const now = new Date();
-      const formattedDate = now.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      const formattedDate = now.toLocaleDateString("en-CA", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
       const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
-      
+
       const entry = {
         journal: text,
         date: `${formattedDate} ${formattedTime}`,
@@ -86,7 +90,11 @@ export default function AddEntryScreen({ navigation, route }) {
         onPress: async () => {
           try {
             const now = new Date();
-            const formattedDate = now.toISOString().split("T")[0];
+            const formattedDate = now.toLocaleDateString("en-CA", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            });
             const formattedTime = now.toTimeString().split(" ")[0].slice(0, -3);
             const updatedEntry = {
               journal: text,
