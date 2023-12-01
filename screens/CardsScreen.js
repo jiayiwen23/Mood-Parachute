@@ -42,7 +42,7 @@ export default function CardsScreen({ navigation }) {
         <PressableButton
           pressedFunction={() => navigation.navigate("Add Card")}
         >
-          <AntDesign name="pluscircle" size={40} color={colors.cardBack} />
+          <AntDesign name="pluscircle" size={40} color={colors.border} />
         </PressableButton>
       </View>
     </View>
