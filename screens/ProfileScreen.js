@@ -14,8 +14,8 @@ export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [avatar, setAvatar] = useState("");
-  const [avatarURL, setAvatarURL] = useState(null);
+  const [avatar, setAvatar] = useState("");//local URI of the image on the device
+  const [avatarURL, setAvatarURL] = useState(null);// URL to the user's avatar image in the cloud storage (Firebase Storage)
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -77,20 +77,24 @@ export default function ProfileScreen({ navigation }) {
       quality: 1,
     });
     if (!result.canceled) {
-      setAvatar(result.assets[0].uri);
-
       let uri = result.assets[0].uri;
-      let imgBlob = await getImageBlob(uri);
-      const imageName = uri.substring(uri.lastIndexOf("/") + 1);
-      const imageRef = await ref(storage, `images/${imageName}`);
-      uploadBytes(imageRef, imgBlob)
-        .then((snapshot) => {
-          console.log("Uploaded a blob!", snapshot);
-          updateAvatarToDB(auth.currentUser.uid, `images/${imageName}`)
-        })
-        .catch((err) => {
-          console.log("err = ", err);
-        });
+      setAvatar(uri);
+      try {
+        let imgBlob = await getImageBlob(uri);
+        const imageName = uri.substring(uri.lastIndexOf("/") + 1);
+        const imageRef = ref(storage, `images/${imageName}`);
+        
+        await uploadBytes(imageRef, imgBlob);
+  
+        // Update avatar in the database
+        updateAvatarToDB(auth.currentUser.uid, `images/${imageName}`);
+  
+        // Set avatar URL immediately
+        const avatarURL = await getDownloadURL(ref(storage, `images/${imageName}`));
+        setAvatarURL(avatarURL);
+      } catch (error) {
+        console.error("Error handling avatar change:", error);
+      }
     }
   };
 
