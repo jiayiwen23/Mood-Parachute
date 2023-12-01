@@ -42,7 +42,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="Tab"
       >
         {isLoggedIn ? AppStack : AuthStack}
       </Stack.Navigator>

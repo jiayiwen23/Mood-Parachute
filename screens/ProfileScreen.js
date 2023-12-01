@@ -8,6 +8,7 @@ import { doc, getDoc } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
 import * as ImagePicker from "expo-image-picker";
 import { deleteAvatarToDB, updateAvatarToDB } from "../firebase/firebaseHelper";
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
@@ -15,6 +16,7 @@ export default function ProfileScreen({ navigation }) {
 
   const [avatar, setAvatar] = useState("");
   const [avatarURL, setAvatarURL] = useState(null);
+  const [avatarTimestamp, setAvatarTimestamp] = useState(new Date().getTime());
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -38,10 +40,9 @@ export default function ProfileScreen({ navigation }) {
           }
         }
       };
-
       fetchUserData();
     }
-  }, [avatar]);
+  }, [avatarTimestamp]);
 
   const handleLogout = async () => {
     try {
@@ -54,6 +55,7 @@ export default function ProfileScreen({ navigation }) {
 
   const handleChangeAvatar = async () => {
     openImagePickerAsync();
+    setAvatarTimestamp(new Date().getTime());
   };
 
   const getImageBlob = async (uri) => {
@@ -120,9 +122,7 @@ export default function ProfileScreen({ navigation }) {
             {avatarURL ? (
               <Image source={{ uri: avatarURL }} style={styles.avatarImage} />
             ) : (
-              <View style={styles.avatarPlaceholder}>
-                <Text style={styles.avatarText}>Photo</Text>
-              </View>
+              <MaterialIcons name="account-circle" size={60} color={colors.border} />
             )}
           </PressableButton>
         </View>
@@ -203,14 +203,9 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
   },
-  avatarPlaceholder: {
-    height: "100%",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   avatarText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
+    color: colors.border,
   },
 });
