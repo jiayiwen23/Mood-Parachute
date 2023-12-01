@@ -125,6 +125,7 @@ export default function AddEntryScreen({ navigation, route }) {
     // store the uri in a state variable
     setTakenImageUri(uri);
   }
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
