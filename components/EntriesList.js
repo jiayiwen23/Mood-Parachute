@@ -67,9 +67,6 @@ const EntriesList = ({ navigation, year, month }) => {
 };
 
 
-
-
-
 const styles = StyleSheet.create({
   container: { flex: 1 },
 });
