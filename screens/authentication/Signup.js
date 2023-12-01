@@ -64,6 +64,7 @@ const Signup = ({ navigation }) => {
         onChangeText={(changedText) => {
           setUserName(changedText);
         }}
+        textContentType="username"
       />
 
       <TextInput
@@ -74,6 +75,7 @@ const Signup = ({ navigation }) => {
         onChangeText={(changedText) => {
           setPassword(changedText);
         }}
+        textContentType="password"
       />
 
       <TextInput
@@ -84,10 +86,10 @@ const Signup = ({ navigation }) => {
         onChangeText={(changedText) => {
           setConfirmPassword(changedText);
         }}
+        textContentType="password"
       />
 
       <View style={styles.buttonContainer}>
-
         <PressableButton
           pressedFunction={signupHandler}
           pressedStyle={styles.pressedStyle}
@@ -103,7 +105,6 @@ const Signup = ({ navigation }) => {
         >
           <Text style={styles.buttonText}>Log in</Text>
         </PressableButton>
-
       </View>
     </View>
   );

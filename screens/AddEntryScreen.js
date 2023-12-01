@@ -15,11 +15,14 @@ import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { updateToDB, writeToDB } from "../firebase/firebaseHelper";
+import {
+  updateToDB,
+  writeToDB,
+  uploadImageToStorage,
+} from "../firebase/firebaseHelper";
 import { colors } from "../colors";
 import ImageManager from "../components/ImageManager";
 import CameraManager from "../components/CameraManager";
-import { uploadImageToStorage } from "../firebase/firebaseHelper";
 
 const windowWidth = Dimensions.get("window").width;
 const angryIcon = require("../assets/angry.png");
