@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { colors } from "../colors";
-import { AntDesign } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 import ImageManager from "../components/ImageManager";
 import {
   uploadImageToStorage,
@@ -93,7 +93,9 @@ export default function AddCardScreen({ navigation, route }) {
         {selectedImage ? (
           <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
         ) : (
-          <ImageManager passImageUri={passImageUri} />
+          <ImageManager passImageUri={passImageUri}>
+            <EvilIcons name="image" size={200} color={colors.border} />
+          </ImageManager>
         )}
       </View>
       <View style={styles.cardInfo}>
