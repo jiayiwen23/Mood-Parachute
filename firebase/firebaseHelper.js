@@ -5,13 +5,13 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { database, storage } from "./firebaseSetup";
+import { auth, database, storage } from "./firebaseSetup";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // Helper function to write data to the firestore datebase
 export async function writeToDB(entry) {
   try {
-    const docRef = await addDoc(collection(database, "entries"), entry);
+    const docRef = await addDoc(collection(database, "entries"), {...entry, user: auth.currentUser.uid});
     console.log("Document written with ID: ", docRef.id);
   } catch (err) {
     console.log(err);

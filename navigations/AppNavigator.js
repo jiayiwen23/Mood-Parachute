@@ -34,7 +34,7 @@ export default function AppNavigator() {
     <>
       <Stack.Navigator>
         <Stack.Screen
-          name="All Journals"
+          name="Tab"
           component={TabNavigator}
           options={{ headerShown: false }}
         />

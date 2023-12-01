@@ -26,7 +26,7 @@ export default function Login({ navigation }) {
         password
       );
       console.log(userCred);
-      navigation.navigate("All Journal");
+      navigation.navigate("Tab");
     } catch (err) {
       console.log(err);
       if (err.code === "auth/invalid-login-credentials") {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: colors.button,
-    width: "28%",
+    width: "36%",
     padding: 10,
     alignSelf: "center",
   },
