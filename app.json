@@ -30,7 +30,8 @@
       [
         "expo-image-picker",
         {
-          "cameraPermission": "The app accesses your camera to let you add a picture to your journal."
+          "cameraPermission": "The app accesses your camera to let you add a picture to your journal.",
+          "photosPermission": "The app accesses your photos to let you add an avatar to your profile."
         }
       ]
     ]

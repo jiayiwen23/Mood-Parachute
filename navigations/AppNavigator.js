@@ -10,8 +10,6 @@ import SceneryCard from "../screens/cardDetail/SceneryCard";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 import { deleteToDB } from "../firebase/firebaseHelper";
-import Login from "../screens/authentication/Login";
-import Signup from "../screens/authentication/Signup";
 import AddCardScreen from "../screens/AddCardScreen";
 
 const Stack = createNativeStackNavigator();
@@ -38,7 +36,6 @@ export default function AppNavigator() {
           component={TabNavigator}
           options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="Add Journal"
           component={AddEntryScreen}
