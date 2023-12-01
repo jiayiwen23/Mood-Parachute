@@ -1,13 +1,30 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, Modal } from "react-native";
+import React, { useState } from "react";
 import { colors } from "../colors";
 import CardBack from "../components/CardBack";
 import { AntDesign } from "@expo/vector-icons";
 import PressableButton from "../components/PressableButton";
+import UserCardsList from "../components/UserCardsList";
 
 export default function CardsScreen({ navigation }) {
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          paddingTop: 70,
+          paddingRight: 30,
+          alignSelf: "flex-end",
+        }}
+      >
+        <PressableButton
+          defaultStyle={styles.buttonDefault}
+          pressedFunction={() => navigation.navigate("User Cards")}
+        >
+          <Text style={{ color: colors.white, fontWeight: "bold" }}>
+            My cards
+          </Text>
+        </PressableButton>
+      </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>FLIP A CARD</Text>
       </View>
@@ -23,7 +40,9 @@ export default function CardsScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.button}>
-        <PressableButton pressedFunction={() => navigation.navigate("AddCard")}>
+        <PressableButton
+          pressedFunction={() => navigation.navigate("Add Card")}
+        >
           <AntDesign name="pluscircle" size={40} color={colors.cardBack} />
         </PressableButton>
       </View>
@@ -36,6 +55,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "center",
     marginTop: 100,
+  },
+  buttonDefault: {
+    backgroundColor: colors.border,
+    borderRadius: 5,
+    padding: 5,
+    width: 90,
+    alignItems: "center",
   },
   container: {
     flex: 1,
@@ -56,7 +82,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     justifyContent: "center",
-    marginTop: 120,
+    marginTop: 20,
   },
   row: {
     flexDirection: "row",

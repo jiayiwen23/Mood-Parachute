@@ -8,10 +8,43 @@ import {
 import { auth, database, storage } from "./firebaseSetup";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+export async function writeCardToDB(card) {
+  try {
+    const docRef = await addDoc(collection(database, "cards"), {
+      ...card,
+      user: auth.currentUser.uid,
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function deleteCardToDB(id) {
+  try {
+    await deleteDoc(doc(database, "cards", id));
+    console.log("Document deleted with ID: ", id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function updateCardToDB(id, card) {
+  try {
+    await updateDoc(doc(database, "cards", id), card);
+    console.log("Document updated with ID: ", id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // Helper function to write data to the firestore datebase
 export async function writeToDB(entry) {
   try {
-    const docRef = await addDoc(collection(database, "entries"), {...entry, user: auth.currentUser.uid});
+    const docRef = await addDoc(collection(database, "entries"), {
+      ...entry,
+      user: auth.currentUser.uid,
+    });
     console.log("Document written with ID: ", docRef.id);
   } catch (err) {
     console.log(err);
