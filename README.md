@@ -7,6 +7,15 @@
    User is able to take a picture using device camera and select a photo from local image library when creating/editing a journal or a card.
 3. External API use:
    Using Pexels API in SceneryCard to display random photos with natural scenery.
+   <img width="299" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/fba8de84-f474-44af-9d1e-62ee40fe3d79">
+   <img width="301" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/2924b334-8750-4f16-a77f-60b88b26efe5">
+
+5. Card collection CRUD:
+   User can make their own set of cards by uploading a picture and entering text. They can view, delete, and edit the cards.
+<img width="300" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/10df9c77-53b1-4fb0-87bb-e92b08dc17cf">
+<img width="300" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/7bb8e70f-b00b-4093-884c-d7e6f56f33a0">
+<img width="300" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/bd1defe8-8ef3-43be-bcb1-ad21297f2cbc">
+
 ## Functionalities in Iteration 1:
 - Implemented the overall structure and navigation
 - Established the basis of CRUD operations to Firestore
