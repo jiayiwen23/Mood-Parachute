@@ -17,6 +17,7 @@
 
 6. **User info collection CRUD**:
 <img width="307" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/236d456b-081c-4bc6-9448-06a582ef9aee">
+
 ### Contributions Iteration 2:
 - Jiayi: Authenticaiton, External API use, User info collection CRUD
 - Yutong: Camera use, Card collection CRUD
