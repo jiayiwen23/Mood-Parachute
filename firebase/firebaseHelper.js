@@ -4,6 +4,7 @@ import {
   deleteDoc,
   updateDoc,
   doc,
+  setDoc,
 } from "firebase/firestore";
 import { auth, database, storage } from "./firebaseSetup";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -33,41 +34,6 @@ export async function updateCardToDB(id, card) {
   try {
     await updateDoc(doc(database, "cards", id), card);
     console.log("Document updated with ID: ", id);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export async function writeAvatarToDB(avatar) {
-  try {
-    const docRef = await addDoc(collection(database, "users"), {
-      ...avatar,
-      user: auth.currentUser.uid,
-    });
-    console.log("Avatar written with ID: ", docRef.id);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export async function deleteAvatarToDB(id) {
-  try {
-    const userDocRef = doc(database, "users", id);
-    const updateData = {
-      avatar: null, // Set the avatar field to null to delete it
-  }
-    await updateDoc(userDocRef, updateData);
-    console.log("Avatar deleted with ID: ", id);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export async function updateAvatarToDB(id, avatar) {
-  try {
-    const userDocRef = doc(database, "users", id);
-    await updateDoc(userDocRef, { avatar: avatar });
-    console.log("Avatar updated with ID: ", id);
   } catch (err) {
     console.log(err);
   }
@@ -121,3 +87,13 @@ export async function uploadImageToStorage(uri) {
     throw err;
   }
 }
+
+export const updateUserAvatarInDB = async (userId, avatarUrl) => {
+  const userDocRef = doc(database, "users", userId);
+  await setDoc(userDocRef, { avatar: avatarUrl }, { merge: true });
+};
+
+export const deleteUserAvatarInDB = async (userId) => {
+  const userDocRef = doc(database, "users", userId);
+  await setDoc(userDocRef, { avatar: null }, { merge: true });
+};
