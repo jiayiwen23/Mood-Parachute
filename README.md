@@ -1,5 +1,12 @@
 # Mood-Parachute - a simple, mindful, and engaging journal app
 ## Authors: Yutong Zhan, Jiayi Wen
+## Functionality Updates in Iteration 2:
+1. Authentication:
+   The first screen user sees is a signup/login page. Authentication is implemented through Firebase, utilizing email and password credentials. Only registered users are granted access to the Home page, where they can create, edit, and view their personal journals and cards.
+2. Camera use:
+   User is able to take a picture using device camera and select a photo from local image library when creating/editing a journal or a card.
+3. External API use:
+   Using Pexels API in SceneryCard to display random photos with natural scenery.
 ## Functionalities in Iteration 1:
 - Implemented the overall structure and navigation
 - Established the basis of CRUD operations to Firestore
@@ -12,9 +19,9 @@
 6. Profile
 ## Data Model
 1. User Profiles Collection
-   + UserID: a unique identifier for each user
-   + Username/Email: the user's email address
-   + Password: the user's password
+   + user: a unique identifier for each user
+   + userName: a user-definde name for the App
+   + avatar: the user's avatar image
 2. Journal Entries Collection
    + EntryID: A unique identifier for each journal entry
    + UserID: The ID of the user who created the entry
