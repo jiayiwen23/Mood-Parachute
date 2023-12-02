@@ -29,6 +29,7 @@ export default function AddCardScreen({ navigation, route }) {
   const [cardText, setCardText] = useState(route.params?.card?.cardText || "");
 
   const passImageUri = (imageUri) => {
+    console.log("image uri", imageUri);
     setSelectedImage(imageUri);
   };
 
@@ -69,7 +70,7 @@ export default function AddCardScreen({ navigation, route }) {
             const card = {
               cardName: cardName,
               cardText: cardText,
-              image: "",
+              image: selectedImage,
             };
             if (selectedImage) {
               const uploadedImageUrl = await uploadImageToStorage(
@@ -199,8 +200,8 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   imagePreview: {
-    width: "100%",
-    height: "100%",
+    width: 200,
+    height: 200,
     resizeMode: "contain",
   },
 });
