@@ -5,7 +5,11 @@ import * as ImagePicker from "expo-image-picker";
 import PressableButton from "./PressableButton";
 import { Entypo } from "@expo/vector-icons";
 
-export default function CameraManager({ passImageUri }) {
+export default function CameraManager({
+  passImageUri,
+  defaultStyle,
+  pressedStyle,
+}) {
   const [imageUri, setImageUri] = useState("");
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
@@ -41,15 +45,10 @@ export default function CameraManager({ passImageUri }) {
   return (
     <PressableButton
       pressedFunction={takeImageHandler}
-      defaultStyle={styles.toolbarButton}
+      defaultStyle={defaultStyle}
+      pressedStyle={pressedStyle}
     >
       <Entypo name="camera" size={24} color="black" />
     </PressableButton>
   );
 }
-
-const styles = StyleSheet.create({
-  toolbarButton: {
-    marginRight: 20,
-  },
-});

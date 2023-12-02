@@ -125,7 +125,7 @@ export default function AddEntryScreen({ navigation, route }) {
     // store the uri in a state variable
     setTakenImageUri(uri);
   }
-  
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -156,8 +156,14 @@ export default function AddEntryScreen({ navigation, route }) {
               <Image source={happyIcon} style={{ width: 24, height: 24 }} />
             )}
           </PressableButton>
-          <CameraManager passImageUri={passImageUri} />
-          <ImageManager passImageUri={passImageUri}>
+          <CameraManager
+            passImageUri={passImageUri}
+            defaultStyle={styles.toolbarButton}
+          />
+          <ImageManager
+            passImageUri={passImageUri}
+            defaultStyle={styles.toolbarButton}
+          >
             <AntDesign name="picture" size={24} color="black" />
           </ImageManager>
 

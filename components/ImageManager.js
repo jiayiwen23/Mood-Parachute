@@ -5,7 +5,12 @@ import * as ImagePicker from "expo-image-picker";
 import PressableButton from "./PressableButton";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function ImageManager({ passImageUri, children }) {
+export default function ImageManager({
+  passImageUri,
+  children,
+  defaultStyle,
+  pressedStyle,
+}) {
   const [imageUri, setImageUri] = useState("");
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
@@ -41,7 +46,8 @@ export default function ImageManager({ passImageUri, children }) {
   return (
     <View>
       <PressableButton
-        defaultStyle={styles.toolbarButton}
+        defaultStyle={defaultStyle}
+        pressedStyle={pressedStyle}
         pressedFunction={pickImageHandler}
       >
         {children}
@@ -49,9 +55,3 @@ export default function ImageManager({ passImageUri, children }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  toolbarButton: {
-    marginRight: 20,
-  },
-});
