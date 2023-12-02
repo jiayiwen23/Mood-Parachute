@@ -35,7 +35,7 @@
 ## Data Model
 1. User Profiles Collection
    + user: a unique identifier for each user
-   + userName: a user-definde name for the App
+   + userName: a user-definde name
    + avatar: the user's avatar image
 2. Journal Entries Collection
    + EntryID: A unique identifier for each journal entry
