@@ -48,7 +48,6 @@ export default function UserCardsList({ navigation }) {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />
-      <Text>Love</Text>
     </View>
   );
 }
