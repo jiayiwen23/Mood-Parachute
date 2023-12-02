@@ -77,7 +77,7 @@ export default function AddCardScreen({ navigation, route }) {
               );
               card.image = uploadedImageUrl;
             }
-            await updateCardToDB(route.params.entry.id, card);
+            await updateCardToDB(route.params.card.id, card);
             navigation.goBack();
           } catch (error) {
             console.log("update card error", error);

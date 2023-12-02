@@ -1,13 +1,12 @@
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseSetup";
-import { getDownloadURL, ref } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
-import { database, storage } from "../firebase/firebaseSetup";
+import { database } from "../firebase/firebaseSetup";
 
 import {
   updateUserAvatarInDB,
@@ -118,8 +117,8 @@ const styles = StyleSheet.create({
   },
   userPhoto: {
     position: "absolute",
-    top: 20,
-    right: 40,
+    top: 10,
+    right: 10,
     justifyContent: "flex-end",
   },
   body: {
