@@ -1,46 +1,44 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { colors } from "../colors";
 import PressableButton from "../components/PressableButton";
 import { signOut } from "firebase/auth";
-import { auth, database, storage } from "../firebase/firebaseSetup";
-import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
-import * as ImagePicker from "expo-image-picker";
-import { deleteAvatarToDB, updateAvatarToDB } from "../firebase/firebaseHelper";
+import { auth } from "../firebase/firebaseSetup";
+import { getDownloadURL, ref } from "firebase/storage";
+import { doc, getDoc } from "firebase/firestore";
+import { database, storage } from "../firebase/firebaseSetup";
+
+import {
+  updateUserAvatarInDB,
+  deleteUserAvatarInDB,
+  uploadImageToStorage,
+} from "../firebase/firebaseHelper";
+import ImageManager from "../components/ImageManager";
 
 export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-
-  const [avatar, setAvatar] = useState("");//local URI of the image on the device
-  const [avatarURL, setAvatarURL] = useState(null);// URL to the user's avatar image in the cloud storage (Firebase Storage)
+  const [takenAvatar, setTakenAvatar] = useState(null); // URL to the user's avatar image in the cloud storage (Firebase Storage)
 
   useEffect(() => {
     const currentUser = auth.currentUser;
     if (currentUser) {
       setEmail(currentUser.email || "N/A");
-
-      const fetchUserData = async () => {
-        const userDocRef = doc(database, "users", currentUser.uid);
-        const userDocSnapshot = await getDoc(userDocRef);
-
-        if (userDocSnapshot.exists()) {
-          setUserName(userDocSnapshot.data().userName || "N/A");
-          const userAvatar = userDocSnapshot.data().avatar || null;
-          console.log(userAvatar);
-          setAvatar(userAvatar);
-          // Fetch and set the avatar URL if available
-          if (userAvatar) {
-            const avatarURL = await getDownloadURL(ref(storage, userAvatar));
-            setAvatarURL(avatarURL);
-          }
-        }
-      };
-      fetchUserData();
     }
-  }, [avatar]);
+    const getUserData = async () => {
+      try {
+        const userDocRef = doc(database, "users", auth.currentUser.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        const userData = userDocSnap.data();
+        setUserName(userData.userName);
+        setTakenAvatar(userData.avatar);
+      } catch (error) {
+        console.error("Error getting user data:", error);
+      }
+    };
+    getUserData();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -51,83 +49,43 @@ export default function ProfileScreen({ navigation }) {
     }
   };
 
-  const handleChangeAvatar = async () => {
-    openImagePickerAsync();
-  };
-
-  const getImageBlob = async (uri) => {
+  const handleImageUri = async (uri) => {
     try {
-      const response = await fetch(uri);
-      const blob = await response.blob();
-      return blob;
-    } catch (err) {
-      console.log("fetch image ", err);
-    }
-  };
-
-  const openImagePickerAsync = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      alert("Sorry, we need camera roll permissions to make this work!");
-      return;
-    }
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-    if (!result.canceled) {
-      let uri = result.assets[0].uri;
-      setAvatar(uri);
-      try {
-        let imgBlob = await getImageBlob(uri);
-        const imageName = uri.substring(uri.lastIndexOf("/") + 1);
-        const imageRef = ref(storage, `images/${imageName}`);
-        
-        await uploadBytes(imageRef, imgBlob);
-  
-        // Update avatar in the database
-        updateAvatarToDB(auth.currentUser.uid, `images/${imageName}`);
-  
-        // Set avatar URL immediately
-        const avatarURL = await getDownloadURL(ref(storage, `images/${imageName}`));
-        setAvatarURL(avatarURL);
-      } catch (error) {
-        console.error("Error handling avatar change:", error);
-      }
+      const avatarUrl = await uploadImageToStorage(uri);
+      setTakenAvatar(avatarUrl);
+      await updateUserAvatarInDB(auth.currentUser.uid, avatarUrl);
+    } catch (error) {
+      console.error("Error uploading avatar:", error);
     }
   };
 
   const handleDeleteAvatar = async () => {
     try {
-      await deleteAvatarToDB(auth.currentUser.uid);
-  
-      // Set the avatar and avatar URL to null in the state
-      setAvatar(null);
-      setAvatarURL(null);
+      await deleteUserAvatarInDB(auth.currentUser.uid);
+      setTakenAvatar(null);
     } catch (error) {
-      console.error("Delete avatar error:", error);
+      console.error("Error deleting avatar:", error);
     }
   };
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.userInfo}>
         <Text style={styles.body}>User Name: {userName}</Text>
         <Text style={styles.body}>Email: {email}</Text>
-
         <View style={styles.userPhoto}>
-          <PressableButton
-            pressedFunction={handleChangeAvatar}
-          >
-            {avatarURL ? (
-              <Image source={{ uri: avatarURL }} style={styles.avatarImage} />
+          <ImageManager passImageUri={handleImageUri}>
+            {takenAvatar ? (
+              <Image source={{ uri: takenAvatar }} style={styles.avatarImage} />
             ) : (
-              <MaterialIcons name="account-circle" size={60} color={colors.border} />
+              <MaterialIcons
+                name="account-circle"
+                size={60}
+                color={colors.border}
+              />
             )}
-          </PressableButton>
+          </ImageManager>
         </View>
-
         <PressableButton
           pressedFunction={handleDeleteAvatar}
           pressedStyle={styles.pressedStyle}
@@ -135,19 +93,17 @@ export default function ProfileScreen({ navigation }) {
         >
           <Text style={styles.buttonText}>Delete Avatar</Text>
         </PressableButton>
-
       </View>
 
       <PressableButton
-          pressedFunction={handleLogout}
-          pressedStyle={styles.pressedStyle}
-          defaultStyle={styles.defaultStyle}
-        >
-          <Text style={styles.buttonText}>Log out</Text>
+        pressedFunction={handleLogout}
+        pressedStyle={styles.pressedStyle}
+        defaultStyle={styles.defaultStyle}
+      >
+        <Text style={styles.buttonText}>Log out</Text>
       </PressableButton>
 
       <Image source={require("../assets/map.jpg")} style={styles.map} />
-
     </View>
   );
 }
@@ -164,6 +120,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 20,
     right: 40,
+    justifyContent: "flex-end",
   },
   body: {
     fontSize: 20,
