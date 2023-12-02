@@ -14,6 +14,7 @@
 <img width="300" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/10df9c77-53b1-4fb0-87bb-e92b08dc17cf">
 <img width="300" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/7bb8e70f-b00b-4093-884c-d7e6f56f33a0">
 <img width="300" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/bd1defe8-8ef3-43be-bcb1-ad21297f2cbc">
+
 5. **User infor collection CRUD**:
 <img width="307" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/236d456b-081c-4bc6-9448-06a582ef9aee">
 
