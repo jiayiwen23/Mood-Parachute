@@ -94,7 +94,7 @@ export default function AddCardScreen({ navigation, route }) {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+      keyboardVerticalOffset={60}
     >
       <ScrollView>
         <View style={styles.imageContainer}>
