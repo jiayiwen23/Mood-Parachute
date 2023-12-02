@@ -77,7 +77,7 @@ export default function AddCardScreen({ navigation, route }) {
               );
               card.image = uploadedImageUrl;
             }
-            await updateCardToDB(route.params.entry.id, card);
+            await updateCardToDB(route.params.card.id, card);
             navigation.goBack();
           } catch (error) {
             console.log("update card error", error);
@@ -90,13 +90,16 @@ export default function AddCardScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        {selectedImage ? (
-          <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
-        ) : (
-          <ImageManager passImageUri={passImageUri}>
+        <ImageManager passImageUri={passImageUri}>
+          {selectedImage ? (
+            <Image
+              source={{ uri: selectedImage }}
+              style={styles.imagePreview}
+            />
+          ) : (
             <EvilIcons name="image" size={200} color={colors.border} />
-          </ImageManager>
-        )}
+          )}
+        </ImageManager>
       </View>
       <View style={styles.cardInfo}>
         <Text style={styles.text}>Card Set Name</Text>
