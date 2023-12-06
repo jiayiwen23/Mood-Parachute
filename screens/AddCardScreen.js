@@ -6,6 +6,8 @@ import {
   Dimensions,
   Image,
   Alert,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
@@ -29,6 +31,7 @@ export default function AddCardScreen({ navigation, route }) {
   const [cardText, setCardText] = useState(route.params?.card?.cardText || "");
 
   const passImageUri = (imageUri) => {
+    console.log("image uri", imageUri);
     setSelectedImage(imageUri);
   };
 
@@ -69,7 +72,7 @@ export default function AddCardScreen({ navigation, route }) {
             const card = {
               cardName: cardName,
               cardText: cardText,
-              image: "",
+              image: selectedImage,
             };
             if (selectedImage) {
               const uploadedImageUrl = await uploadImageToStorage(
@@ -77,7 +80,7 @@ export default function AddCardScreen({ navigation, route }) {
               );
               card.image = uploadedImageUrl;
             }
-            await updateCardToDB(route.params.entry.id, card);
+            await updateCardToDB(route.params.card.id, card);
             navigation.goBack();
           } catch (error) {
             console.log("update card error", error);
@@ -88,50 +91,59 @@ export default function AddCardScreen({ navigation, route }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        {selectedImage ? (
-          <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
-        ) : (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+      keyboardVerticalOffset={60}
+    >
+      <ScrollView>
+        <View style={styles.imageContainer}>
           <ImageManager passImageUri={passImageUri}>
-            <EvilIcons name="image" size={200} color={colors.border} />
+            {selectedImage ? (
+              <Image
+                source={{ uri: selectedImage }}
+                style={styles.imagePreview}
+              />
+            ) : (
+              <EvilIcons name="image" size={200} color={colors.border} />
+            )}
           </ImageManager>
-        )}
-      </View>
-      <View style={styles.cardInfo}>
-        <Text style={styles.text}>Card Set Name</Text>
-        <TextInput
-          style={styles.nameInput}
-          placeholder="Enter Card Set Name"
-          onChangeText={setCardName}
-          value={cardName}
-        />
-        <Text style={styles.text}>Card Text</Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Enter Card Text"
-          onChangeText={setCardText}
-          value={cardText}
-        />
-      </View>
+        </View>
+        <View style={styles.cardInfo}>
+          <Text style={styles.text}>Card Set Name</Text>
+          <TextInput
+            style={styles.nameInput}
+            placeholder="Enter Card Set Name"
+            onChangeText={setCardName}
+            value={cardName}
+          />
+          <Text style={styles.text}>Card Text</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter Card Text"
+            onChangeText={setCardText}
+            value={cardText}
+          />
+        </View>
 
-      <View style={styles.buttonContainer}>
-        <PressableButton
-          pressedFunction={handleCancel}
-          defaultStyle={styles.buttonDefault}
-          pressedStyle={styles.buttonPressed}
-        >
-          <Text style={styles.buttonText}>Cancel</Text>
-        </PressableButton>
-        <PressableButton
-          pressedFunction={isEditMode ? handleUpdate : handleSave}
-          defaultStyle={styles.buttonDefault}
-          pressedStyle={styles.buttonPressed}
-        >
-          <Text style={styles.buttonText}>Save</Text>
-        </PressableButton>
-      </View>
-    </View>
+        <View style={styles.buttonContainer}>
+          <PressableButton
+            pressedFunction={handleCancel}
+            defaultStyle={styles.buttonDefault}
+            pressedStyle={styles.buttonPressed}
+          >
+            <Text style={styles.buttonText}>Cancel</Text>
+          </PressableButton>
+          <PressableButton
+            pressedFunction={isEditMode ? handleUpdate : handleSave}
+            defaultStyle={styles.buttonDefault}
+            pressedStyle={styles.buttonPressed}
+          >
+            <Text style={styles.buttonText}>Save</Text>
+          </PressableButton>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -155,7 +167,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     alignItems: "flex-start",
-    padding: 20,
   },
   cardInfo: {
     width: "100%",
@@ -192,12 +203,12 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
     alignSelf: "flex-start",
-    paddingLeft: 3,
+    paddingLeft: 19,
     paddingTop: 20,
   },
   imagePreview: {
-    width: "100%",
-    height: "100%",
+    width: 200,
+    height: 200,
     resizeMode: "contain",
   },
 });
