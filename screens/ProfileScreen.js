@@ -87,22 +87,26 @@ export default function ProfileScreen({ navigation }) {
             </ImageManager>
           </View>
         </View>
+      </View>
+
+      <View style={styles.buttonRow}>
         <PressableButton
-          pressedFunction={handleDeleteAvatar}
+          pressedFunction={handleLogout}
           pressedStyle={styles.pressedStyle}
           defaultStyle={styles.defaultStyle}
         >
-          <Text style={styles.buttonText}>Delete Avatar</Text>
+          <Text style={styles.buttonText}>Log Out</Text>
         </PressableButton>
-      </View>
 
-      <PressableButton
-        pressedFunction={handleLogout}
-        pressedStyle={styles.pressedStyle}
-        defaultStyle={styles.defaultStyle}
-      >
-        <Text style={styles.buttonText}>Log out</Text>
-      </PressableButton>
+        <PressableButton
+            pressedFunction={handleDeleteAvatar}
+            pressedStyle={styles.pressedStyle}
+            defaultStyle={styles.defaultStyle}
+          >
+            <Text style={styles.buttonText}>Delete Avatar</Text>
+        </PressableButton>
+
+      </View>
 
       <Image source={require("../assets/map.jpg")} style={styles.map} />
     </View>
@@ -119,7 +123,6 @@ const styles = StyleSheet.create({
   },
   userPhoto: {
     position: "absolute",
-    top: 10,
     right: 10,
     justifyContent: "flex-end",
   },
@@ -128,13 +131,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     padding: 10,
   },
-  button: {
-    fontSize: 25,
-    alignSelf: "center",
-    padding: 10,
-    color: colors.border,
-    fontWeight: "bold",
-    textAlign: "center",
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
   },
   map: {
     alignSelf: "center",
@@ -151,7 +151,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: colors.button,
-    width: "28%",
     padding: 10,
     alignSelf: "center",
   },
