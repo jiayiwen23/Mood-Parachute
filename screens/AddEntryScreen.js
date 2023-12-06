@@ -23,6 +23,7 @@ import {
 import { colors } from "../colors";
 import ImageManager from "../components/ImageManager";
 import CameraManager from "../components/CameraManager";
+import LocationManager from "../components/LocationManager";
 
 const windowWidth = Dimensions.get("window").width;
 const angryIcon = require("../assets/angry.png");
@@ -166,10 +167,9 @@ export default function AddEntryScreen({ navigation, route }) {
           >
             <AntDesign name="picture" size={24} color="black" />
           </ImageManager>
-
-          <PressableButton defaultStyle={styles.toolbarButton}>
+          <LocationManager defaultStyle={styles.toolbarButton}>
             <Entypo name="location-pin" size={24} color="black" />
-          </PressableButton>
+          </LocationManager>
         </View>
         <View style={{ flex: 1 }}>
           <PressableButton

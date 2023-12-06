@@ -1,10 +1,15 @@
-import { View, Text, Pressable } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import * as Location from "expo-location";
-
+import { colors } from "../colors";
 import PressableButton from "./PressableButton";
 
-export default function LocationManager({ children, passLocation }) {
+export default function LocationManager({
+  children,
+  passLocation,
+  defaultStyle,
+  pressedStyle,
+}) {
   const [status, requestPermission] = Location.useForegroundPermissions();
   const [location, setLocation] = useState(null);
 
@@ -40,8 +45,8 @@ export default function LocationManager({ children, passLocation }) {
   return (
     <PressableButton
       pressedFunction={getLocation}
-      pressedStyle={styles.pressedStyle}
-      defaultStyle={styles.defaultStyle}
+      pressedStyle={pressedStyle}
+      defaultStyle={defaultStyle}
     >
       {children}
     </PressableButton>
