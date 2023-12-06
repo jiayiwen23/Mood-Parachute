@@ -30,7 +30,7 @@ export default function Login({ navigation }) {
     } catch (err) {
       console.log(err);
       if (err.code === "auth/invalid-login-credentials" || "auth/invalid-credential") {
-        Alert.alert("invalid credentials");
+        Alert.alert("Invalid credentials");
       }
     }
   };
