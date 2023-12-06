@@ -73,17 +73,19 @@ export default function ProfileScreen({ navigation }) {
         <Text style={styles.body}>User Name: {userName}</Text>
         <Text style={styles.body}>Email: {email}</Text>
         <View style={styles.userPhoto}>
-          <ImageManager passImageUri={handleImageUri}>
-            {takenAvatar ? (
-              <Image source={{ uri: takenAvatar }} style={styles.avatarImage} />
-            ) : (
-              <MaterialIcons
-                name="account-circle"
-                size={60}
-                color={colors.border}
-              />
-            )}
-          </ImageManager>
+          <View style={styles.avatarContainer}>
+            <ImageManager passImageUri={handleImageUri}>
+              {takenAvatar ? (
+                <Image source={{ uri: takenAvatar }} style={styles.avatarImage} />
+              ) : (
+                <MaterialIcons
+                  name="account-circle"
+                  size={60}
+                  color={colors.border}
+                />
+              )}
+            </ImageManager>
+          </View>
         </View>
         <PressableButton
           pressedFunction={handleDeleteAvatar}
@@ -156,9 +158,16 @@ const styles = StyleSheet.create({
   pressedStyle: {
     backgroundColor: colors.buttonPressed,
   },
+  avatarContainer: {
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: colors.border,
+    overflow: "hidden",
+    marginBottom: 20, 
+  },
   avatarImage: {
-    height: 80,
-    width: 80,
+    height: 100,
+    width: 100,
   },
   avatarText: {
     fontSize: 20,
