@@ -80,7 +80,7 @@ export default function ProfileScreen({ navigation }) {
               ) : (
                 <MaterialIcons
                   name="account-circle"
-                  size={60}
+                  size={80}
                   color={colors.border}
                 />
               )}
