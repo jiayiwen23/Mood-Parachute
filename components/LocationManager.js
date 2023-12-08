@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
 import * as Location from "expo-location";
 import { MAPS_API_KEY } from "@env";

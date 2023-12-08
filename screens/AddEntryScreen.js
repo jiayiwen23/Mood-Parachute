@@ -48,7 +48,7 @@ export default function AddEntryScreen({ navigation, route }) {
     route.params?.entry?.image || ""
   );
   const [location, setLocation] = useState(null);
-  const [address, setAddress] = useState(null);
+  const [address, setAddress] = useState(route.params?.entry?.address || null);
   const [isLoading, setIsLoading] = useState(false);
 
   const sendHandler = async () => {
@@ -66,18 +66,17 @@ export default function AddEntryScreen({ navigation, route }) {
         date: `${formattedDate} ${formattedTime}`,
         mood: moodIcon,
         image: "",
-        location: "",
+        location: location,
+        address: address,
       };
       if (takenImageUri) {
         const uploadedImageUrl = await uploadImageToStorage(takenImageUri);
         entry.image = uploadedImageUrl;
       }
-      if (location) {
-        console.log(entry);
-        await writeToDB(entry);
-        Keyboard.dismiss();
-        navigation.goBack();
-      }
+      console.log(entry);
+      await writeToDB(entry);
+      Keyboard.dismiss();
+      navigation.goBack();
     } catch (error) {
       console.log(error);
     }
@@ -110,6 +109,8 @@ export default function AddEntryScreen({ navigation, route }) {
               date: `${formattedDate} ${formattedTime}`,
               mood: moodIcon,
               image: takenImageUri,
+              location: location,
+              address: address,
             };
 
             if (takenImageUri && takenImageUri !== route.params?.entry?.image) {
@@ -284,6 +285,7 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
+    marginBottom: 20,
   },
   toolbarButton: {
     marginRight: 20,
