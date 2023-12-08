@@ -11,6 +11,7 @@ import {
   Dimensions,
   Alert,
   Text,
+  ActivityIndicator,
 } from "react-native";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
@@ -47,6 +48,8 @@ export default function AddEntryScreen({ navigation, route }) {
     route.params?.entry?.image || ""
   );
   const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendHandler = async () => {
     try {
@@ -136,6 +139,10 @@ export default function AddEntryScreen({ navigation, route }) {
     setLocation(location);
   };
 
+  const passAddress = (address) => {
+    setAddress(address);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -146,7 +153,12 @@ export default function AddEntryScreen({ navigation, route }) {
         {takenImageUri && (
           <Image source={{ uri: takenImageUri }} style={styles.image} />
         )}
-        {location && <Text>{location.longitude} </Text>}
+
+        {isLoading ? (
+          <ActivityIndicator size="large" color={colors.border} />
+        ) : (
+          <Text>{address} </Text>
+        )}
       </View>
       <View style={styles.toolbar}>
         <View
@@ -180,6 +192,8 @@ export default function AddEntryScreen({ navigation, route }) {
           <LocationManager
             defaultStyle={styles.toolbarButton}
             passLocation={passLocation}
+            passAddress={passAddress}
+            passLoading={setIsLoading}
           >
             <Entypo name="location-pin" size={24} color="black" />
           </LocationManager>
