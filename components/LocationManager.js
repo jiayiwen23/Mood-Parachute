@@ -32,11 +32,13 @@ export default function LocationManager({
         );
       }
       const locationObject = await Location.getCurrentPositionAsync({});
-      setLocation({
+      const newLocation = {
         latitude: locationObject.coords.latitude,
         longitude: locationObject.coords.longitude,
-      });
-      console.log(location);
+      };
+      setLocation(newLocation);
+      passLocation(newLocation);
+      console.log(newLocation);
     } catch (error) {
       console.log("get location error", error);
     }

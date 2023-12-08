@@ -10,6 +10,7 @@ import {
   Modal,
   Dimensions,
   Alert,
+  Text,
 } from "react-native";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
@@ -45,6 +46,7 @@ export default function AddEntryScreen({ navigation, route }) {
   const [takenImageUri, setTakenImageUri] = useState(
     route.params?.entry?.image || ""
   );
+  const [location, setLocation] = useState(null);
 
   const sendHandler = async () => {
     try {
@@ -61,15 +63,18 @@ export default function AddEntryScreen({ navigation, route }) {
         date: `${formattedDate} ${formattedTime}`,
         mood: moodIcon,
         image: "",
+        location: "",
       };
       if (takenImageUri) {
         const uploadedImageUrl = await uploadImageToStorage(takenImageUri);
         entry.image = uploadedImageUrl;
       }
-      console.log(entry);
-      await writeToDB(entry);
-      Keyboard.dismiss();
-      navigation.goBack();
+      if (location) {
+        console.log(entry);
+        await writeToDB(entry);
+        Keyboard.dismiss();
+        navigation.goBack();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -127,6 +132,10 @@ export default function AddEntryScreen({ navigation, route }) {
     setTakenImageUri(uri);
   }
 
+  const passLocation = (location) => {
+    setLocation(location);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -137,6 +146,7 @@ export default function AddEntryScreen({ navigation, route }) {
         {takenImageUri && (
           <Image source={{ uri: takenImageUri }} style={styles.image} />
         )}
+        {location && <Text>{location.longitude} </Text>}
       </View>
       <View style={styles.toolbar}>
         <View
@@ -167,7 +177,10 @@ export default function AddEntryScreen({ navigation, route }) {
           >
             <AntDesign name="picture" size={24} color="black" />
           </ImageManager>
-          <LocationManager defaultStyle={styles.toolbarButton}>
+          <LocationManager
+            defaultStyle={styles.toolbarButton}
+            passLocation={passLocation}
+          >
             <Entypo name="location-pin" size={24} color="black" />
           </LocationManager>
         </View>
