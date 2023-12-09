@@ -16,15 +16,17 @@ const EntryItem = ({ entry, navigation }) => {
       pressedFunction={entryPressHandler}
     >
       <View style={styles.labelContainer}>
-        <Text style={styles.dateText}>{entry.date}</Text>
+        <View style={styles.dateLocation}>
+          <Text style={styles.labelText}>{entry.date}</Text>
+          <Text style={styles.labelText}>@{entry.location[0]}</Text>
+        </View>
         <Image source={entry.mood} style={{ width: 30, height: 30 }} />
       </View>
-
       <View style={styles.journalContainer}>
-        <Text style={styles.text}>{entry.journal}</Text>
         {entry.image && (
           <Image source={{ uri: entry.image }} style={styles.image} />
         )}
+        <Text style={styles.text}>{entry.journal}</Text>
       </View>
     </PressableButton>
   );
@@ -36,27 +38,32 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: colors.background,
     borderRadius: 10,
-    padding: 10,
+    padding: 5,
     margin: 10,
+  },
+  dateLocation: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
   },
   labelContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
+    alignItems: "center",
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   pressed: {
     opacity: 0.8,
   },
-  dateText: {
-    color: colors.white,
+  labelText: {
+    color: colors.title,
     fontWeight: "bold",
     fontSize: 11,
+    margin: 5,
   },
   journalContainer: {
     flexDirection: "row",
-    marginLeft: 10,
-    flexDirection: "column",
-    alignSelf: "flex-start",
+    paddingLeft: 5,
   },
   text: {
     fontSize: 16,
