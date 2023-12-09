@@ -1,8 +1,9 @@
-import { View, Text, Platform, StyleSheet } from 'react-native'
+import { View, Text, Platform, StyleSheet, Alert } from 'react-native'
 import React, { useState } from 'react'
 import * as Notifications from "expo-notifications";
 import { colors } from '../colors';
 import PressableButton from '../components/PressableButton';
+import DateTimePicker from '../components/DateTimePicker';
 
 const NotificationTimeScreen = () => {
     const [date, setDate] = useState(new Date());
@@ -58,6 +59,10 @@ const NotificationTimeScreen = () => {
         setDate(currentDate);
       };
 
+      const handlePress=()=>{
+
+      }
+
   return (
      <View style={styles.container}>
 
@@ -77,13 +82,7 @@ const NotificationTimeScreen = () => {
           <PressableButton
             pressedFunction={handlePress}
           >
-
-            <Text
-              style={[
-                styles.description,
-                { color: isPressed ? "green" : colors.border },
-              ]}
-            >
+            <Text>
               {date.toLocaleString("en-CA", {
                 hour: "numeric",
                 minute: "numeric",
