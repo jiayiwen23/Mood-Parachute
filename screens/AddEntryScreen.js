@@ -47,9 +47,7 @@ export default function AddEntryScreen({ navigation, route }) {
   const [takenImageUri, setTakenImageUri] = useState(
     route.params?.entry?.image || ""
   );
-  const [location, setLocation] = useState(null);
-  const [address, setAddress] = useState(route.params?.entry?.address || null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [location, setLocation] = useState(route.params?.entry?.location || []);
 
   const sendHandler = async () => {
     try {
@@ -67,7 +65,6 @@ export default function AddEntryScreen({ navigation, route }) {
         mood: moodIcon,
         image: "",
         location: location,
-        address: address,
       };
       if (takenImageUri) {
         const uploadedImageUrl = await uploadImageToStorage(takenImageUri);
@@ -110,7 +107,6 @@ export default function AddEntryScreen({ navigation, route }) {
               mood: moodIcon,
               image: takenImageUri,
               location: location,
-              address: address,
             };
 
             if (takenImageUri && takenImageUri !== route.params?.entry?.image) {
@@ -137,11 +133,8 @@ export default function AddEntryScreen({ navigation, route }) {
   }
 
   const passLocation = (location) => {
+    console.log(location);
     setLocation(location);
-  };
-
-  const passAddress = (address) => {
-    setAddress(address);
   };
 
   return (
@@ -154,12 +147,7 @@ export default function AddEntryScreen({ navigation, route }) {
         {takenImageUri && (
           <Image source={{ uri: takenImageUri }} style={styles.image} />
         )}
-
-        {isLoading ? (
-          <ActivityIndicator size="large" color={colors.border} />
-        ) : (
-          <Text>{address} </Text>
-        )}
+        {location[0] && <Text>@{location[0]}</Text>}
       </View>
       <View style={styles.toolbar}>
         <View
@@ -192,9 +180,7 @@ export default function AddEntryScreen({ navigation, route }) {
           </ImageManager>
           <LocationManager
             defaultStyle={styles.toolbarButton}
-            passLocation={passLocation}
-            passAddress={passAddress}
-            passLoading={setIsLoading}
+            passLocation={setLocation}
           >
             <Entypo name="location-pin" size={24} color="black" />
           </LocationManager>
@@ -263,9 +249,6 @@ const styles = StyleSheet.create({
     padding: 20,
     textAlignVertical: "top",
     fontSize: 20,
-  },
-  toolbarButton: {
-    margin: 10,
   },
   moodSelector: {
     flex: 1,
