@@ -1,4 +1,4 @@
-import { View, Text, Platform, StyleSheet, Alert } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import React, { useState } from 'react'
 import * as Notifications from "expo-notifications";
 import { colors } from '../colors';
@@ -58,38 +58,27 @@ const NotificationTimeScreen = ({ navigation }) => {
             Alert.alert("Failed to schedule notification. Please try again.");
           }
       };
-
-      const onChange = (selectedDate) => {
-        const currentDate = selectedDate;
-        if (Platform.OS === "android") {
-          setShow(false);
-        }
-        setDate(currentDate);
+    
+      const handleTimeChange = (selectedTime) => {
+        setDate(selectedTime);
       };
-
-      const handlePress=()=>{
-
-      }
 
   return (
      <View style={styles.container}>
-        <Text style={styles.choose}>Choose the time for notification </Text>
-        {show && <NotificationTimePicker show={show} onChange={onChange} />}
-
-      {Platform.OS === "android" && (
-        <View>
-          <PressableButton
-            pressedFunction={handlePress}
-          >
-          </PressableButton>
-        </View>
-      )}
+        <Text style={styles.choose}>Choose the time for{'\n'}daily notification </Text>
+        {show && 
+            <NotificationTimePicker 
+                show={show} 
+                onTimeChange={handleTimeChange}
+            />}
 
       <View style={styles.buttonContainer}>
         <PressableButton
             pressedFunction={scheduleNotificationHandler}
+            pressedStyle={styles.pressedStyle}
+            defaultStyle={styles.defaultStyle}
         >
-            <Text>Confirm</Text>
+            <Text style={styles.buttonText}>Confirm</Text>
         </PressableButton>
       </View>
 
@@ -116,8 +105,24 @@ const styles = StyleSheet.create({
     },
     choose: {
         alignSelf:"center",
-        fontSize: 25,
+        fontSize: 30,
         paddingBottom: 15,
+        color: colors.border,
+        lineHeight: 50,
+    },
+    defaultStyle: {
+        marginBottom: 20,
+        borderRadius: 5,
+        backgroundColor: colors.button,
+        padding: 10,
+        alignSelf: "center",
+    },
+    pressedStyle: {
+        backgroundColor: colors.buttonPressed,
+    },
+    buttonText: {
+        fontSize: 20,
+        textAlign: "center",
         color: colors.border,
     },
   });
