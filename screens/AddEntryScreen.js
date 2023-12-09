@@ -137,6 +137,7 @@ export default function AddEntryScreen({ navigation, route }) {
   }
 
   const passLocation = (location) => {
+    console.log(location);
     setLocation(location);
   };
 
