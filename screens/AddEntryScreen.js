@@ -10,6 +10,8 @@ import {
   Modal,
   Dimensions,
   Alert,
+  Text,
+  ActivityIndicator,
 } from "react-native";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
@@ -23,6 +25,7 @@ import {
 import { colors } from "../colors";
 import ImageManager from "../components/ImageManager";
 import CameraManager from "../components/CameraManager";
+import LocationManager from "../components/LocationManager";
 
 const windowWidth = Dimensions.get("window").width;
 const angryIcon = require("../assets/angry.png");
@@ -44,6 +47,9 @@ export default function AddEntryScreen({ navigation, route }) {
   const [takenImageUri, setTakenImageUri] = useState(
     route.params?.entry?.image || ""
   );
+  const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState(route.params?.entry?.address || null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendHandler = async () => {
     try {
@@ -60,6 +66,8 @@ export default function AddEntryScreen({ navigation, route }) {
         date: `${formattedDate} ${formattedTime}`,
         mood: moodIcon,
         image: "",
+        location: location,
+        address: address,
       };
       if (takenImageUri) {
         const uploadedImageUrl = await uploadImageToStorage(takenImageUri);
@@ -101,6 +109,8 @@ export default function AddEntryScreen({ navigation, route }) {
               date: `${formattedDate} ${formattedTime}`,
               mood: moodIcon,
               image: takenImageUri,
+              location: location,
+              address: address,
             };
 
             if (takenImageUri && takenImageUri !== route.params?.entry?.image) {
@@ -126,6 +136,14 @@ export default function AddEntryScreen({ navigation, route }) {
     setTakenImageUri(uri);
   }
 
+  const passLocation = (location) => {
+    setLocation(location);
+  };
+
+  const passAddress = (address) => {
+    setAddress(address);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -135,6 +153,12 @@ export default function AddEntryScreen({ navigation, route }) {
       <View style={styles.overlay}>
         {takenImageUri && (
           <Image source={{ uri: takenImageUri }} style={styles.image} />
+        )}
+
+        {isLoading ? (
+          <ActivityIndicator size="large" color={colors.border} />
+        ) : (
+          <Text>{address} </Text>
         )}
       </View>
       <View style={styles.toolbar}>
@@ -166,10 +190,14 @@ export default function AddEntryScreen({ navigation, route }) {
           >
             <AntDesign name="picture" size={24} color="black" />
           </ImageManager>
-
-          <PressableButton defaultStyle={styles.toolbarButton}>
+          <LocationManager
+            defaultStyle={styles.toolbarButton}
+            passLocation={passLocation}
+            passAddress={passAddress}
+            passLoading={setIsLoading}
+          >
             <Entypo name="location-pin" size={24} color="black" />
-          </PressableButton>
+          </LocationManager>
         </View>
         <View style={{ flex: 1 }}>
           <PressableButton
@@ -257,6 +285,7 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
+    marginBottom: 20,
   },
   toolbarButton: {
     marginRight: 20,
