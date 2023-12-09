@@ -7,7 +7,7 @@ const DateTimePicker = ({ changeDatetimeHandler }) => {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
-  const onChange = (event, selectedDate) => {
+  const onChange = (selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(false);
     setDate(currentDate);
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
       flexDirection: "row",
       justifyContent: "space-evenly",
-      marginTop: 30,
-      marginBottom: 30,
+      marginTop: 20,
+      marginBottom: 20,
     },
     description: {
       marginTop: 20,
