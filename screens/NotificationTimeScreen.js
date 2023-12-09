@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import * as Notifications from "expo-notifications";
 import { colors } from '../colors';
 import PressableButton from '../components/PressableButton';
-import DateTimePicker from '../components/DateTimePicker';
+import NotificationTimePicker from '../components/NotificationTimePicker';
 
-const NotificationTimeScreen = () => {
+const NotificationTimeScreen = ({ navigation }) => {
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(true);
 
@@ -25,30 +25,38 @@ const NotificationTimeScreen = () => {
           return;
         }
         try {
-          await Notifications.scheduleNotificationAsync({
-            content: {
-              title: "Mood Parachute",
-              body: "It's time to record your mood",
-            },
-            trigger: {
-              hour: date.getHours(),
-              minute: date.getMinutes(),
-              repeats: true,
-            },
-          })
-            .then(
-              Alert.alert(
+            await Notifications.scheduleNotificationAsync({
+              content: {
+                title: "Mood Parachute",
+                body: "It's time to record your mood",
+              },
+              trigger: {
+                hour: date.getHours(),
+                minute: date.getMinutes(),
+                repeats: true,
+              },
+            });
+        
+            Alert.alert(
                 "Notification is set for " +
                   date.getHours() +
                   ":" +
                   date.getMinutes() +
-                  "."
-              )
-            )
-            .then(navigation.goBack());
+                  ".",
+                "",
+                [
+                  {
+                    text: "OK",
+                    onPress: () => {
+                      navigation.goBack();
+                    },
+                  },
+                ]
+              );
         } catch (err) {
-          console.log("Notification error:", err);
-        }
+            console.log("Notification error:", err);
+            Alert.alert("Failed to schedule notification. Please try again.");
+          }
       };
 
       const onChange = (selectedDate) => {
@@ -65,29 +73,14 @@ const NotificationTimeScreen = () => {
 
   return (
      <View style={styles.container}>
-
-      <Text style={styles.choose}>Choose the time for notification </Text>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="time"
-          is24Hour={true}
-          onChange={onChange}
-        />
-      )}
+        <Text style={styles.choose}>Choose the time for notification </Text>
+        {show && <NotificationTimePicker show={show} onChange={onChange} />}
 
       {Platform.OS === "android" && (
         <View>
           <PressableButton
             pressedFunction={handlePress}
           >
-            <Text>
-              {date.toLocaleString("en-CA", {
-                hour: "numeric",
-                minute: "numeric",
-              })}
-            </Text>
           </PressableButton>
         </View>
       )}
@@ -106,9 +99,9 @@ const NotificationTimeScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-      alignItems: "center",
       flex: 1,
       justifyContent: "center",
+      backgroundColor: colors.background,
     },
     buttonContainer: {
       flexDirection: "row",
@@ -122,9 +115,10 @@ const styles = StyleSheet.create({
       fontSize: 13,
     },
     choose: {
-      fontSize: 25,
-      paddingBottom: 15,
-      color: colors.border,
+        alignSelf:"center",
+        fontSize: 25,
+        paddingBottom: 15,
+        color: colors.border,
     },
   });
 
