@@ -34,22 +34,22 @@ const NotificationTimePicker = ({ show, onTimeChange }) => {
         </View>
 
         {show &&
-        <DateTimePicker
-          testID="timePicker"
-          isVisible={showTime}
-          mode="time"
-          is24Hour={true}
-          onConfirm={(selectedDate) => {
-            onChange(selectedDate);
-          }}
-          onCancel={() => setShowTime(false)}
-        />
-      }
+          <DateTimePicker
+            testID="timePicker"
+            isVisible={showTime}
+            mode="time"
+            is24Hour={true}
+            onConfirm={(selectedDate) => {
+              onChange(selectedDate);
+            }}
+            onCancel={() => setShowTime(false)}
+          />
+        }
 
       <Text style={styles.confirmation}>
         {date.toLocaleString('en-CA', {
-          hour: 'numeric',
-          minute: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
           hour12: false,
         })}
       </Text>
@@ -66,8 +66,9 @@ const styles = StyleSheet.create({
     confirmation: {
         margin: 20,
         color: colors.border,
-        fontSize: 30,
+        fontSize: 35,
         textAlign: "center",
+        fontWeight: "bold",
     },
     defaultStyle: {
         marginBottom: 20,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.buttonPressed,
     },
     buttonText: {
-        fontSize: 20,
+        fontSize: 22,
         textAlign: "center",
         color: colors.border,
     },

@@ -21,14 +21,14 @@ const NotificationTimeScreen = ({ navigation }) => {
     async function scheduleNotificationHandler () {
         const hasPermission = await verifyPermission();
         if (!hasPermission) {
-          Alert.alert("Need your permission to setup notification");
+          Alert.alert("Need your permission to set notification");
           return;
         }
         try {
             await Notifications.scheduleNotificationAsync({
               content: {
                 title: "Mood Parachute",
-                body: "It's time to record your mood",
+                body: "It's time to record your mood.",
               },
               trigger: {
                 hour: date.getHours(),
@@ -38,21 +38,21 @@ const NotificationTimeScreen = ({ navigation }) => {
             });
         
             Alert.alert(
-                "Notification is set for " +
-                  date.getHours() +
-                  ":" +
-                  date.getMinutes() +
-                  ".",
-                "",
-                [
-                  {
-                    text: "OK",
-                    onPress: () => {
-                      navigation.goBack();
-                    },
+              "Notification is set for " +
+                String(date.getHours()).padStart(2, '0') +
+                ":" +
+                String(date.getMinutes()).padStart(2, '0') +
+                ".",
+              "",
+              [
+                {
+                  text: "OK",
+                  onPress: () => {
+                    navigation.goBack();
                   },
-                ]
-              );
+                },
+              ]
+            );
         } catch (err) {
             console.log("Notification error:", err);
             Alert.alert("Failed to schedule notification. Please try again.");
@@ -65,12 +65,13 @@ const NotificationTimeScreen = ({ navigation }) => {
 
   return (
      <View style={styles.container}>
-        <Text style={styles.choose}>Choose the time for{'\n'}daily notification </Text>
+        <Text style={styles.choose}>Choose the time for{'\n'}🔔 daily notification </Text>
         {show && 
             <NotificationTimePicker 
                 show={show} 
                 onTimeChange={handleTimeChange}
-            />}
+            />
+        }
 
       <View style={styles.buttonContainer}>
         <PressableButton
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.buttonPressed,
     },
     buttonText: {
-        fontSize: 20,
+        fontSize: 22,
         textAlign: "center",
         color: colors.border,
     },
