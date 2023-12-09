@@ -18,7 +18,9 @@ const EntryItem = ({ entry, navigation }) => {
       <View style={styles.labelContainer}>
         <View style={styles.dateLocation}>
           <Text style={styles.labelText}>{entry.date}</Text>
-          <Text style={styles.labelText}>@{entry.location[0]}</Text>
+          {entry.location &&
+            <Text style={styles.labelText}>@{entry.location[0]}</Text>
+          }
         </View>
         <Image source={entry.mood} style={{ width: 30, height: 30 }} />
       </View>
