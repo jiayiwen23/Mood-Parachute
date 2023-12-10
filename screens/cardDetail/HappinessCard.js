@@ -1,18 +1,72 @@
 import { Text, StyleSheet, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors } from '../../colors'
 import ExitCard from '../../components/ExitCard'
 import Card from '../../components/Card'
+import { auth, database } from '../../firebase/firebaseSetup'
+import { collection, onSnapshot, query, where } from '@firebase/firestore'
 
-const HappinessCard = ({navigation}) => {
+const HappinessCard = ({ navigation }) => {
+  const [journals, setJournals] = useState([]);
+  const [filteredJournals, setFilteredJournals] = useState([]);
+
+  useEffect(() => {
+    const q = query(
+      collection(database, "entries"),
+      where("user", "==", auth.currentUser.uid)
+    );
+
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        let newArray = [];
+        querySnapshot.docs.forEach((docSnap) => {
+          const data = docSnap.data();
+          console.log("data", data);
+          newArray.push({ ...docSnap.data(), id: docSnap.id });
+        });
+        setJournals(newArray);
+      },
+      (err) => {
+        console.log(err);
+        if (err.code === "permission-denied") {
+          Alert.alert(
+            "You don't have permission."
+          );
+        }
+      }
+    );
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const filteredJournals = journals.filter((journal) => {
+      //mood equals to 20 or 25 in firebase represent happy
+      return journal.mood === 20 || journal.mood === 25;
+    });
+    setFilteredJournals(filteredJournals);
+    console.log(filteredJournals);
+  }, [journals]);
+
+  const moodImages = {
+    20: require('../../assets/happy.png'),
+    25: require('../../assets/love.png'),
+  };
+
   return (
     <Card>
       <Text style={styles.title}>/The Moment Of{'\n'}Happiness You Had/</Text>
-      <Text style={styles.body}>
-        2023.10.23   Sunny  {'  '}
-        <Image source={require("../../assets/happy.png")} style={{ width: 24, height: 24 }} />
-        {'\n'}I feel really happy today.{'\n'}I love sunshine!
+
+      {filteredJournals.length > 0 && (
+        <Text style={styles.body}>
+          {filteredJournals[0].date}{'  '}
+          <Image source={moodImages[filteredJournals[0].mood]} style={{ width: 24, height: 24 }} />
+          {'\n'}{filteredJournals[0].journal}
         </Text>
+      )}
+
       <ExitCard navigation={navigation}/>
     </Card>
   )
