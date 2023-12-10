@@ -61,15 +61,22 @@ const HappinessCard = ({ navigation }) => {
   return (
     <Card>
       <Text style={styles.title}>/The Moment Of{'\n'}Happiness You Had/</Text>
+
       {filteredJournals.length > 0 && (
         <>
-          <Text style={styles.body}>
+          <Text style={styles.tags}>
             {filteredJournals[randomIndex].date}{'  '}
             <Image
               source={moodImages[filteredJournals[randomIndex].mood]}
               style={{ width: 24, height: 24 }}
             />
-            {'\n'}{filteredJournals[randomIndex].journal}
+
+             {filteredJournals[randomIndex]?.location &&
+                ` @${filteredJournals[randomIndex]?.location[0]}`}
+          </Text>
+
+          <Text style={styles.body}>
+            {filteredJournals[randomIndex].journal}
           </Text>
           <Image source={{ uri: filteredJournals[randomIndex].image }} style={styles.photo} />
         </>
@@ -91,15 +98,23 @@ const styles = StyleSheet.create({
     lineHeight: 50,
     textAlign: "center",
   },
+  tags:{
+    fontSize: 14,
+    marginLeft: 10,
+    padding: 10,
+    lineHeight: 30,
+    color: colors.border,
+    fontWeight: "bold",
+  },
   body: {
     fontSize: 18,
     marginLeft: 10,
     padding: 10,
-    lineHeight: 50,
+    lineHeight: 30,
   },
   photo:{
     width: 300,
-    height: 260,
+    height: 220,
     alignSelf: "center",
   },
 });
