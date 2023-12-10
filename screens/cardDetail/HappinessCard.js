@@ -9,6 +9,7 @@ import { collection, onSnapshot, query, where } from '@firebase/firestore'
 const HappinessCard = ({ navigation }) => {
   const [journals, setJournals] = useState([]);
   const [filteredJournals, setFilteredJournals] = useState([]);
+  const [randomIndex, setRandomIndex] = useState(null);
 
   useEffect(() => {
     const q = query(
@@ -47,7 +48,8 @@ const HappinessCard = ({ navigation }) => {
       return journal.mood === 20 || journal.mood === 25;
     });
     setFilteredJournals(filteredJournals);
-    console.log(filteredJournals);
+    const randomIdx = Math.floor(Math.random() * filteredJournals.length);
+    setRandomIndex(randomIdx);
   }, [journals]);
 
   const moodImages = {
@@ -61,9 +63,9 @@ const HappinessCard = ({ navigation }) => {
 
       {filteredJournals.length > 0 && (
         <Text style={styles.body}>
-          {filteredJournals[0].date}{'  '}
-          <Image source={moodImages[filteredJournals[0].mood]} style={{ width: 24, height: 24 }} />
-          {'\n'}{filteredJournals[0].journal}
+          {filteredJournals[randomIndex].date}{'  '}
+          <Image source={moodImages[filteredJournals[randomIndex].mood]} style={{ width: 24, height: 24 }} />
+          {'\n'}{filteredJournals[randomIndex].journal}
         </Text>
       )}
 
