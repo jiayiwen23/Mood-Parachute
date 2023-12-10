@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { colors } from '../colors';
 import PressableButton from './PressableButton';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { utcToZonedTime } from 'date-fns-tz';
 
 const NotificationTimePicker = ({ show, onTimeChange }) => {
   const [date, setDate] = useState(new Date());
@@ -12,8 +13,9 @@ const NotificationTimePicker = ({ show, onTimeChange }) => {
     const currentDate = selectedDate;
     if (showTime) {
       setShowTime(false);
-      setDate(currentDate);
-      onTimeChange && onTimeChange(currentDate);
+      const localTime = utcToZonedTime(currentDate, 'America/Vancouver');
+      setDate(localTime);
+      onTimeChange && onTimeChange(localTime);
     }
   };
 
@@ -51,6 +53,7 @@ const NotificationTimePicker = ({ show, onTimeChange }) => {
           hour: '2-digit',
           minute: '2-digit',
           hour12: false,
+          timeZone: 'America/Vancouver',
         })}
       </Text>
   </View>

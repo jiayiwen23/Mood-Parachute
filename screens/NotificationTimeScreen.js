@@ -4,6 +4,15 @@ import * as Notifications from "expo-notifications";
 import { colors } from '../colors';
 import PressableButton from '../components/PressableButton';
 import NotificationTimePicker from '../components/NotificationTimePicker';
+import { utcToZonedTime } from 'date-fns-tz';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 const NotificationTimeScreen = ({ navigation }) => {
     const [date, setDate] = useState(new Date());
@@ -25,28 +34,32 @@ const NotificationTimeScreen = ({ navigation }) => {
           return;
         }
         try {
+            const vancouverTime = utcToZonedTime(date, 'America/Vancouver');
             await Notifications.scheduleNotificationAsync({
               content: {
                 title: "Mood Parachute",
                 body: "It's time to record your mood.",
               },
               trigger: {
-                hour: date.getHours(),
-                minute: date.getMinutes(),
+                hour: vancouverTime.getHours(),
+                minute: vancouverTime.getMinutes(),
                 repeats: true,
               },
             });
+
+            const formattedTime = vancouverTime.toLocaleString('en-CA', {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false,
+              timeZone: 'America/Vancouver',
+            });
         
             Alert.alert(
-              "Notification is set for " +
-                String(date.getHours()).padStart(2, '0') +
-                ":" +
-                String(date.getMinutes()).padStart(2, '0') +
-                ".",
-              "",
+              `Notification is set for ${formattedTime}.`,
+              '',
               [
                 {
-                  text: "OK",
+                  text: 'OK',
                   onPress: () => {
                     navigation.goBack();
                   },
