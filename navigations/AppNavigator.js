@@ -12,6 +12,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { deleteToDB, deleteCardToDB } from "../firebase/firebaseHelper";
 import AddCardScreen from "../screens/AddCardScreen";
 import UserCardsScreen from "../screens/UserCardsScreen";
+import NotificationTimeScreen from "../screens/NotificationTimeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -129,6 +130,14 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Scenery Card"
           component={SceneryCard}
+          options={{
+            headerShown: false,
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="Notification"
+          component={NotificationTimeScreen}
           options={{
             headerShown: false,
             headerTitle: "",
