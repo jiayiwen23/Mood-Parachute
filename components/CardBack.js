@@ -7,19 +7,21 @@ import { colors } from '../colors';
 const CardBack = ({ navigation }) => {
 
   const cardPressHandler = () => {
-    const randomIndex = Math.floor(Math.random() * 4);
+    const randomIndex = Math.floor(Math.random() * 6);
     
     switch (randomIndex) {// Navigate based on the random condition
       case 0:
         navigation.navigate("Lucky Card");
         break;
       case 1:
+      case 2:
         navigation.navigate("Scenery Card");
         break;
-      case 2:
+      case 3:
+      case 4:
         navigation.navigate("Happiness Card");
         break;
-      case 3:
+      case 5:
         navigation.navigate("Aid Card");
         break;
       default:

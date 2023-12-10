@@ -44,8 +44,8 @@ const HappinessCard = ({ navigation }) => {
 
   useEffect(() => {
     const filteredJournals = journals.filter((journal) => {
-      //mood equals to 20 or 25 in firebase represent happy
-      return journal.mood === 20 || journal.mood === 25;
+      //mood equals to 20 or 25 or 26 in firebase represent happy
+      return journal.mood === 20 || journal.mood === 25 || journal.mood === 26;
     });
     setFilteredJournals(filteredJournals);
     const randomIdx = Math.floor(Math.random() * filteredJournals.length);
@@ -55,20 +55,25 @@ const HappinessCard = ({ navigation }) => {
   const moodImages = {
     20: require('../../assets/happy.png'),
     25: require('../../assets/love.png'),
+    26: require('../../assets/reallyhappy.png'),
   };
 
   return (
     <Card>
       <Text style={styles.title}>/The Moment Of{'\n'}Happiness You Had/</Text>
-
       {filteredJournals.length > 0 && (
-        <Text style={styles.body}>
-          {filteredJournals[randomIndex].date}{'  '}
-          <Image source={moodImages[filteredJournals[randomIndex].mood]} style={{ width: 24, height: 24 }} />
-          {'\n'}{filteredJournals[randomIndex].journal}
-        </Text>
+        <>
+          <Text style={styles.body}>
+            {filteredJournals[randomIndex].date}{'  '}
+            <Image
+              source={moodImages[filteredJournals[randomIndex].mood]}
+              style={{ width: 24, height: 24 }}
+            />
+            {'\n'}{filteredJournals[randomIndex].journal}
+          </Text>
+          <Image source={{ uri: filteredJournals[randomIndex].image }} style={styles.photo} />
+        </>
       )}
-
       <ExitCard navigation={navigation}/>
     </Card>
   )
@@ -91,5 +96,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     padding: 10,
     lineHeight: 50,
+  },
+  photo:{
+    width: 300,
+    height: 260,
+    alignSelf: "center",
   },
 });
