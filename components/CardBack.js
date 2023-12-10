@@ -7,24 +7,30 @@ import { colors } from '../colors';
 const CardBack = ({ navigation }) => {
 
   const cardPressHandler = () => {
-    const randomIndex = Math.floor(Math.random() * 4);
-    
-    switch (randomIndex) {// Navigate based on the random condition
-      case 0:
-        navigation.navigate("Lucky Card");
+    const cardTypes = [
+      { type: "Lucky Card", probability: 10 },      
+      { type: "Scenery Card", probability: 30 },    
+      { type: "Happiness Card", probability: 40 },
+      { type: "Aid Card", probability: 20 },  
+    ];
+  
+    const totalProbability = cardTypes.reduce((sum, card) => sum + card.probability, 0);
+  
+    // Generate a random number between 0 and totalProbability
+    const randomValue = Math.random() * totalProbability;
+  
+    // Determine the selected card based on probabilities
+    let cumulativeProbability = 0;
+    let selectedCard;
+  
+    for (const card of cardTypes) {
+      cumulativeProbability += card.probability;
+      if (randomValue < cumulativeProbability) {
+        selectedCard = card.type;
         break;
-      case 1:
-        navigation.navigate("Scenery Card");
-        break;
-      case 2:
-        navigation.navigate("Happiness Card");
-        break;
-      case 3:
-        navigation.navigate("Aid Card");
-        break;
-      default:
-        break;
+      }
     }
+    navigation.navigate(selectedCard);
   }
   
   return (

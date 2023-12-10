@@ -11,7 +11,6 @@ import {
   Dimensions,
   Alert,
   Text,
-  ActivityIndicator,
 } from "react-native";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
