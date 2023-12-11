@@ -77,8 +77,8 @@ export default function Map() {
               latitude: location.latitude,
               longitude: location.longitude,
             }}
-            title={`Journals: ${location.count}`}
-            description={`You have ${location.count} journal at this location.`}
+            title={`${location.count} stories`}
+            //description={`You have ${location.count} journal at this location.`}
           />
         ))}
       </MapView>
