@@ -14,6 +14,7 @@ import {
   uploadImageToStorage,
 } from "../firebase/firebaseHelper";
 import ImageManager from "../components/ImageManager";
+import Map from "../components/Map";
 
 export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
@@ -76,11 +77,14 @@ export default function ProfileScreen({ navigation }) {
           <View style={styles.avatarContainer}>
             <ImageManager passImageUri={handleImageUri}>
               {takenAvatar ? (
-                <Image source={{ uri: takenAvatar }} style={styles.avatarImage} />
+                <Image
+                  source={{ uri: takenAvatar }}
+                  style={styles.avatarImage}
+                />
               ) : (
                 <MaterialIcons
                   name="account-circle"
-                  size={80}
+                  size={70}
                   color={colors.border}
                 />
               )}
@@ -99,16 +103,14 @@ export default function ProfileScreen({ navigation }) {
         </PressableButton>
 
         <PressableButton
-            pressedFunction={handleDeleteAvatar}
-            pressedStyle={styles.pressedStyle}
-            defaultStyle={styles.defaultStyle}
-          >
-            <Text style={styles.buttonText}>Delete Avatar</Text>
+          pressedFunction={handleDeleteAvatar}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle}
+        >
+          <Text style={styles.buttonText}>Delete Avatar</Text>
         </PressableButton>
-
       </View>
-
-      <Image source={require("../assets/map.jpg")} style={styles.map} />
+      <Map />
     </View>
   );
 }
@@ -132,8 +134,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginTop: 20,
   },
   map: {
@@ -162,15 +164,32 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     overflow: "hidden",
-    marginBottom: 20, 
+    marginBottom: 20,
   },
   avatarImage: {
-    height: 100,
-    width: 100,
+    height: 90,
+    width: 90,
   },
   avatarText: {
     fontSize: 20,
     fontWeight: "bold",
     color: colors.border,
+  },
+  mapContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "90%", // Adjust the width as needed
+    height: 200, // Set a fixed height or a percentage of the screen height
+    alignSelf: "center",
+    margin: 10,
+    padding: 10,
+    borderWidth: 1, // Optionally add a border
+    borderColor: "#ccc", // Border color
+    borderRadius: 8, // Rounded corners for the rectangle box
+  },
+  map: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 8,
   },
 });
