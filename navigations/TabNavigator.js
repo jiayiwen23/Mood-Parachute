@@ -61,6 +61,10 @@ export default function TabNavigator({ navigation }) {
               />
             </View>
           ),
+          headerTitleStyle: {
+            color: colors.border, 
+            fontWeight: "bold",
+          },
         }}
       />
     </Tab.Navigator>

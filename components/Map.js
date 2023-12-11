@@ -1,4 +1,4 @@
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import React, { useEffect, useState, useRef } from "react";
 import { auth, database } from "../firebase/firebaseSetup";
