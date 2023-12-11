@@ -1,13 +1,20 @@
 import { View, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { auth, database } from "../firebase/firebaseSetup";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { colors } from "../colors";
 
 export default function Map() {
+  const mapRef = useRef(null);
   const [journalLocations, setJournalLocations] = useState([]);
-  const [initialRegion, setInitialRegion] = useState();
+  const [initialRegion, setInitialRegion] = useState({
+    // set the initial region to Vancouver. Ideally, this should be the user's current location.
+    latitude: 49.2827,
+    longitude: -123.1207,
+    latitudeDelta: 0.25,
+    longitudeDelta: 0.3,
+  });
 
   useEffect(() => {
     const q = query(
@@ -46,13 +53,14 @@ export default function Map() {
           const mostEntriesLocation = locationsArray.reduce((prev, current) => {
             return prev.count > current.count ? prev : current;
           });
-          setInitialRegion({
-            latitude: mostEntriesLocation.latitude,
-            longitude: mostEntriesLocation.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          });
-          console.log("mostEntriesLocation", mostEntriesLocation);
+          if (mapRef.current) {
+            mapRef.current.animateToRegion({
+              latitude: mostEntriesLocation.latitude,
+              longitude: mostEntriesLocation.longitude,
+              latitudeDelta: 0.25,
+              longitudeDelta: 0.3,
+            });
+          }
         }
       },
       (err) => {
@@ -69,7 +77,7 @@ export default function Map() {
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} initialRegion={initialRegion}>
+      <MapView ref={mapRef} style={styles.map} initialRegion={initialRegion}>
         {journalLocations.map((location, index) => (
           <Marker
             key={index}
