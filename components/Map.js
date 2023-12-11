@@ -1,26 +1,86 @@
-import MapView, { Marker } from "react-native-maps";
-
 import { View, StyleSheet, Dimensions } from "react-native";
-import React from "react";
+import MapView, { Marker } from "react-native-maps";
+import React, { useEffect, useState } from "react";
+import { auth, database } from "../firebase/firebaseSetup";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { colors } from "../colors";
 
 export default function Map() {
+  const [journalLocations, setJournalLocations] = useState([]);
+  const [initialRegion, setInitialRegion] = useState();
+
+  useEffect(() => {
+    const q = query(
+      collection(database, "entries"),
+      where("user", "==", auth.currentUser.uid)
+    );
+
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        let locations = {};
+
+        querySnapshot.docs.forEach((docSnap) => {
+          const journal = docSnap.data();
+          if (!journal.location) {
+            return;
+          }
+          const locationKey = `${journal.location[0]}`;
+          //console.log(locationKey);
+          if (!locations[locationKey]) {
+            locations[locationKey] = {
+              latitude: journal.location[1].latitude,
+              longitude: journal.location[1].longitude,
+              count: 1,
+            };
+          } else {
+            locations[locationKey].count++;
+            console.log("count", locations[locationKey].count);
+          }
+        });
+        const locationsArray = Object.keys(locations).map(
+          (locationKey) => locations[locationKey]
+        );
+        setJournalLocations(locationsArray);
+        if (locationsArray.length > 0) {
+          const mostEntriesLocation = locationsArray.reduce((prev, current) => {
+            return prev.count > current.count ? prev : current;
+          });
+          setInitialRegion({
+            latitude: mostEntriesLocation.latitude,
+            longitude: mostEntriesLocation.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          });
+          console.log("mostEntriesLocation", mostEntriesLocation);
+        }
+      },
+      (err) => {
+        console.log(err);
+        if (err.code === "permission-denied") {
+          Alert.alert("You don't have permission.");
+        }
+      }
+    );
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: 43.6532,
-          longitude: -79.3832,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      >
-        <Marker
-          coordinate={{ latitude: 43.6532, longitude: -79.3832 }}
-          title={"Toronto"}
-          description={"The best city in the world!"}
-        />
+      <MapView style={styles.map} initialRegion={initialRegion}>
+        {journalLocations.map((location, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}
+            title={`Journals: ${location.count}`}
+            description={`You have ${location.count} journal at this location.`}
+          />
+        ))}
       </MapView>
     </View>
   );
