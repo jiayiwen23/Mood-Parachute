@@ -4,7 +4,7 @@ export const colors = {
   title: "#006e73",
   button: "white",
   buttonPressed: "#a6a6ed",
-  buttonText: "green",
+  buttonText: "#377f7c",
   inputText: "grey",
   cardBackgroud: "white",
   cardBack: "#00a6ae",
