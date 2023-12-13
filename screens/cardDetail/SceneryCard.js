@@ -39,7 +39,7 @@ const SceneryCard = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" />
       ) : (
         <Image source={imageSource} style={styles.image} />
       )}
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: "relative",
+    justifyContent: "center",
   },
   image: {
     width: "100%",
