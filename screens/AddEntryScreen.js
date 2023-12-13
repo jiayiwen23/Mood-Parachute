@@ -159,6 +159,7 @@ export default function AddEntryScreen({ navigation, route }) {
           }}
         >
           <PressableButton
+            pressedStyle={styles.pressedStyle}
             defaultStyle={styles.toolbarButton}
             pressedFunction={() => setShowMoodSelector(true)}
           >
@@ -169,18 +170,21 @@ export default function AddEntryScreen({ navigation, route }) {
             )}
           </PressableButton>
           <CameraManager
+            pressedStyle={styles.pressedStyle}
             passImageUri={passImageUri}
             defaultStyle={styles.toolbarButton}
           />
           <ImageManager
             passImageUri={passImageUri}
             defaultStyle={styles.toolbarButton}
+            pressedStyle={styles.pressedStyle}
           >
             <AntDesign name="picture" size={24} color="black" />
           </ImageManager>
           <LocationManager
             defaultStyle={styles.toolbarButton}
             passLocation={setLocation}
+            pressedStyle={styles.pressedStyle}
           >
             <Entypo name="location-pin" size={24} color="black" />
           </LocationManager>
@@ -189,6 +193,7 @@ export default function AddEntryScreen({ navigation, route }) {
           <PressableButton
             pressedFunction={isEditMode ? editHandler : sendHandler}
             defaultStyle={{ margin: 10, alignSelf: "flex-end" }}
+            pressedStyle={styles.pressedStyle}
           >
             <Feather name="send" size={24} color="black" />
           </PressableButton>
@@ -291,5 +296,8 @@ const styles = StyleSheet.create({
   },
   toolbarButton: {
     marginRight: 20,
+  },
+  pressedStyle: {
+    opacity: 0.5,
   },
 });

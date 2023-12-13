@@ -5,7 +5,7 @@ import { auth, database } from "../firebase/firebaseSetup";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { colors } from "../colors";
 
-export default function Map() {
+export default function Map({ passMapData }) {
   const mapRef = useRef(null);
   const [journalLocations, setJournalLocations] = useState([]);
   const [initialRegion, setInitialRegion] = useState({
@@ -40,13 +40,13 @@ export default function Map() {
             };
           } else {
             locations[locationKey].count++;
-            console.log("count", locations[locationKey].count);
           }
         });
         const locationsArray = Object.keys(locations).map(
           (locationKey) => locations[locationKey]
         );
         setJournalLocations(locationsArray);
+        passMapData(locationsArray.length, querySnapshot.docs.length);
         if (locationsArray.length > 0) {
           const mostEntriesLocation = locationsArray.reduce((prev, current) => {
             return prev.count > current.count ? prev : current;

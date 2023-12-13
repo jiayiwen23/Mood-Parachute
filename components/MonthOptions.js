@@ -40,6 +40,7 @@ export default function MonthOptions({ selectedMonth, onMonthChange }) {
         <PressableButton
           pressedFunction={() => handleMonthChange(monthName)}
           defaultStyle={styles.monthButton}
+          pressedStyle={styles.pressedStyle}
         >
           <Text style={styles.monthText}>{monthName} </Text>
           {/* {isSelected ? <View style={styles.selectedDot} /> : null} */}
@@ -98,5 +99,8 @@ const styles = StyleSheet.create({
   month: {
     position: "relative",
     alignItems: "center",
+  },
+  pressedStyle: {
+    opacity: 0.8,
   },
 });

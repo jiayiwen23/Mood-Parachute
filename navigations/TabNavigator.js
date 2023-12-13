@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   tabBar: {
     alignItems: "center",
     justifyContent: "center",
+    top: 10,
   },
   tabBarText: {
     color: colors.icon,

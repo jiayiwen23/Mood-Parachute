@@ -9,7 +9,10 @@ const UserCardItem = ({ card, navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <PressableButton pressedFunction={cardPressedHandler}>
+      <PressableButton
+        pressedFunction={cardPressedHandler}
+        pressedStyle={styles.pressedStyle}
+      >
         <View style={styles.card}>
           <View style={styles.imageContainer}>
             <Image source={{ uri: card.image }} style={styles.image} />
@@ -63,6 +66,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: colors.text,
+  },
+  pressedStyle: {
+    opacity: 0.8,
   },
 });
 

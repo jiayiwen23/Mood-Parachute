@@ -1,9 +1,8 @@
 export const colors = {
   background: "#b0ddd1",
   border: "#377f7c",
+  profileText: "#285B59",
   title: "#006e73",
-  button: "white",
-  buttonPressed: "#a6a6ed",
   buttonText: "green",
   inputText: "grey",
   cardBackgroud: "white",
@@ -13,4 +12,5 @@ export const colors = {
   black: "black",
   cardShadow: "#000",
   lightBlue: "#d4ebf2",
+  grey: "#a8a8a8",
 };
