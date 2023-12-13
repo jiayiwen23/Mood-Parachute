@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Alert } from "react-native";
 import EntryItem from "./EntryItem";
 import { auth, database } from "../firebase/firebaseSetup";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
@@ -28,9 +28,7 @@ const EntriesList = ({ navigation, year, month }) => {
       (err) => {
         console.log(err);
         if (err.code === "permission-denied") {
-          Alert.alert(
-            "You don't have permission."
-          );
+          Alert.alert("You don't have permission.");
         }
       }
     );
@@ -65,7 +63,6 @@ const EntriesList = ({ navigation, year, month }) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: { flex: 1 },

@@ -8,7 +8,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { createClient } from "pexels";
 import ExitCard from "../../components/ExitCard";
-import { set } from "date-fns";
 
 const SceneryCard = ({ navigation }) => {
   const { width, height } = useWindowDimensions();

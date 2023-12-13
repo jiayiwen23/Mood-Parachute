@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Modal } from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
 import { colors } from "../colors";
 import CardBack from "../components/CardBack";
 import { AntDesign } from "@expo/vector-icons";
