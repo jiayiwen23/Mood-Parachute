@@ -5,7 +5,6 @@ import TabNavigator from "./TabNavigator";
 import AddEntryScreen from "../screens/AddEntryScreen";
 import AidCard from "../screens/cardDetail/AidCard";
 import HappinessCard from "../screens/cardDetail/HappinessCard";
-import LuckyCard from "../screens/cardDetail/LuckyCard";
 import SceneryCard from "../screens/cardDetail/SceneryCard";
 import PressableButton from "../components/PressableButton";
 import { AntDesign } from "@expo/vector-icons";
@@ -114,14 +113,6 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Happiness Card"
           component={HappinessCard}
-          options={{
-            headerShown: false,
-            headerTitle: "",
-          }}
-        />
-        <Stack.Screen
-          name="Lucky Card"
-          component={LuckyCard}
           options={{
             headerShown: false,
             headerTitle: "",

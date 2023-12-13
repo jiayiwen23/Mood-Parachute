@@ -7,11 +7,10 @@ import { colors } from '../colors';
 const CardBack = ({ navigation }) => {
 
   const cardPressHandler = () => {
-    const cardTypes = [
-      { type: "Lucky Card", probability: 10 },      
+    const cardTypes = [    
       { type: "Scenery Card", probability: 30 },    
       { type: "Happiness Card", probability: 40 },
-      { type: "Aid Card", probability: 20 },  
+      { type: "Aid Card", probability: 30 },  
     ];
   
     const totalProbability = cardTypes.reduce((sum, card) => sum + card.probability, 0);
