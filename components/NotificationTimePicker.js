@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   defaultStyle: {
     marginBottom: 20,
     borderRadius: 5,
-    backgroundColor: colors.button,
+    backgroundColor: colors.white,
     padding: 10,
     alignSelf: "center",
   },

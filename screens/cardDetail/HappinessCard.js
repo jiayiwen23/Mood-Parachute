@@ -42,8 +42,8 @@ const HappinessCard = ({ navigation }) => {
 
   useEffect(() => {
     const filteredJournals = journals.filter((journal) => {
-      //mood equals to 20 or 25 or 26 in firebase represent happy
-      return journal.mood === 20 || journal.mood === 25 || journal.mood === 26;
+      //mood equals to 19(love) or 20(laughtToCry) or 22(reallyHappy) in firebase represent happy
+      return journal.mood === 19 || journal.mood === 20 || journal.mood === 22;
     });
     setFilteredJournals(filteredJournals);
     const randomIdx = Math.floor(Math.random() * filteredJournals.length);
@@ -51,27 +51,29 @@ const HappinessCard = ({ navigation }) => {
   }, [journals]);
 
   const moodImages = {
-    20: require("../../assets/4_happy.png"),
-    25: require("../../assets/1_love.png"),
-    26: require("../../assets/3_reallyhappy.png"),
+    19: require("../../assets/1_love.png"),
+    20: require("../../assets/2_laughtocry.png"),
+    22: require("../../assets/3_reallyhappy.png"),
   };
 
   return (
     <Card>
-      <Text style={styles.title}>/The Moment Of{"\n"}Happiness You Had/</Text>
+      <Text style={styles.title}>Your Past Moment of Happiness</Text>
 
       {filteredJournals.length > 0 && (
         <>
           <Text style={styles.tags}>
-            {filteredJournals[randomIndex].date}
-            {"  "}
+            At {filteredJournals[randomIndex].date}
+            {"\n"}
+            You felt{"     "}
             <Image
               source={moodImages[filteredJournals[randomIndex].mood]}
-              style={{ width: 24, height: 24 }}
+              style={{ width: 20, height: 20 }}
             />
-
             {filteredJournals[randomIndex]?.location &&
-              ` @${filteredJournals[randomIndex]?.location[0]}`}
+              `at ${filteredJournals[randomIndex]?.location[0]}`}
+            {".\n"}
+            And you wrote down:
           </Text>
 
           <Text style={styles.body}>
@@ -94,7 +96,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     alignSelf: "center",
-    padding: 10,
     color: colors.border,
     fontWeight: "bold",
     lineHeight: 50,
@@ -102,17 +103,15 @@ const styles = StyleSheet.create({
   },
   tags: {
     fontSize: 14,
-    marginLeft: 10,
     padding: 10,
     lineHeight: 30,
     color: colors.border,
     fontWeight: "bold",
   },
   body: {
-    fontSize: 18,
-    marginLeft: 10,
+    fontSize: 16,
     padding: 10,
-    lineHeight: 30,
+    lineHeight: 20,
   },
   photo: {
     width: 300,
