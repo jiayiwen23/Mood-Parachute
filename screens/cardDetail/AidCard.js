@@ -1,15 +1,18 @@
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import ExitCard from "../../components/ExitCard";
 import { colors } from "../../colors";
 import Card from "../../components/Card";
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import { database } from "../../firebase/firebaseSetup";
+import { set } from "date-fns";
 
 const AidCard = ({ navigation }) => {
   const [aidCard, setAidCard] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const q = query(collection(database, "aidCard"));
 
     const unsubscribe = onSnapshot(
@@ -20,13 +23,12 @@ const AidCard = ({ navigation }) => {
           newArray.push({ ...docSnap.data(), id: docSnap.id });
         });
         setAidCard(newArray);
+        setIsLoading(false);
       },
       (err) => {
         console.log(err);
         if (err.code === "permission-denied") {
-          Alert.alert(
-            "You don't have permission."
-          );
+          Alert.alert("You don't have permission.");
         }
       }
     );
@@ -36,15 +38,21 @@ const AidCard = ({ navigation }) => {
   }, []);
 
   const randomIdx = Math.floor(Math.random() * aidCard.length);
-  const title = aidCard.length > 0 ? aidCard[randomIdx].title : '';
-  const body = aidCard.length > 0 ? aidCard[randomIdx].body.join('\n') : '';
+  const title = aidCard.length > 0 ? aidCard[randomIdx].title : "";
+  const body = aidCard.length > 0 ? aidCard[randomIdx].body.join("\n") : "";
 
   return (
-    <Card>
-      <Text style={styles.title}>/{title}/</Text>
-      <Text style={styles.body}>{body}</Text>
-      <ExitCard navigation={navigation} />
-    </Card>
+    <>
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <Card>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.body}>{body}</Text>
+          <ExitCard navigation={navigation} />
+        </Card>
+      )}
+    </>
   );
 };
 
@@ -60,9 +68,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   body: {
-    fontSize: 20,
+    fontSize: 16,
     marginLeft: 10,
     padding: 20,
-    lineHeight: 45,
+    lineHeight: 40,
   },
 });

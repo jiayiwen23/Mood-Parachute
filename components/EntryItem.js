@@ -68,9 +68,10 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
   text: {
-    fontSize: 15,
+    fontSize: 14,
     margin: 5,
     paddingTop: 5,
+    flexShrink: 1,
   },
   image: {
     margin: 5,

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 350,
-    height: 600,
+    height: 650,
     backgroundColor: colors.cardBackgroud,
     borderRadius: 8,
     padding: 16,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 6,
-    marginBottom: 60,
+    marginBottom: 20,
   },
 });
 
