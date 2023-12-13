@@ -1,5 +1,15 @@
 # Mood-Parachute - a simple, mindful, and engaging journal app
 ## Authors: Yutong Zhan, Jiayi Wen
+## Functionality Updates in Iteration 3:
+1. **Location Use**:
+2. **Map in Profile**:
+3. **Notification**:
+  User can set a specific time of daily notification to remind them to record their thoughts.
+4. **Happiness card in "FLIP A CARD"**:
+   The happiness card will read the journal of an authenticated user and randomly display one of the past journals which is marked as very happy in the "FLIP A CARD" screen.
+5. **Aid card in "FLIP A CARD"**:
+   The Aid card will read data stored in Firestore, containing psychology-backed suggestions. It provides users with actionable advice randomly.
+
 ## Functionality Updates in Iteration 2:
 1. **Authentication**:
    The first screen user sees is a signup/login page. Authentication is implemented through Firebase, utilizing email and password credentials. Only registered users are granted access to the Home page, where they can create, edit, and view their personal journals and cards.
