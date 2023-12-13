@@ -2,10 +2,13 @@
 ## Authors: Yutong Zhan, Jiayi Wen
 ## Functionality Updates in Iteration 3:
 1. **Location Use**:
-2. **Notification**:
+2. **Map in Profile**:
+3. **Notification**:
   User can set a specific time of daily notification to remind them to record their thoughts.
-3. **Happiness Card in "FLIP A CARD"**:
+4. **Happiness card in "FLIP A CARD"**:
    The happiness card will read the journal of an authenticated user and randomly display one of the past journals which is marked as very happy in the "FLIP A CARD" screen.
+5. **Aid card in "FLIP A CARD"**:
+   The Aid card will read data stored in Firestore, containing psychology-backed suggestions. It provides users with actionable advice randomly.
 
 ## Functionality Updates in Iteration 2:
 1. **Authentication**:
