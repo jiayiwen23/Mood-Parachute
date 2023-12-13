@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Modal } from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
 import { colors } from "../colors";
 import CardBack from "../components/CardBack";
 import { AntDesign } from "@expo/vector-icons";
@@ -17,6 +17,7 @@ export default function CardsScreen({ navigation }) {
       >
         <PressableButton
           defaultStyle={styles.buttonDefault}
+          pressedStyle={{ opacity: 0.8 }}
           pressedFunction={() => navigation.navigate("User Cards")}
         >
           <Text style={{ color: colors.white, fontWeight: "bold" }}>
@@ -41,6 +42,8 @@ export default function CardsScreen({ navigation }) {
       <View style={styles.button}>
         <PressableButton
           pressedFunction={() => navigation.navigate("Add Card")}
+          defaultStyle={{ alignSelf: "center" }}
+          pressedStyle={{ opacity: 0.8 }}
         >
           <AntDesign name="pluscircle" size={40} color={colors.border} />
         </PressableButton>

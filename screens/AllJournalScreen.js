@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import EntriesList from "../components/EntriesList";
 import PressableButton from "../components/PressableButton";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../colors";
 import YearPicker from "../components/YearPicker";
 import { Feather } from "@expo/vector-icons";
@@ -59,7 +59,11 @@ export default function AllJournalScreen({ navigation }) {
           defaultStyle={{ paddingLeft: 10 }}
           pressedStyle={{ opacity: 0.8 }}
         >
-          <Ionicons name="notifications-outline" size={28} color={colors.border} />
+          <Ionicons
+            name="notifications-outline"
+            size={28}
+            color={colors.border}
+          />
         </PressableButton>
       ),
     });

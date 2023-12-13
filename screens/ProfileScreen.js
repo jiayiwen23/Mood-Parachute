@@ -20,6 +20,13 @@ export default function ProfileScreen({ navigation }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [takenAvatar, setTakenAvatar] = useState(null); // URL to the user's avatar image in the cloud storage (Firebase Storage)
+  const [locationNumber, setLocationNumber] = useState(0);
+  const [journalNumber, setJournalNumber] = useState(0);
+
+  const handleMapData = (locationNumber, journalNumber) => {
+    setLocationNumber(locationNumber);
+    setJournalNumber(journalNumber);
+  };
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -75,7 +82,10 @@ export default function ProfileScreen({ navigation }) {
         <Text style={styles.body}>Email: {email}</Text>
         <View style={styles.userPhoto}>
           <View style={styles.avatarContainer}>
-            <ImageManager passImageUri={handleImageUri}>
+            <ImageManager
+              passImageUri={handleImageUri}
+              pressedStyle={styles.pressedStyle}
+            >
               {takenAvatar ? (
                 <Image
                   source={{ uri: takenAvatar }}
@@ -92,7 +102,6 @@ export default function ProfileScreen({ navigation }) {
           </View>
         </View>
       </View>
-
       <View style={styles.buttonRow}>
         <PressableButton
           pressedFunction={handleLogout}
@@ -110,7 +119,10 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.buttonText}>Delete Avatar</Text>
         </PressableButton>
       </View>
-      <Map />
+      <Map passMapData={handleMapData} />
+      <Text style={styles.text}>
+        My Path: {locationNumber} locations, {journalNumber} stories
+      </Text>
     </View>
   );
 }
@@ -121,22 +133,29 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   userInfo: {
-    marginVertical: 20,
+    margin: 20,
+    padding: 5,
+    borderColor: colors.white,
+    borderWidth: 1,
+    borderRadius: 8,
   },
   userPhoto: {
     position: "absolute",
     right: 10,
     justifyContent: "flex-end",
+    paddingTop: 10,
   },
   body: {
-    fontSize: 20,
+    fontSize: 16,
     marginLeft: 10,
     padding: 10,
+    color: colors.profileText,
+    fontWeight: "bold",
   },
   buttonRow: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 20,
+    marginBottom: 20,
   },
   map: {
     alignSelf: "center",
@@ -145,19 +164,19 @@ const styles = StyleSheet.create({
     height: "65%",
   },
   buttonText: {
-    fontSize: 22,
+    fontSize: 15,
     textAlign: "center",
-    color: colors.buttonText,
+    color: colors.white,
   },
   defaultStyle: {
     marginBottom: 20,
     borderRadius: 5,
-    backgroundColor: colors.button,
+    backgroundColor: colors.border,
     padding: 10,
     alignSelf: "center",
   },
   pressedStyle: {
-    backgroundColor: colors.buttonPressed,
+    opacity: 0.8,
   },
   avatarContainer: {
     borderRadius: 100,
@@ -167,29 +186,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   avatarImage: {
-    height: 90,
-    width: 90,
+    height: 70,
+    width: 70,
   },
   avatarText: {
     fontSize: 20,
     fontWeight: "bold",
     color: colors.border,
   },
-  mapContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "90%", // Adjust the width as needed
-    height: 200, // Set a fixed height or a percentage of the screen height
+  text: {
+    paddingTop: 10,
     alignSelf: "center",
-    margin: 10,
-    padding: 10,
-    borderWidth: 1, // Optionally add a border
-    borderColor: "#ccc", // Border color
-    borderRadius: 8, // Rounded corners for the rectangle box
-  },
-  map: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 8,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: colors.profileText,
   },
 });

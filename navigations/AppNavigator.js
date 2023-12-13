@@ -64,7 +64,7 @@ export default function AppNavigator() {
                         handleEntryDelete({ route, navigation })
                       }
                       defaultStyle={{ paddingRight: 10 }}
-                      pressedStyle={{ opacity: 0.8 }}
+                      pressedStyle={{ opacity: 0.5 }}
                     >
                       <AntDesign name="delete" size={20} color="black" />
                     </PressableButton>
@@ -88,7 +88,7 @@ export default function AppNavigator() {
                         handleCardDelete({ route, navigation })
                       }
                       defaultStyle={{ paddingRight: 10 }}
-                      pressedStyle={{ opacity: 0.8 }}
+                      pressedStyle={{ opacity: 0.5 }}
                     >
                       <AntDesign name="delete" size={20} color="black" />
                     </PressableButton>

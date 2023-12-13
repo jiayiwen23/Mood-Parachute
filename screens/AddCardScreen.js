@@ -47,7 +47,7 @@ export default function AddCardScreen({ navigation, route }) {
         card.image = uploadedImageUrl;
       }
       await writeCardToDB(card);
-      navigation.goBack();
+      navigation.navigate("User Cards");
     } catch (error) {
       console.log("add card error", error);
     }
@@ -98,7 +98,10 @@ export default function AddCardScreen({ navigation, route }) {
     >
       <ScrollView>
         <View style={styles.imageContainer}>
-          <ImageManager passImageUri={passImageUri}>
+          <ImageManager
+            passImageUri={passImageUri}
+            pressedStyle={{ opacity: 0.8 }}
+          >
             {selectedImage ? (
               <Image
                 source={{ uri: selectedImage }}
@@ -210,5 +213,8 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: "contain",
+  },
+  buttonPressed: {
+    opacity: 0.8,
   },
 });

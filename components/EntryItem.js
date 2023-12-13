@@ -18,9 +18,9 @@ const EntryItem = ({ entry, navigation }) => {
       <View style={styles.labelContainer}>
         <View style={styles.dateLocation}>
           <Text style={styles.labelText}>{entry.date}</Text>
-          {entry.location &&
+          {entry.location.length > 0 && (
             <Text style={styles.labelText}>@{entry.location[0]}</Text>
-          }
+          )}
         </View>
         <Image source={entry.mood} style={{ width: 30, height: 30 }} />
       </View>
@@ -68,8 +68,9 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
   text: {
-    fontSize: 16,
+    fontSize: 15,
     margin: 5,
+    paddingTop: 5,
   },
   image: {
     margin: 5,

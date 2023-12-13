@@ -12,10 +12,11 @@ import {
   Alert,
   Text,
 } from "react-native";
-import PressableButton from "../components/PressableButton";
+
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import PressableButton from "../components/PressableButton";
 import {
   updateToDB,
   writeToDB,
@@ -27,14 +28,14 @@ import CameraManager from "../components/CameraManager";
 import LocationManager from "../components/LocationManager";
 
 const windowWidth = Dimensions.get("window").width;
-const angryIcon = require("../assets/angry.png");
-const happyIcon = require("../assets/happy.png");
-const sadIcon = require("../assets/sad.png");
-const devilIcon = require("../assets/devil.png");
-const illIcon = require("../assets/ill.png");
-const laughtocryIcon = require("../assets/laughtocry.png");
-const loveIcon = require("../assets/love.png");
-const reallyhappyIcon = require("../assets/reallyhappy.png");
+const loveIcon = require("../assets/1_love.png");
+const laughtocryIcon = require("../assets/2_laughtocry.png");
+const reallyhappyIcon = require("../assets/3_reallyhappy.png");
+const happyIcon = require("../assets/4_happy.png");
+const sadIcon = require("../assets/5_sad.png");
+const angryIcon = require("../assets/6_angry.png");
+const devilIcon = require("../assets/7_devil.png");
+const illIcon = require("../assets/8_ill.png");
 
 // Add Entry screen is reused as Edit screen by conditional rendering
 export default function AddEntryScreen({ navigation, route }) {
@@ -158,6 +159,7 @@ export default function AddEntryScreen({ navigation, route }) {
           }}
         >
           <PressableButton
+            pressedStyle={styles.pressedStyle}
             defaultStyle={styles.toolbarButton}
             pressedFunction={() => setShowMoodSelector(true)}
           >
@@ -168,18 +170,21 @@ export default function AddEntryScreen({ navigation, route }) {
             )}
           </PressableButton>
           <CameraManager
+            pressedStyle={styles.pressedStyle}
             passImageUri={passImageUri}
             defaultStyle={styles.toolbarButton}
           />
           <ImageManager
             passImageUri={passImageUri}
             defaultStyle={styles.toolbarButton}
+            pressedStyle={styles.pressedStyle}
           >
             <AntDesign name="picture" size={24} color="black" />
           </ImageManager>
           <LocationManager
             defaultStyle={styles.toolbarButton}
             passLocation={setLocation}
+            pressedStyle={styles.pressedStyle}
           >
             <Entypo name="location-pin" size={24} color="black" />
           </LocationManager>
@@ -188,6 +193,7 @@ export default function AddEntryScreen({ navigation, route }) {
           <PressableButton
             pressedFunction={isEditMode ? editHandler : sendHandler}
             defaultStyle={{ margin: 10, alignSelf: "flex-end" }}
+            pressedStyle={styles.pressedStyle}
           >
             <Feather name="send" size={24} color="black" />
           </PressableButton>
@@ -209,19 +215,35 @@ export default function AddEntryScreen({ navigation, route }) {
         onRequestClose={() => setShowMoodSelector(false)}
       >
         <View style={styles.moodSelector}>
-          <PressableButton pressedFunction={() => addMoonHandler(happyIcon)}>
-            <Image source={happyIcon} style={styles.moodIcon} />
-          </PressableButton>
           <PressableButton pressedFunction={() => addMoonHandler(loveIcon)}>
             <Image source={loveIcon} style={styles.moodIcon} />
           </PressableButton>
-          <PressableButton pressedFunction={() => addMoonHandler(sadIcon)}>
-            <Image source={sadIcon} style={styles.moodIcon} />
+          <PressableButton
+            pressedFunction={() => addMoonHandler(laughtocryIcon)}
+          >
+            <Image source={laughtocryIcon} style={styles.moodIcon} />
           </PressableButton>
           <PressableButton
             pressedFunction={() => addMoonHandler(reallyhappyIcon)}
           >
             <Image source={reallyhappyIcon} style={styles.moodIcon} />
+          </PressableButton>
+
+          <PressableButton pressedFunction={() => addMoonHandler(happyIcon)}>
+            <Image source={happyIcon} style={styles.moodIcon} />
+          </PressableButton>
+
+          <PressableButton pressedFunction={() => addMoonHandler(sadIcon)}>
+            <Image source={sadIcon} style={styles.moodIcon} />
+          </PressableButton>
+          <PressableButton pressedFunction={() => addMoonHandler(angryIcon)}>
+            <Image source={angryIcon} style={styles.moodIcon} />
+          </PressableButton>
+          <PressableButton pressedFunction={() => addMoonHandler(devilIcon)}>
+            <Image source={devilIcon} style={styles.moodIcon} />
+          </PressableButton>
+          <PressableButton pressedFunction={() => addMoonHandler(illIcon)}>
+            <Image source={illIcon} style={styles.moodIcon} />
           </PressableButton>
         </View>
       </Modal>
@@ -235,6 +257,9 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
+    paddingTop: 20,
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
   toolbar: {
     flexDirection: "row",
@@ -244,10 +269,10 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    backgroundColor: "#fff",
-    padding: 20,
+    backgroundColor: colors.white,
+    padding: 10,
     textAlignVertical: "top",
-    fontSize: 20,
+    fontSize: 18,
   },
   moodSelector: {
     flex: 1,
@@ -255,9 +280,9 @@ const styles = StyleSheet.create({
     width: windowWidth,
     bottom: 100,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "lightblue",
+    backgroundColor: colors.lightBlue,
     padding: 10,
   },
   moodIcon: {
@@ -271,5 +296,8 @@ const styles = StyleSheet.create({
   },
   toolbarButton: {
     marginRight: 20,
+  },
+  pressedStyle: {
+    opacity: 0.5,
   },
 });

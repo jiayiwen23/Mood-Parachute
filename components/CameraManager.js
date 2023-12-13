@@ -1,4 +1,4 @@
-import { View, Alert, Image, StyleSheet } from "react-native";
+import { Alert } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 

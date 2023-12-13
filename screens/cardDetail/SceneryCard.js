@@ -1,24 +1,35 @@
-import { Image, StyleSheet, View, useWindowDimensions } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { createClient } from 'pexels';
-import ExitCard from '../../components/ExitCard';
+import {
+  Image,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+  ActivityIndicator,
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { createClient } from "pexels";
+import ExitCard from "../../components/ExitCard";
 
-const SceneryCard = ({navigation}) => {
+const SceneryCard = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
   const [imageSource, setImageSource] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const client = createClient('aRoERDHiOZcBmTeI5Za084zwLdsHzKlfnWSgyZkbGxLJU2LlyeyE8awu');
-    const query = 'Nature';
+    const client = createClient(
+      "aRoERDHiOZcBmTeI5Za084zwLdsHzKlfnWSgyZkbGxLJU2LlyeyE8awu"
+    );
+    const query = "Nature";
 
     const fetchImage = async () => {
       try {
+        setIsLoading(true);
         const response = await client.photos.search({ query, per_page: 100 });
         const randomIndex = Math.floor(Math.random() * response.photos.length);
         const randomPhoto = response.photos[randomIndex];
         setImageSource({ uri: randomPhoto.src.portrait });
+        setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching image:', error);
+        console.error("Error fetching image:", error);
       }
     };
     fetchImage();
@@ -26,26 +37,27 @@ const SceneryCard = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {imageSource ? (
-        <Image source={imageSource} style={styles.image} />
+      {isLoading ? (
+        <ActivityIndicator size="large" />
       ) : (
-        <Image source={require('../../assets/maple.jpg')} style={styles.image} />
+        <Image source={imageSource} style={styles.image} />
       )}
-      <ExitCard navigation={navigation}/>
+      <ExitCard navigation={navigation} />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
-    position: 'relative',
+    position: "relative",
+    justifyContent: "center",
   },
-  image:{
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
 });
 
-export default SceneryCard
+export default SceneryCard;
