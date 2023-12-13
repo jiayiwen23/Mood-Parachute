@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     margin: 5,
     paddingTop: 5,
+    flexShrink: 1,
   },
   image: {
     margin: 5,
