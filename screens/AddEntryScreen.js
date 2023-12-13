@@ -50,6 +50,10 @@ export default function AddEntryScreen({ navigation, route }) {
   const [location, setLocation] = useState(route.params?.entry?.location || []);
 
   const sendHandler = async () => {
+    if (!text) {
+      Alert.alert("Please enter your thoughts.");
+      return;
+    }
     try {
       const now = new Date();
       const formattedDate = now.toLocaleDateString("en-CA", {
@@ -85,6 +89,10 @@ export default function AddEntryScreen({ navigation, route }) {
   };
 
   const editHandler = async () => {
+    if (!text) {
+      Alert.alert("Please enter your thoughts.");
+      return;
+    }
     Alert.alert("Important", "Are you sure you want to save the changes?", [
       {
         text: "Cancel",
