@@ -135,18 +135,18 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 22,
     textAlign: "center",
-    color: colors.buttonText,
+    color: colors.white,
   },
   defaultStyle: {
+    width: 180,
     marginBottom: 20,
     borderRadius: 5,
-    backgroundColor: colors.button,
-    width: "36%",
+    backgroundColor: colors.border,
     padding: 10,
     alignSelf: "center",
   },
   pressedStyle: {
-    backgroundColor: colors.buttonPressed,
+    opacity: 0.8,
   },
 });
 
