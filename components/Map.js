@@ -29,9 +29,7 @@ export default function Map() {
 
         querySnapshot.docs.forEach((docSnap) => {
           const journal = docSnap.data();
-          if (!journal.location) {
-            return;
-          }
+          if (journal.location.length === 0) return;
           const locationKey = `${journal.location[0]}`;
           //console.log(locationKey);
           if (!locations[locationKey]) {

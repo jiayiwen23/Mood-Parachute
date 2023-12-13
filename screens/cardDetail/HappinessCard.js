@@ -1,10 +1,10 @@
-import { Text, StyleSheet, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { colors } from '../../colors'
-import ExitCard from '../../components/ExitCard'
-import Card from '../../components/Card'
-import { auth, database } from '../../firebase/firebaseSetup'
-import { collection, onSnapshot, query, where } from '@firebase/firestore'
+import { Text, StyleSheet, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { colors } from "../../colors";
+import ExitCard from "../../components/ExitCard";
+import Card from "../../components/Card";
+import { auth, database } from "../../firebase/firebaseSetup";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
 
 const HappinessCard = ({ navigation }) => {
   const [journals, setJournals] = useState([]);
@@ -31,9 +31,7 @@ const HappinessCard = ({ navigation }) => {
       (err) => {
         console.log(err);
         if (err.code === "permission-denied") {
-          Alert.alert(
-            "You don't have permission."
-          );
+          Alert.alert("You don't have permission.");
         }
       }
     );
@@ -53,40 +51,44 @@ const HappinessCard = ({ navigation }) => {
   }, [journals]);
 
   const moodImages = {
-    20: require('../../assets/happy.png'),
-    25: require('../../assets/love.png'),
-    26: require('../../assets/reallyhappy.png'),
+    20: require("../../assets/4_happy.png"),
+    25: require("../../assets/1_love.png"),
+    26: require("../../assets/3_reallyhappy.png"),
   };
 
   return (
     <Card>
-      <Text style={styles.title}>/The Moment Of{'\n'}Happiness You Had/</Text>
+      <Text style={styles.title}>/The Moment Of{"\n"}Happiness You Had/</Text>
 
       {filteredJournals.length > 0 && (
         <>
           <Text style={styles.tags}>
-            {filteredJournals[randomIndex].date}{'  '}
+            {filteredJournals[randomIndex].date}
+            {"  "}
             <Image
               source={moodImages[filteredJournals[randomIndex].mood]}
               style={{ width: 24, height: 24 }}
             />
 
-             {filteredJournals[randomIndex]?.location &&
-                ` @${filteredJournals[randomIndex]?.location[0]}`}
+            {filteredJournals[randomIndex]?.location &&
+              ` @${filteredJournals[randomIndex]?.location[0]}`}
           </Text>
 
           <Text style={styles.body}>
             {filteredJournals[randomIndex].journal}
           </Text>
-          <Image source={{ uri: filteredJournals[randomIndex].image }} style={styles.photo} />
+          <Image
+            source={{ uri: filteredJournals[randomIndex].image }}
+            style={styles.photo}
+          />
         </>
       )}
-      <ExitCard navigation={navigation}/>
+      <ExitCard navigation={navigation} />
     </Card>
-  )
-}
+  );
+};
 
-export default HappinessCard
+export default HappinessCard;
 
 const styles = StyleSheet.create({
   title: {
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
     lineHeight: 50,
     textAlign: "center",
   },
-  tags:{
+  tags: {
     fontSize: 14,
     marginLeft: 10,
     padding: 10,
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     padding: 10,
     lineHeight: 30,
   },
-  photo:{
+  photo: {
     width: 300,
     height: 220,
     alignSelf: "center",

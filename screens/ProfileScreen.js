@@ -175,21 +175,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.border,
   },
-  mapContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "90%", // Adjust the width as needed
-    height: 200, // Set a fixed height or a percentage of the screen height
-    alignSelf: "center",
-    margin: 10,
-    padding: 10,
-    borderWidth: 1, // Optionally add a border
-    borderColor: "#ccc", // Border color
-    borderRadius: 8, // Rounded corners for the rectangle box
-  },
-  map: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 8,
-  },
 });

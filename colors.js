@@ -11,5 +11,6 @@ export const colors = {
   cardIcon: "#c1e5db",
   white: "white",
   black: "black",
-  cardShadow: '#000',
+  cardShadow: "#000",
+  lightBlue: "#d4ebf2",
 };
