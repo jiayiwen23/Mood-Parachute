@@ -144,10 +144,10 @@ export default function AddEntryScreen({ navigation, route }) {
       keyboardVerticalOffset={40}
     >
       <View style={styles.overlay}>
+        {location[0] && <Text>@{location[0]}</Text>}
         {takenImageUri && (
           <Image source={{ uri: takenImageUri }} style={styles.image} />
         )}
-        {location[0] && <Text>@{location[0]}</Text>}
       </View>
       <View style={styles.toolbar}>
         <View
