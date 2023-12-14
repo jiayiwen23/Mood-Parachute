@@ -1,5 +1,6 @@
 # Mood-Parachute - a simple, mindful, and engaging journal app
 ## Authors: Yutong Zhan, Jiayi Wen
+## Demo Video Link: https://www.youtube.com/watch?v=VaaGVgqap8g&t=69s
 ## Functionality Updates in Iteration 3:
 1. **Location Use**: User can quickly add a place by tapping the location icon while journaling.
 <img width="200" alt="image" src="https://github.com/jiayiwen23/Mood-Parachute/assets/62995082/5871d650-ef4e-43f2-8bfb-8000ed949281">
