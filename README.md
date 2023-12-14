@@ -59,14 +59,16 @@
    + userName: a user-definde name
    + avatar: the user's avatar image
 2. Journal Entries Collection
-   + EntryID: A unique identifier for each journal entry
-   + UserID: The ID of the user who created the entry
+   + User: The ID of the user who created the entry
    + Date: The date and time when the entry was made
    + Journal: The text content of the journal entry
    + Mood: The user's mood at the time of the entry
    + Image: The image attached to the journal
    + Location: The location when the entry was made
-3. Psychology-Backed Tool Cards Collection 
-   + CardID: A unique identifier for each tool card
-   + Title: The title of the card, summarizing the psychological tool or advice
-   + Description: A detailed explanation or step-by-step guide on how to use the tool for immediate mood relief or coping strategies
+3. User Cards Collection
+    + CardName: The title of the card
+    + CardText: The description of the card
+    + User: The ID of the user who created the card
+4. AidCard Collection 
+   + Title: The title of the card, summarizing the mindful advice
+   + Card body: A detailed explanation or step-by-step guide on how to use the tool for immediate mood relief or coping strategies
