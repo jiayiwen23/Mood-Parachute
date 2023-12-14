@@ -6,6 +6,7 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { auth, database, storage } from "./firebaseSetup";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -72,15 +73,44 @@ export async function updateToDB(id, entry) {
   }
 }
 
+// export async function uploadImageToStorage(uri) {
+//   try {
+//     const response = await fetch(uri);
+//     const blob = await response.blob();
+//     const fileName = uri.substring(uri.lastIndexOf("/") + 1);
+//     const storageRef = ref(storage, `images/${fileName}`);
+//     await uploadBytes(storageRef, blob);
+
+//     const downloadURL = await getDownloadURL(storageRef);
+//     return downloadURL;
+//   } catch (err) {
+//     console.error("Error uploading image to Firebase Storage", err);
+//     throw err;
+//   }
+// }
+
 export async function uploadImageToStorage(uri) {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   try {
+    if (!user) {
+      throw new Error("No user logged in!");
+    }
+
+    // Fetch the image as a Blob
     const response = await fetch(uri);
     const blob = await response.blob();
-    const fileName = uri.substring(uri.lastIndexOf("/") + 1);
-    const storageRef = ref(storage, `images/${fileName}`);
-    await uploadBytes(storageRef, blob);
 
-    const downloadURL = await getDownloadURL(storageRef);
+    // Use the user UID and the image name to create the file path
+    const fileName = uri.substring(uri.lastIndexOf("/") + 1);
+    const userStorageRef = ref(storage, `users/${user.uid}/images/${fileName}`);
+
+    // Upload the Blob to Firebase Storage
+    await uploadBytes(userStorageRef, blob);
+
+    // Get the download URL
+    const downloadURL = await getDownloadURL(userStorageRef);
     return downloadURL;
   } catch (err) {
     console.error("Error uploading image to Firebase Storage", err);
