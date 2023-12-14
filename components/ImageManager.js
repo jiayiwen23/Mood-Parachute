@@ -1,9 +1,8 @@
-import { View, Alert, Image, StyleSheet } from "react-native";
+import { View, Alert } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 
 import PressableButton from "./PressableButton";
-import { AntDesign } from "@expo/vector-icons";
 
 export default function ImageManager({
   passImageUri,
