@@ -5,7 +5,7 @@ import { colors } from "../../colors";
 import Card from "../../components/Card";
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import { database } from "../../firebase/firebaseSetup";
-import { set } from "date-fns";
+
 
 const AidCard = ({ navigation }) => {
   const [aidCard, setAidCard] = useState([]);

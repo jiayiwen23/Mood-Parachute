@@ -1,4 +1,4 @@
-import { Text, StyleSheet, Image, View } from "react-native";
+import { Text, StyleSheet, Image, View, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors } from "../../colors";
 import ExitCard from "../../components/ExitCard";
@@ -65,7 +65,7 @@ const HappinessCard = ({ navigation }) => {
           <Text style={styles.tags}>
             At {filteredJournals[randomIndex].date}
             {"\n"}
-            You felt{"     "}
+            You felt{Platform.OS === "ios" ? "      " : "   "}
             <Image
               source={moodImages[filteredJournals[randomIndex].mood]}
               style={{ width: 20, height: 20 }}
