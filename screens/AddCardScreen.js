@@ -51,7 +51,7 @@ export default function AddCardScreen({ navigation, route }) {
         card.image = uploadedImageUrl;
       }
       await writeCardToDB(card);
-      navigation.navigate("User Cards");
+      navigation.goBack();
     } catch (error) {
       console.log("add card error", error);
     }

@@ -42,7 +42,7 @@ const AidCard = ({ navigation }) => {
   const body = aidCard.length > 0 ? aidCard[randomIdx].body.join("\n") : "";
 
   return (
-    <>
+    <View style={styles.container}>
       {isLoading ? (
         <ActivityIndicator size="large" />
       ) : (
@@ -52,13 +52,17 @@ const AidCard = ({ navigation }) => {
           <ExitCard navigation={navigation} />
         </Card>
       )}
-    </>
+    </View>
   );
 };
 
 export default AidCard;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
   title: {
     fontSize: 25,
     alignSelf: "center",
