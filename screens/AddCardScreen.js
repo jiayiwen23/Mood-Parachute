@@ -36,6 +36,10 @@ export default function AddCardScreen({ navigation, route }) {
   };
 
   const handleSave = async () => {
+    if (!cardName || !cardText || !selectedImage) {
+      Alert.alert("Invalid input", "All fields should not be empty");
+      return;
+    }
     try {
       const card = {
         cardName: cardName,
@@ -60,6 +64,10 @@ export default function AddCardScreen({ navigation, route }) {
   };
 
   const handleUpdate = async () => {
+    if (!cardName || !cardText || !selectedImage) {
+      Alert.alert("Invalid input", "All fields should not be empty");
+      return;
+    }
     Alert.alert("Important", "Are you sure you want to save the changes?", [
       {
         text: "Cancel",
