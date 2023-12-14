@@ -65,7 +65,7 @@ const HappinessCard = ({ navigation }) => {
           <Text style={styles.tags}>
             At {filteredJournals[randomIndex].date}
             {"\n"}
-            You felt{Platform.OS === "ios" ? "      " : "   "}
+            You felt{Platform.OS === "ios" ? "      " : " "}
             <Image
               source={moodImages[filteredJournals[randomIndex].mood]}
               style={{ width: 20, height: 20 }}
