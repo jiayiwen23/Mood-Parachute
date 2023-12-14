@@ -1,8 +1,7 @@
-import { StyleSheet, Alert } from "react-native";
+import { Alert } from "react-native";
 import React, { useState } from "react";
 import * as Location from "expo-location";
 import { MAPS_API_KEY } from "@env";
-import { colors } from "../colors";
 import PressableButton from "./PressableButton";
 
 export default function LocationManager({

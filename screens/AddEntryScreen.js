@@ -187,14 +187,14 @@ export default function AddEntryScreen({ navigation, route }) {
             defaultStyle={styles.toolbarButton}
             pressedStyle={styles.pressedStyle}
           >
-            <AntDesign name="picture" size={24} color="black" />
+            <AntDesign name="picture" size={24} color={colors.black} />
           </ImageManager>
           <LocationManager
             defaultStyle={styles.toolbarButton}
             passLocation={setLocation}
             pressedStyle={styles.pressedStyle}
           >
-            <Entypo name="location-pin" size={24} color="black" />
+            <Entypo name="location-pin" size={24} color={colors.black} />
           </LocationManager>
         </View>
         <View style={{ flex: 1 }}>
@@ -203,7 +203,7 @@ export default function AddEntryScreen({ navigation, route }) {
             defaultStyle={{ margin: 10, alignSelf: "flex-end" }}
             pressedStyle={styles.pressedStyle}
           >
-            <Feather name="send" size={24} color="black" />
+            <Feather name="send" size={24} color={colors.white} />
           </PressableButton>
         </View>
       </View>
