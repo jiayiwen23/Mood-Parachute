@@ -1,4 +1,4 @@
-import { Text, StyleSheet, ActivityIndicator } from "react-native";
+import { Text, StyleSheet, ActivityIndicator, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import ExitCard from "../../components/ExitCard";
 import { colors } from "../../colors";
