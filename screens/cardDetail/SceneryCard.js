@@ -8,6 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { createClient } from "pexels";
 import ExitCard from "../../components/ExitCard";
+import { PEXEL_KEY } from "@env";
 
 const SceneryCard = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
@@ -15,9 +16,7 @@ const SceneryCard = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const client = createClient(
-      "aRoERDHiOZcBmTeI5Za084zwLdsHzKlfnWSgyZkbGxLJU2LlyeyE8awu"
-    );
+    const client = createClient(PEXEL_KEY);
     const query = "Nature";
 
     const fetchImage = async () => {
