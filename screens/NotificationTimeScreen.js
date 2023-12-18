@@ -72,6 +72,23 @@ const NotificationTimeScreen = ({ navigation }) => {
     setDate(selectedTime);
   };
 
+  const cancelNotificationHandler = async () => {
+    try {
+      await Notifications.cancelAllScheduledNotificationsAsync();
+      Alert.alert("Notification canceled.", "", [
+        {
+          text: "OK",
+          onPress: () => {
+            navigation.goBack();
+          },
+        },
+      ]);
+    } catch (err) {
+      console.log("Notification cancellation error:", err);
+      Alert.alert("Failed to cancel notification. Please try again.");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.choose}>
@@ -89,12 +106,21 @@ const NotificationTimeScreen = ({ navigation }) => {
         >
           <Text style={styles.buttonText}>Go back</Text>
         </PressableButton>
+
         <PressableButton
           pressedFunction={scheduleNotificationHandler}
           pressedStyle={styles.pressedStyle}
           defaultStyle={styles.defaultStyle}
         >
           <Text style={styles.buttonText}>Confirm</Text>
+        </PressableButton>
+
+        <PressableButton
+          pressedFunction={cancelNotificationHandler}
+          pressedStyle={styles.pressedStyle}
+          defaultStyle={styles.defaultStyle}
+        >
+          <Text style={styles.buttonText}>Cancel</Text>
         </PressableButton>
       </View>
     </View>
