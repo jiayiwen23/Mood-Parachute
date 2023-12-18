@@ -26,6 +26,7 @@ import { colors } from "../colors";
 import ImageManager from "../components/ImageManager";
 import CameraManager from "../components/CameraManager";
 import LocationManager from "../components/LocationManager";
+import { Ionicons } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get("window").width;
 const loveIcon = require("../assets/1_love.png");
@@ -153,8 +154,10 @@ export default function AddEntryScreen({ navigation, route }) {
     >
       <View style={styles.overlay}>
         {location[0] && <Text>@{location[0]}</Text>}
-        {takenImageUri && (
+        {takenImageUri ? (
           <Image source={{ uri: takenImageUri }} style={styles.image} />
+        ) : (
+          <Ionicons name="image-outline" size={200} color={colors.border} />
         )}
       </View>
       <View style={styles.toolbar}>
